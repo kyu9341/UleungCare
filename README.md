@@ -20,7 +20,7 @@ IoT 제품이 증가하는 요즘 저렴한 가격으로 높은 효율을 가진
 
 ## 홈 CCTV  
 
-![picamera](./images/picamera.png)
+![picamera](./images/picamera.jpg)
 
 <center>focusable 5mp 적외선 야간 투시경 1080 p 라즈베리 파이 카메라 모듈</center>  
 
@@ -50,7 +50,7 @@ IoT 제품이 증가하는 요즘 저렴한 가격으로 높은 효율을 가진
 
 ## Web Server 제어  
 
-![webserver](./images/webserver.png)  
+![webserver](./images/webserver.jpg)  
 
 <center>Web Server 제어 예상도</center>  
 
