@@ -10,7 +10,7 @@ IoT 제품이 증가하는 요즘 저렴한 가격으로 높은 효율을 가진
 
 # 3. 시스템 구성 및 아키텍쳐  
 
-<center>![architecture](./images/architecture.png)</center>  
+![architecture](./images/architecture.png) 
 
 <center>구조도 예시</center>  
 
@@ -20,7 +20,7 @@ IoT 제품이 증가하는 요즘 저렴한 가격으로 높은 효율을 가진
 
 ## 홈 CCTV  
 
-<center>![picamera](./images/picamera.png)</center>  
+![picamera](./images/picamera.png)
 
 <center>focusable 5mp 적외선 야간 투시경 1080 p 라즈베리 파이 카메라 모듈</center>  
 
@@ -29,12 +29,11 @@ IoT 제품이 증가하는 요즘 저렴한 가격으로 높은 효율을 가진
 적외선 야간 투시경을 사용하였으므로 야간에도 사용 가능하다.  
 
 ## 적외선 리모컨 제어  
-
-<center>![IR](./images/IR.png)</center>  
+![IR](./images/IR.png)  
 
 <center>적외선 IR센서 수신모듈</center>
 
-<center>![airconditioner](./images/airconditioner.png)</center>  
+![airconditioner](./images/airconditioner.png) 
 
 <center>에어컨 제어 예상도</center>  
 
@@ -43,7 +42,7 @@ IoT 제품이 증가하는 요즘 저렴한 가격으로 높은 효율을 가진
 
 ## 음성제어  
 
-<center>![voice](./images/voice.png)</center>  
+![voice](./images/voice.png)  
 
 <center>음성 제어 예상도</center>  
 
@@ -51,7 +50,7 @@ IoT 제품이 증가하는 요즘 저렴한 가격으로 높은 효율을 가진
 
 ## Web Server 제어  
 
-<center>![webserver](./images/webserver.png)</center>  
+![webserver](./images/webserver.png)  
 
 <center>Web Server 제어 예상도</center>  
 
@@ -59,7 +58,7 @@ IoT 제품이 증가하는 요즘 저렴한 가격으로 높은 효율을 가진
 
 # 5. 프로젝트 추진일정  
 
-<center>![calendar](./images/calendar.png)</center>  
+![calendar](./images/calendar.png)  
 
 # 6. 기대효과 및 활용분야  
 이번 프로젝트가 활용되어 상품화된다면 스마트 스피커 같은 타 IoT 기기들보다 저렴한 가격에 공급이 가능하다. 또한 기존에 사용하던 적외선 리모컨으로 조작하는 기기들도(ex: TV 에어컨, 보일러) IoT 기기처럼 사용 가능하므로 경제적 부담으로 인해 IoT 환경을 구성하지 못하던 저소득층이나 적은 돈으로 IoT 환경을 구성하고 싶어하던 사용자들도 사용 가능하다.
