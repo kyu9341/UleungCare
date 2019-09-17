@@ -12,7 +12,7 @@ IoT 제품이 증가하는 요즘 저렴한 가격으로 높은 효율을 가진
 
 ![architecture](./images/architecture.png) 
 
-<center>구조도 예시</center>  
+<center> **구조도 예시** </center>  
 
 집 내부에 배치된 Uleng Care가 TV를 제어하거나 온도를 조절하는 등 홈 케어 서비스를 해주며 CCTV 화면을 Web Server를 통해 Client에게 전송하고 Client는 Android Application으로 집안 상황을 살피거나 여러 기기들을 제어할 수 있다.  
 
@@ -22,7 +22,7 @@ IoT 제품이 증가하는 요즘 저렴한 가격으로 높은 효율을 가진
 
 ![picamera](./images/picamera.jpg)
 
-<center>focusable 5mp 적외선 야간 투시경 1080 p 라즈베리 파이 카메라 모듈</center>  
+<center> **focusable 5mp 적외선 야간 투시경 1080 p 라즈베리 파이 카메라 모듈** </center>  
 
 
 적외선 야간 투시경 카메라를 이용하여 사용자가 집을 비울 때 집 안을 확인할 수 있고 반려동물과 함께 생활한다면 집을 장시간 비울 때 반려동물의 상태를 확인할 수 있다.
@@ -31,28 +31,28 @@ IoT 제품이 증가하는 요즘 저렴한 가격으로 높은 효율을 가진
 ## 적외선 리모컨 제어  
 ![IR](./images/IR.png)  
 
-<center>적외선 IR센서 수신모듈</center>
+<center> **적외선 IR센서 수신모듈** </center>
 
 ![airconditioner](./images/airconditioner.png) 
 
-<center>에어컨 제어 예상도</center>  
+<center> **에어컨 제어 예상도** </center>  
 
 집에서 적외선 리모콘으로 조작하는 기기인 에어컨과 TV를 하나의 리모컨으로 통합하고 제어할 수 있으며 온 습도 센서의 값을 받아서 에어컨을 자동으로 제어할 수 있다.
 그 외 다른 적외선 리모콘을 사용하는 모든 기기들은 모두 제어 가능하다.  
 
 ## 음성제어  
 
-![voice](./images/voice.png)  
+![voice](./images/voice.jpg)  
 
-<center>음성 제어 예상도</center>  
+<center> **음성 제어 예상도** </center>  
 
 음성 인식 API를 활용하여 디바이스의 모든 기능을 음성 제어 가능하며 Android Application에서도 음성 제어를 가능하게 한다.  
 
 ## Web Server 제어  
 
-![webserver](./images/webserver.jpg)  
+![webserver](./images/webserver.png)  
 
-<center>Web Server 제어 예상도</center>  
+<center> **Web Server 제어 예상도** </center>  
 
 기존 IoT 기기들처럼 Web Server를 통해 사용자가 디바이스를 제어할 수 있다. 집 안에서 뿐만 아니라 외출시에도 Web Server를 통해 디바이스를 제어하거나 집안 온도, CCTV 화면 등 여러가지를 확인 가능하며 Android Application 또한 Web Server를 통해 디바이스와 통신한다.  
 
