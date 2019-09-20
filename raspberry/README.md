@@ -8,4 +8,9 @@ http://www.3demp.com/community/boardDetails.php?cbID=234
 ## IR  
 
 - IR reciver  
-http://ozzmaker.com/how-to-control-the-gpio-on-a-raspberry-pi-with-an-ir-remote/
+http://ozzmaker.com/how-to-control-the-gpio-on-a-raspberry-pi-with-an-ir-remote/  
+
+## Mic  
+
+- usb mic  
+https://www.youtube.com/watch?v=MjjbFLiFq2Y
