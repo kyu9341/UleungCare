@@ -13,7 +13,7 @@ class HomeInfo(models.Model):
         verbose_name = '스마트 홈 데이터'
         verbose_name_plural = '스마트 홈 데이터' # 복수형 표현도 설정
 
-class androidRequested(models.Model):
+class AndroidRequested(models.Model):
     tvOnOff = models.IntegerField(verbose_name='TV on off')
     airconOnOff = models.IntegerField(verbose_name='AirConditioner on off')
     airconTempUp = models.IntegerField(verbose_name='AirConditioner Temperature Up')
