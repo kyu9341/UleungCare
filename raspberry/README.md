@@ -3,4 +3,9 @@
 ## Camera  
 
 - mjpg streamer  
-http://www.3demp.com/community/boardDetails.php?cbID=234
+http://www.3demp.com/community/boardDetails.php?cbID=234  
+
+## IR  
+
+- IR reciver
+http://ozzmaker.com/how-to-control-the-gpio-on-a-raspberry-pi-with-an-ir-remote/
