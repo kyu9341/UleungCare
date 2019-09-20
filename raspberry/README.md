@@ -2,4 +2,5 @@
 
 ## Camera  
 
-(참고)[http://www.3demp.com/community/boardDetails.php?cbID=234]
+- mjpg streamer  
+http://www.3demp.com/community/boardDetails.php?cbID=234
