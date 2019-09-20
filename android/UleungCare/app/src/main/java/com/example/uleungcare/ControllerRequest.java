@@ -12,11 +12,15 @@ public class ControllerRequest extends StringRequest {
 
     private Map<String, String> parameters;
 
-    public ControllerRequest(String controlKey, int controlValue, Response.Listener<String> listener){
+    public ControllerRequest(int tvOnOff, int airconOnOff, int airconTempUp, int airconTempDown, Response.Listener<String> listener){
         super(Method.POST, URL, listener,null); // 해당 URL에 POST 방식으로 전송
         parameters = new HashMap<>(); // HashMap으로 초기화
 
-        parameters.put(controlKey, controlValue+"");
+        parameters.put("tvOnOff", tvOnOff+"");
+        parameters.put("airconOnOff", airconOnOff+"");
+        parameters.put("airconTempUp", airconTempUp+"");
+        parameters.put("airconTempDown", airconTempDown+"");
+
 
     }
 
