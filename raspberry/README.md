@@ -2,6 +2,8 @@
 
 ## Camera  
 
+카메라 연결 후 재부팅 하여 사용 할 것  
+
 - mjpg streamer  
 http://www.3demp.com/community/boardDetails.php?cbID=234  
 
