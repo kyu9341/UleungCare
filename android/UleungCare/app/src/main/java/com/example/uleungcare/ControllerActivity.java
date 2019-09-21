@@ -40,29 +40,26 @@ public class ControllerActivity extends AppCompatActivity {
         tvonButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tvOnOff == 0){
+                if (tvOnOff == 0) {
                     tvOnOff = 1;
-                }else{
+                } else {
                     tvOnOff = 0;
                 }
-            }
 
 
             Response.Listener<String> responseListener = new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    try
-                    {
-
+                    try {
                         JSONObject jsonResponse = new JSONObject(response);
                         boolean success = jsonResponse.getBoolean("success");
-                        if(success) {
+                        if (success) {
                             AlertDialog.Builder builder = new AlertDialog.Builder(ControllerActivity.this);
                             dialog = builder.setMessage("전송 성공.")
                                     .setPositiveButton("확인", null)
                                     .create();
                             dialog.show();
-                        }else{
+                        } else {
                             AlertDialog.Builder builder = new AlertDialog.Builder(ControllerActivity.this);
                             dialog = builder.setMessage("전송 실패.")
                                     .setNegativeButton("확인", null)
@@ -70,18 +67,16 @@ public class ControllerActivity extends AppCompatActivity {
                             dialog.show();
                         }
 
-                    }
-
-                    catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    ControllerRequest controllerRequest = new ControllerRequest(tvOnOff, airconOnOff, airconTempUp, airconTempDown, responseListener);
-                    RequestQueue queue = Volley.newRequestQueue(ControllerActivity.this);
-                    queue.add(controllerRequest);
+
                 }
             };
-
-
+            ControllerRequest controllerRequest = new ControllerRequest(tvOnOff, airconOnOff, airconTempUp, airconTempDown, responseListener);
+            RequestQueue queue = Volley.newRequestQueue(ControllerActivity.this);
+            queue.add(controllerRequest);
+        }
 
         });
 

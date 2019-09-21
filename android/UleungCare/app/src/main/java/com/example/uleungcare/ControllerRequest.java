@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ControllerRequest extends StringRequest {
-    final static private String URL = "http://127.0.0.1:8000/uleung/androidControl/";
+    final static private String URL = "https://127.0.0.1:8000/uleung/androidControl/";
 
 
     private Map<String, String> parameters;
