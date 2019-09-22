@@ -19,5 +19,5 @@ void loop() {
   Serial.print(analogInputPinValue);
   Serial.println("");
 
-  delay(2000);
+  delay(300);
 }
