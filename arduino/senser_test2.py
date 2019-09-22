@@ -8,6 +8,7 @@ ser = serial.Serial ('/dev/ttyUSB1',9600)
 inputPin = 5
 inputPinStr = str(inputPin)
 inputPinStrBytes = inputPinStr.encode()
+
 ser.write(inputPinStrBytes)
 ser.flushInput()
 while True:
