@@ -32,8 +32,8 @@ import static java.sql.DriverManager.println;
 
 public class ControllerActivity extends AppCompatActivity {
 
-    private int tvOnOff = 0; // TV 상태 ( 켜짐 : 1, 꺼짐 : 0)
-    private int airconOnOff = 0; //  에어컨 상태 ( 켜짐 : 1, 꺼짐 : 0)
+    private int tvOnOff = 2; // TV 상태 ( 켜짐 : 1, 꺼짐 : 0)
+    private int airconOnOff = 2; //  에어컨 상태 ( 켜짐 : 1, 꺼짐 : 0)
     private int airconTempUp = 0; // 에어컨 온도 up Count
     private int airconTempDown = 0; // 에어컨 온도 down Count
 
@@ -58,11 +58,9 @@ public class ControllerActivity extends AppCompatActivity {
         tvonButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (tvOnOff == 0) {
-                    tvOnOff = 1;
-                } else {
-                    tvOnOff = 0;
-                }
+
+                tvOnOff = 2;
+
                 sendRequest();
         }
 
@@ -77,7 +75,7 @@ public class ControllerActivity extends AppCompatActivity {
     }
 
     public void sendRequest(){
-        String url = "http://10.0.2.2:8000/uleung/androidControl/";
+        String url = "http://10.0.2.2:8000/uleung/AndroidControl/";
 
         //StringRequest를 만듬 (파라미터구분을 쉽게하기위해 엔터를 쳐서 구분하면 좋다)
         //StringRequest는 요청객체중 하나이며 가장 많이 쓰인다고한다.

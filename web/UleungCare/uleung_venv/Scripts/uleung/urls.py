@@ -2,5 +2,6 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('androidControl/', views.androidControl),
+    path('AndroidControl/', views.AndroidControl),
+    path('getHomeInfo/', views.getHomeInfo),
 ]

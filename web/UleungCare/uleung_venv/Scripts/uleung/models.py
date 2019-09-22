@@ -4,8 +4,8 @@ from django.db import models
 # Create your models here.
 
 class HomeInfo(models.Model):
-    temperature = models.DecimalField(max_digits=10, decimal_places=10, verbose_name='온도')
-    humidity = models.DecimalField(max_digits=10, decimal_places=10,verbose_name='습도')
+    temperature = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='온도')
+    humidity = models.DecimalField(max_digits=5, decimal_places=2,verbose_name='습도')
     registered_dttm = models.DateTimeField(auto_now_add=True, verbose_name='측정시간')
 
     class Meta:

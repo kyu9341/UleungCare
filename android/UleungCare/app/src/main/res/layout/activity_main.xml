@@ -4,6 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="온습도"
+        android:id="@+id/temhumText"
+        android:textSize="30dp"
+        android:gravity="center"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="test"
+        android:id="@+id/testButton"
+
+        />
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
