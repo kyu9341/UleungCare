@@ -1,5 +1,6 @@
 package com.example.uleungcare;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,8 +16,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,16 +77,13 @@ public class ControllerActivity extends AppCompatActivity {
     }
 
     public void sendRequest(){
-        String url = "https://10.0.2.2:8000/uleung/androidControl/";
+        String url = "http://10.0.2.2:8000/uleung/androidControl/";
 
         //StringRequest를 만듬 (파라미터구분을 쉽게하기위해 엔터를 쳐서 구분하면 좋다)
         //StringRequest는 요청객체중 하나이며 가장 많이 쓰인다고한다.
-        //요청객체는 다음고 같이 보내는방식(GET,POST), URL, 응답성공리스너, 응답실패리스너 이렇게 4개의 파라미터를 전달할 수 있다.(리퀘스트큐에 ㅇㅇ)
+        //요청객체는 다음고 같이 보내는방식(GET,POST), URL, 응답성공리스너, 응답실패리스너 이렇게 4개의 파라미터를 전달할 수 있다.(리퀘스트큐에 )
         //화면에 결과를 표시할때 핸들러를 사용하지 않아도되는 장점이있다.
-        StringRequest request = new StringRequest(
-                Request.Method.POST,
-                url,
-                new Response.Listener<String>() {  //응답을 문자열로 받아서 여기다 넣어달란말임(응답을 성공적으로 받았을 떄 이메소드가 자동으로 호출됨
+        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {  //응답을 문자열로 받아서 여기다 넣어달란말임(응답을 성공적으로 받았을 떄 이메소드가 자동으로 호출됨
                     @Override
                     public void onResponse(String response) {
                         Log.e("응답 => "+ response, "응답 => ");
@@ -103,8 +108,6 @@ public class ControllerActivity extends AppCompatActivity {
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-
-
 
                     }
                 },
@@ -149,7 +152,7 @@ public class ControllerActivity extends AppCompatActivity {
         //결과적으로 이전 결과가 있어도 새로 요청한 응답을 보여줌
         request.setShouldCache(false);
         AppHelper.requestQueue.add(request);
-        println("요청 보냄!!");
+
     }
 
 }
