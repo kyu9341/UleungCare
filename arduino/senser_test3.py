@@ -1,11 +1,12 @@
 import serial
+import os
 from find_device import find_dev
 
 dev = '/dev/' + find_dev() 
 ser = serial.Serial (dev,9600)
 # arduino serial port name
 #ls /sys/bus/usb-serial/devices/ | sed "s/^/\/dev\//g"
-
+value = ['','','','','','']
 inputPin = 0
 ser.flushInput()
 while True:
@@ -15,8 +16,10 @@ while True:
 		data = line.split(":")
 		if(len(data)==2):
 			inputpin = data[0]
-			value = data[1]
-			print("input pin {} has value {}".format(inputpin,value))
+			value[inputPin] = data[1]
+			os.system('clear')
+			for i in range(0,6):
+				print("input pin {} has value {} ".format(i,value[i]))
 
 		inputPin = inputPin+1
 		if(inputPin > 5 ):
