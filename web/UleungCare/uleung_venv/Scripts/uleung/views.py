@@ -53,8 +53,9 @@ def AndroidControl(request):
    #     return JsonResponse({"success" : True}) #
     #    return render(request, 'uleung/AndroidControl.html', res_data) # res_data가 html코드로 전달이 됨
 
+        return JsonResponse(res_data)
 
-        return HttpResponse(json.dumps(res_data), content_type="application/json")
+ #       return HttpResponse(json.dumps(res_data), content_type="application/json")
 
 
 def getHomeInfo(request):
