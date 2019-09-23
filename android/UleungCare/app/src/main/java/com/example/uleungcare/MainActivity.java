@@ -112,24 +112,27 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onPostExecute(String result){ // 해당 결과 처리
             try{
+                JSONObject jsonResponse = new JSONObject(result);
+
+                temperature = jsonResponse.getInt("temperature");
+                humidity = jsonResponse.getInt("humidity");
+                registered_dttm = jsonResponse.getString("registered_dttm");
+/*
                 JSONObject jsonObject = new JSONObject(result); // 응답 부분 처리
                 JSONArray jsonArray = jsonObject.getJSONArray("home_data");
-                int count = 0;
 
-                while(count < jsonArray.length())
-                {
-                    JSONObject object = jsonArray.getJSONObject(count); // 현재 배열의 원소값
+                JSONObject object = jsonArray.getJSONObject(0); // 현재 배열의 원소값
 
-                    temperature = object.getInt("temperature");
-                    humidity = object.getInt("humidity");
-                    registered_dttm = object.getString("registered_dttm");
+                temperature = object.getInt("temperature");
+                humidity = object.getInt("humidity");
+                registered_dttm = object.getString("registered_dttm");
+*/
 
-                    temhumText.setText("온도 : "+ temperature+", 습도 : "+humidity+"%");
+                Log.e("temperature = "+temperature, "temperature");
 
-                    Log.e("temperature = "+temperature, "temperature");
-                    count++;
 
-                }
+                temhumText.setText("온도 : "+ temperature+", 습도 : "+humidity+"%");
+
 
             }catch (Exception e){
                 e.printStackTrace();
