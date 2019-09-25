@@ -8,9 +8,14 @@ https://www.raspberrypi.org/downloads/raspbian/
 https://www.balena.io/etcher/  
 
 ## Configuration  
-Camera, SSH, VNC : Enable  
+- Camera, SSH, VNC : Enable  
 
 ## Git  
+- sudo apt-get install git-core  
+- sudo git clone https://github.com/wjrmffldrhrl/UleungCare.git
+- sudo git config --global user.name "본인 계정 입력"
+- sudo git config --global user.email "본인 메일 주소 입력"
+- sudo git config --global color.ui "auto"
 
 
 
