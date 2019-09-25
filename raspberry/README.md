@@ -1,3 +1,17 @@
+# 라즈베리파이 세팅  
+
+## 라즈비안 설치  
+- 라즈비안  
+https://www.raspberrypi.org/downloads/raspbian/  
+
+- Flash OS images to SD cards & USB drives, safely and easily  
+https://www.balena.io/etcher/  
+
+## Configuration  
+Camera, SSH, VNC : Enable
+
+
+
 # 카메라 제어 및 온습도, IR모듈 제어  
 
 ## Camera  
