@@ -39,7 +39,7 @@ http://ozzmaker.com/how-to-control-the-gpio-on-a-raspberry-pi-with-an-ir-remote/
 - usb mic  
 https://www.youtube.com/watch?v=MjjbFLiFq2Y  
 
-##   
+## Communication with arduino  
 
 https://poppy-leni.tistory.com/entry/Python-%EC%99%B8%EB%B6%80-%EC%8B%A4%ED%96%89-%EA%B2%B0%EA%B3%BC-%EB%B3%80%EC%88%98%EB%A1%9C-%EC%A0%80%EC%9E%A5%ED%95%98%EA%B8%B0  
 라즈베리 파이와 아두이노간의 Serial communication을 위해 USB로 라즈베리파이와 아두이노를 연결한 상태이다.  
