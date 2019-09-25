@@ -163,17 +163,21 @@ Tomorrow Night|Eighties	tomorrow-night-eighties
 ```ruby
 code block
 ```
+~~~  
 
+~~~  
 ~~~
 fenced code block
 ~~~
+~~~ 
 
+~~~  
 ~~~javascript
 function syntaxHighlight(code, lang) {
    var foo = 'rhio';
    var bar = 33;
 }
-~~~
+~~~  
 ~~~
 
 
