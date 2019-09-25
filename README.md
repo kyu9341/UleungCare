@@ -159,28 +159,14 @@ Tomorrow Night|Eighties	tomorrow-night-eighties
 
 ## 적용방법  
 
-~~~  
-```ruby
-code block
-```
-~~~  
-
-~~~  
-~~~
-fenced code block
-~~~
-~~~ 
-
-~~~  
+```  
 ~~~javascript
 function syntaxHighlight(code, lang) {
    var foo = 'rhio';
    var bar = 33;
 }
-~~~  
 ~~~
-
-
+```  
 
 
 
