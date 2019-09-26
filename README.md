@@ -66,7 +66,10 @@ IoT 제품이 증가하는 요즘 저렴한 가격으로 높은 효율을 가진
 적외선 CCTV를 장착하여 집 밖에서도 집안 상황을 확인할 수 있기 때문에 방범 문제로 고민하는 사람이나 반려동물을 오랫동안 집 안에 혼자 둬야하는 사람들이 유용하게 사용할 수 있다. 
 Wi-Fi 환경이 구성되어 있다면 어디서든지 사용 가능하기 때문에 집 이외에도 매장 내부에서도 활용할 수 있다.  
 
-  
+# 마크다운 코드 구문강조  
+
+## 지원 
+ 
 |Language|key|  
 |--------|---|
 |Python|python|
@@ -93,63 +96,77 @@ Java|java
 C++|cpp
 Objective C|objectivec
 Vala|vala
-C#	cs
-D	d
-RenderMan RSL	rsl
-RenderMan RIB	rib
-MEL	mel
-GLSL	glsl
-SQL	sql
-SmallTalk	smalltalk
-Lisp	lisp
-Clojure	clojure
-Ini file	ini
-Apache	apache
-nginx	nginx
-Diff	diff
-DOS batch files	dos
-Bash	bash
-CMake	cmake
-Axapta	axapta
-1C	1c
-AVR Assembler	avrasm
-VHDL	vhdl
-Parser 3	parser3
-TeX	tex
-Haskell	haskell
-Erlang	erlang
-Rust	rust
-Matlab	matlab
-R	r
-구문강조 테마 종류
-Style	key
-Default	default
-Dark	dark
-FAR	far
-IDEA	idea
-Sunburst	sunburst
-Zenburn	zenburn
-Visual Studio	vs
-Ascetic	ascetic
-Magula	magula
-GitHub	github
-Google Code	googlecode
-Brown Paper	brown_paper
-School Book	school_book
-IR Black	ir_black
-Solarized - Dark	solarized_dark
-Solarized - Light	solarized_light
-Arta	arta
-Monokai	monokai
-XCode	xcode
-Pojoaque	pojoaque
-Rainbow	rainbow
-Tomorrow	tomorrow
-Tomorrow Night	tomorrow-night
-Tomorrow Night Bright	tomorrow-night-bright
-Tomorrow Night Blue	tomorrow-night-blue
-Tomorrow Night Eighties	tomorrow-night-eighties
+C#|cs
+D|d
+RenderMan RSL|rsl
+RenderMan RIB|rib
+MEL|mel
+GLSL|glsl
+SQL|sql
+SmallTalk|smalltalk
+Lisp|lisp
+Clojure|clojure
+Ini file|ini
+Apache|apache
+nginx|nginx
+Diff|diff
+DOS batch|files	dos
+Bash|bash
+CMake|cmake
+Axapta|axapta
+1C|1c
+AVR Assembler|avrasm
+VHDL|vhdl
+Parser 3|parser3
+TeX|tex
+Haskell|haskell
+Erlang|erlang
+Rust|rust
+Matlab|matlab
+R|r  
 
+## 구문강조 테마 종류  
+
+|구문강조|테마 종류|  
+|--------|---------|  
+Style|key
+Default|default
+Dark|dark
+FAR|far
+IDEA|idea
+Sunburst|sunburst
+Zenburn	|zenburn
+Visual|Studio	vs
+Ascetic|ascetic
+Magula|magula
+GitHub|github
+Google Code|googlecode
+Brown Paper|brown_paper
+School Book|school_book
+IR Black|ir_black
+Solarized - Dark|solarized_dark
+Solarized - Light|solarized_light
+Arta|arta
+Monokai|monokai
+XCode|xcode
+Pojoaque|pojoaque
+Rainbow|rainbow
+Tomorrow|tomorrow
+Tomorrow Night|tomorrow-night
+Tomorrow Night|Bright	tomorrow-night-bright
+Tomorrow Night|Blue	tomorrow-night-blue
+Tomorrow Night|Eighties	tomorrow-night-eighties  
+
+## 적용방법  
+
+```  
+~~~javascript
+function syntaxHighlight(code, lang) {
+   var foo = 'rhio';
+   var bar = 33;
+}
+~~~
+```  
 
 
 
