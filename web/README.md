@@ -24,7 +24,7 @@
 - float(조도 센서 값)
 - float(온도 센서 값)
 - float(습도 센서 값)
-- float(현재 에어컨 설정 온도 값) 
+- integer(현재 에어컨 설정 온도 값) 
 
 **Setting**
 
