@@ -34,13 +34,20 @@ public class ControllerActivity extends AppCompatActivity {
 
     private int tvOnOff = 2; // TV 상태 ( 켜짐 : 1, 꺼짐 : 0)
     private int airconOnOff = 2; //  에어컨 상태 ( 켜짐 : 1, 꺼짐 : 0)
-    private int airconTempUp = 0; // 에어컨 온도 up Count
-    private int airconTempDown = 0; // 에어컨 온도 down Count
+    private int airconTempUpDown = 0; // 에어컨 온도 up down
+    private int tvChUpDown = 0; // TV 채널 up down
+    private int tvVolUpDown = 0; //TV 볼륨 up down
+
 
     Button tvonButton;
     Button airconOnButton;
     Button airUpButton;
     Button airDownButton;
+    Button tvVolUp;
+    Button tvChUp;
+    Button tvVolDown;
+    Button tvChDown;
+
 
     private AlertDialog dialog; // 알림창
 
@@ -54,17 +61,46 @@ public class ControllerActivity extends AppCompatActivity {
         airconOnButton = (Button)findViewById(R.id.airconOnButton);
         airUpButton = (Button)findViewById(R.id.airUpButton);
         airDownButton = (Button)findViewById(R.id.airDownButton);
+        tvVolUp = (Button)findViewById(R.id.tvVolUp);
+        tvChUp = (Button)findViewById(R.id.tvChUp);
+        tvVolDown = (Button)findViewById(R.id.tvVolDown);
+        tvChDown = (Button)findViewById(R.id.tvChDown);
+
 
         tvonButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                tvOnOff = 2;
-
+                if(tvOnOff != 1){ // 초기 설정값인 2 이거나 꺼짐 상태인 0 인경우
+                    tvOnOff = 1;
+                }else{ // tv가 켜진경우
+                    tvOnOff = 0;
+                }
                 sendRequest();
-        }
-
+            }
         });
+
+        airconOnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(airconOnOff != 1){ // 초기 설정값인 2 이거나 꺼짐 상태인 0 인경우
+                    airconOnOff = 1;
+                }else{ // 에어컨이 켜진경우
+                    airconOnOff = 0;
+                }
+                sendRequest();
+            }
+        });
+
+
+
+
+
+
+
+
+
+
 
         if(AppHelper.requestQueue == null){
             //리퀘스트큐 생성 (MainActivit가 메모리에서 만들어질 때 같이 생성이 될것이다.
@@ -126,8 +162,10 @@ public class ControllerActivity extends AppCompatActivity {
 
                 params.put("tvOnOff", tvOnOff+"");
                 params.put("airconOnOff", airconOnOff+"");
-                params.put("airconTempUp", airconTempUp+"");
-                params.put("airconTempDown", airconTempDown+"");
+                params.put("airconTempUpDown", airconTempUpDown+"");
+                params.put("tvChUpDown", tvChUpDown+"");
+                params.put("tvVolUpDown", tvVolUpDown+"");
+
 
                 return params;
 

@@ -25,8 +25,9 @@ public class MainActivity extends AppCompatActivity {
     Button cctvButton;
     Button controllerButton;
     TextView temhumText;
-    float temperature;
-    float humidity;
+    float temperature; // 온도
+    float humidity; // 습도
+    int airconTem; // 현재 에어컨 설정 온도
     String registered_dttm; // 측정시간
 
     Button testButton;
@@ -41,10 +42,11 @@ public class MainActivity extends AppCompatActivity {
         temhumText = (TextView)findViewById(R.id.temhumText);
         testButton = (Button)findViewById(R.id.testButton);
 
+        new MainActivity.BackgroundTask().execute(); // 데이터베이스 연동
+
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MainActivity.BackgroundTask().execute(); // 데이터베이스 연동
 
             }
         });
@@ -116,6 +118,8 @@ public class MainActivity extends AppCompatActivity {
 
                 temperature = jsonResponse.getInt("temperature");
                 humidity = jsonResponse.getInt("humidity");
+                airconTem = jsonResponse.getInt("airconTem");
+
                 registered_dttm = jsonResponse.getString("registered_dttm");
 /*
                 JSONObject jsonObject = new JSONObject(result); // 응답 부분 처리
@@ -129,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
 */
 
                 Log.e("temperature = "+temperature, "temperature");
+                Log.e("airconTem = "+airconTem, "airconTem");
 
 
                 temhumText.setText("온도 : "+ temperature+", 습도 : "+humidity+"%");

@@ -8,29 +8,57 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TV on Button"
+        android:text="TV 전원"
         android:id="@+id/tvonButton"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Airconditioner on Button"
+        android:text="에어컨 전원"
         android:id="@+id/airconOnButton"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Airconditioner Temperature Up Button"
+        android:text="에어컨 온도 up"
         android:id="@+id/airUpButton"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Airconditioner Temperature Down Button"
+        android:text="에어컨 온도 down"
         android:id="@+id/airDownButton"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TV 채널 up"
+        android:id="@+id/tvChUp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TV 채널 down"
+        android:id="@+id/tvChDown"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TV 음량 up"
+        android:id="@+id/tvVolUp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TV 음량 down"
+        android:id="@+id/tvVolDown"
         />
 
 </LinearLayout>
