@@ -10,5 +10,5 @@
 
 ### IR receiver  
 
-![IRrecv]https://github.com/wjrmffldrhrl/UleungCare/blob/master/arduino/IRrecever.JPG)
+![IRrecv](https://github.com/wjrmffldrhrl/UleungCare/blob/master/arduino/IRrecever.JPG)
 
