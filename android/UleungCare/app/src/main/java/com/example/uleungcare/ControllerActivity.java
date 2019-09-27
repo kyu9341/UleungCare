@@ -97,7 +97,7 @@ public class ControllerActivity extends AppCompatActivity {
         airUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                airconTempUpDown =1; // 에어컨 온도 1 up
+                airconTempUpDown++; // 에어컨 온도 1 up
                 sendRequest();
             }
         });
@@ -105,7 +105,7 @@ public class ControllerActivity extends AppCompatActivity {
         airDownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                airconTempUpDown = -1; // 에어컨 온도 1 down
+                airconTempUpDown--; // 에어컨 온도 1 down
                 sendRequest();
             }
         });
@@ -113,7 +113,7 @@ public class ControllerActivity extends AppCompatActivity {
         tvChUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvChUpDown =1; // TV 채널 1 up
+                tvChUpDown ++; // TV 채널 1 up
                 sendRequest();
             }
         });
@@ -121,7 +121,7 @@ public class ControllerActivity extends AppCompatActivity {
         tvChDownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvChUpDown = -1; // TV 채널 1 down
+                tvChUpDown --; // TV 채널 1 down
                 sendRequest();
             }
         });
@@ -129,7 +129,7 @@ public class ControllerActivity extends AppCompatActivity {
         tvVolUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tvVolUpDown =1; // TV 음량 1 up
+                tvVolUpDown++; // TV 음량 1 up
                 sendRequest();
             }
         });
@@ -180,10 +180,41 @@ public class ControllerActivity extends AppCompatActivity {
                                         .create();
                                 dialog.show();
                             }
+                            String kind = jsonResponse.getString("kind");
+                            Log.e("kind => "+ kind, "kind => ");
 
-                            airconTempUpDown = 0; // 서버에 전송 후 초기화
-                            tvChUpDown = 0;
-                            tvVolUpDown = 0;
+                            Log.e("tvVolUpDown => "+ tvVolUpDown, "tvVolUpDown ");
+                            Log.e("tvChUpDown => "+ tvChUpDown, "tvChUpDown ");
+                            Log.e("airconTempUpDown => "+ airconTempUpDown, "airconTempUpDown ");
+                            Log.e("tvOnOff => "+ tvOnOff, "tvOnOff ");
+                            Log.e("airconOnOff => "+ airconOnOff, "airconOnOff ");
+                            if(kind != ""){
+                                if(kind.equals("temperature-")){
+                                    airconTempUpDown--; // 서버에 전송 후 초기화
+                                }else if(kind.equals("temperature+")){
+                                    airconTempUpDown++;
+                                }
+
+                                if(kind.equals("channel-")){
+                                    tvChUpDown --;
+                                }else if(kind.equals("channel+")){
+                                    tvChUpDown ++;
+                                }
+
+                                if(kind.equals("volume-")){
+                                    tvVolUpDown --;
+                                }else if(kind.equals("volume+")){
+                                    tvVolUpDown++;
+                                }
+                            }
+
+                            Log.e("tvVolUpDown => "+ tvVolUpDown, "tvVolUpDown ");
+                            Log.e("tvChUpDown => "+ tvChUpDown, "tvChUpDown ");
+                            Log.e("airconTempUpDown => "+ airconTempUpDown, "airconTempUpDown ");
+                            Log.e("tvOnOff => "+ tvOnOff, "tvOnOff ");
+                            Log.e("airconOnOff => "+ airconOnOff, "airconOnOff ");
+
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

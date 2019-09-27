@@ -28,47 +28,49 @@ def AndroidControl(request):
         tvChUpDown = request.POST.get('tvChUpDown', None)
 
         #androidrequesteds = AndroidRequested.objects.all() #AndroidRequested에 있는 모든 객체를 불러와 androidrequesteds에 저장
-
-        ar = AndroidRequested.objects.order_by('id').last() #
-
-        if(int(tvVolUpDown) == 1):
-            tvVolUpDown = ar.tvVolUpDown + 1
-        if(int(tvVolUpDown) == -1):
-            tvVolUpDown = ar.tvVolUpDown - 1
-
-        if(int(tvChUpDown) == 1):
-            tvChUpDown = ar.tvChUpDown + 1
-        if(int(tvChUpDown) == -1):
-            tvChUpDown = ar.tvChUpDown - 1
-
-        if(int(airconTempUpDown) == 1):
-            airconTempUpDown = ar.airconTempUpDown + 1
-        if(int(airconTempUpDown) == -1):
-            airconTempUpDown = ar.airconTempUpDown - 1
-
-#        ar = AndroidRequested.objects.order_by('id').last()
-        ar.tvOnOff = int(tvOnOff)
-        ar.airconOnOff = int(airconOnOff)
-        ar.airconTempUpDown = int(airconTempUpDown)
-        ar.tvVolUpDown = int(tvVolUpDown)
-        ar.tvChUpDown = int(tvChUpDown)
-
-
-
-
-        ar.save()
-
         res_data = {} # 응답 메세지를 담을 변수(딕셔너리)
 
+        ar = AndroidRequested.objects.order_by('id').last() # 가장 최근의 튜플을 가져옴
+
+        res_data['kind'] = '' # 안드로이드에 응답 시 kind라는 키값에 어떠한 값이 변화했는지 알려줌
+        if(int(tvVolUpDown) > 0):
+            ar.tvVolUpDown += 1
+            res_data['kind'] = 'volume-'
+        elif(int(tvVolUpDown) < 0):
+            ar.tvVolUpDown -= 1
+            res_data['kind'] = 'volume+'
+
+        if(int(tvChUpDown) > 0):
+            ar.tvChUpDown += 1
+            res_data['kind'] = 'channel-'
+        elif(int(tvChUpDown) < 0):
+            ar.tvChUpDown -= 1
+            res_data['kind'] = 'channel+'
+
+        if(int(airconTempUpDown) > 0):
+            ar.airconTempUpDown += 1
+            res_data['kind'] = 'temperature-'
+        elif(int(airconTempUpDown) < 0):
+            ar.airconTempUpDown -= 1
+            res_data['kind'] = 'temperature+'
+
+
+        if(int(tvOnOff) == 0): # TV를 끄면 음량 및 채널 값 초기화
+            ar.tvVolUpDown = 0
+            ar.tvChUpDown = 0
+        if(int(airconOnOff) == 0): # 에어컨를 끄면 온도 값 초기화
+            ar.airconTempUpDown = 0
+
+        ar.tvOnOff = int(tvOnOff)
+        ar.airconOnOff = int(airconOnOff)
+        ar.save()
 
         res_data['success'] = True
-
-   #     return JsonResponse({"success" : True}) #
-    #    return render(request, 'uleung/AndroidControl.html', res_data) # res_data가 html코드로 전달이 됨
 
         return JsonResponse(res_data)
 
  #       return HttpResponse(json.dumps(res_data), content_type="application/json")
+   #     return JsonResponse({"success" : True}) #
 
 '''
 
