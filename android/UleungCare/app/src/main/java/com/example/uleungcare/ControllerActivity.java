@@ -32,8 +32,8 @@ import static java.sql.DriverManager.println;
 
 public class ControllerActivity extends AppCompatActivity {
 
-    private int tvOnOff = 2; // TV 상태 ( 켜짐 : 1, 꺼짐 : 0)
-    private int airconOnOff = 2; //  에어컨 상태 ( 켜짐 : 1, 꺼짐 : 0)
+    private int tvOnOff = 0; // TV 상태 ( 켜짐 : 1, 꺼짐 : 0)
+    private int airconOnOff = 0; //  에어컨 상태 ( 켜짐 : 1, 꺼짐 : 0)
     private int airconTempUpDown = 0; // 에어컨 온도 up down
     private int tvChUpDown = 0; // TV 채널 up down
     private int tvVolUpDown = 0; //TV 볼륨 up down
@@ -43,10 +43,10 @@ public class ControllerActivity extends AppCompatActivity {
     Button airconOnButton;
     Button airUpButton;
     Button airDownButton;
-    Button tvVolUp;
-    Button tvChUp;
-    Button tvVolDown;
-    Button tvChDown;
+    Button tvVolUpButton;
+    Button tvVolDownButton;
+    Button tvChUpButton;
+    Button tvChDownButton;
 
 
     private AlertDialog dialog; // 알림창
@@ -61,17 +61,18 @@ public class ControllerActivity extends AppCompatActivity {
         airconOnButton = (Button)findViewById(R.id.airconOnButton);
         airUpButton = (Button)findViewById(R.id.airUpButton);
         airDownButton = (Button)findViewById(R.id.airDownButton);
-        tvVolUp = (Button)findViewById(R.id.tvVolUp);
-        tvChUp = (Button)findViewById(R.id.tvChUp);
-        tvVolDown = (Button)findViewById(R.id.tvVolDown);
-        tvChDown = (Button)findViewById(R.id.tvChDown);
+        tvChUpButton = (Button)findViewById(R.id.tvChUpButton);
+        tvChDownButton = (Button)findViewById(R.id.tvChDownButton);
+        tvVolUpButton = (Button)findViewById(R.id.tvVolUpButton);
+        tvVolDownButton = (Button)findViewById(R.id.tvVolDownButton);
+
 
 
         tvonButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(tvOnOff != 1){ // 초기 설정값인 2 이거나 꺼짐 상태인 0 인경우
+                if(tvOnOff == 0){ // 꺼짐 상태인 0 인경우
                     tvOnOff = 1;
                 }else{ // tv가 켜진경우
                     tvOnOff = 0;
@@ -83,7 +84,7 @@ public class ControllerActivity extends AppCompatActivity {
         airconOnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(airconOnOff != 1){ // 초기 설정값인 2 이거나 꺼짐 상태인 0 인경우
+                if(airconOnOff == 0){ // 꺼짐 상태인 0 인경우
                     airconOnOff = 1;
                 }else{ // 에어컨이 켜진경우
                     airconOnOff = 0;
@@ -93,12 +94,53 @@ public class ControllerActivity extends AppCompatActivity {
         });
 
 
+        airUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                airconTempUpDown =1; // 에어컨 온도 1 up
+                sendRequest();
+            }
+        });
 
+        airDownButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                airconTempUpDown = -1; // 에어컨 온도 1 down
+                sendRequest();
+            }
+        });
 
+        tvChUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvChUpDown =1; // TV 채널 1 up
+                sendRequest();
+            }
+        });
 
+        tvChDownButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvChUpDown = -1; // TV 채널 1 down
+                sendRequest();
+            }
+        });
 
+        tvVolUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvVolUpDown =1; // TV 음량 1 up
+                sendRequest();
+            }
+        });
 
-
+        tvVolDownButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvVolUpDown = -1; // TV 음량 1 down
+                sendRequest();
+            }
+        });
 
 
 
@@ -139,6 +181,9 @@ public class ControllerActivity extends AppCompatActivity {
                                 dialog.show();
                             }
 
+                            airconTempUpDown = 0; // 서버에 전송 후 초기화
+                            tvChUpDown = 0;
+                            tvVolUpDown = 0;
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -188,6 +233,7 @@ public class ControllerActivity extends AppCompatActivity {
         //결과적으로 이전 결과가 있어도 새로 요청한 응답을 보여줌
         request.setShouldCache(false);
         AppHelper.requestQueue.add(request);
+
 
     }
 

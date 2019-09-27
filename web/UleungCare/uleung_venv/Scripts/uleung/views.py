@@ -29,26 +29,37 @@ def AndroidControl(request):
 
         #androidrequesteds = AndroidRequested.objects.all() #AndroidRequested에 있는 모든 객체를 불러와 androidrequesteds에 저장
 
-        if(int(tvOnOff) == 2): # 기본값을 수신한 경우 DB에 저장된 값으로 유지
-            ar = AndroidRequested.objects.order_by('id').last()
-            tvOnOff = ar.tvOnOff
+        ar = AndroidRequested.objects.order_by('id').last() #
+
+        if(int(tvVolUpDown) == 1):
+            tvVolUpDown = ar.tvVolUpDown + 1
+        if(int(tvVolUpDown) == -1):
+            tvVolUpDown = ar.tvVolUpDown - 1
+
+        if(int(tvChUpDown) == 1):
+            tvChUpDown = ar.tvChUpDown + 1
+        if(int(tvChUpDown) == -1):
+            tvChUpDown = ar.tvChUpDown - 1
+
+        if(int(airconTempUpDown) == 1):
+            airconTempUpDown = ar.airconTempUpDown + 1
+        if(int(airconTempUpDown) == -1):
+            airconTempUpDown = ar.airconTempUpDown - 1
+
+#        ar = AndroidRequested.objects.order_by('id').last()
+        ar.tvOnOff = int(tvOnOff)
+        ar.airconOnOff = int(airconOnOff)
+        ar.airconTempUpDown = int(airconTempUpDown)
+        ar.tvVolUpDown = int(tvVolUpDown)
+        ar.tvChUpDown = int(tvChUpDown)
 
 
-#     if(int(airconOnOff) == 2):
-  #          airconOnOff = AndroidRequested.airconOnOff.last()
+
+
+        ar.save()
 
         res_data = {} # 응답 메세지를 담을 변수(딕셔너리)
 
-        androidrequested = AndroidRequested( # 모델에서 생성한 클래스를 가져와 객체를 생성
-            tvOnOff=int(tvOnOff),
-            airconOnOff=int(airconOnOff),
-            airconTempUpDown=int(airconTempUpDown),
-            tvVolUpDown=int(tvVolUpDown),
-            tvChUpDown=int(tvChUpDown),
-
-        )
-
-        androidrequested.save() # 데이터베이스에 저장
 
         res_data['success'] = True
 
@@ -59,6 +70,18 @@ def AndroidControl(request):
 
  #       return HttpResponse(json.dumps(res_data), content_type="application/json")
 
+'''
+
+        androidrequested = AndroidRequested( # 모델에서 생성한 클래스를 가져와 객체를 생성
+            tvOnOff=int(tvOnOff),
+            airconOnOff=int(airconOnOff),
+            airconTempUpDown=int(airconTempUpDown),
+            tvVolUpDown=int(tvVolUpDown),
+            tvChUpDown=int(tvChUpDown),
+
+        )
+
+        androidrequested.save() # 데이터베이스에 저장'''
 
 def getHomeInfo(request):
     if request.method == 'GET':
@@ -76,3 +99,6 @@ def getHomeInfo(request):
         #return render(request, 'uleung/getHomeInfo.html', json.dumps(home_data))
     elif request.method == 'POST':
         pass
+
+
+

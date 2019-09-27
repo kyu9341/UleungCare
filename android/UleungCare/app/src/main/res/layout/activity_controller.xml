@@ -37,28 +37,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TV 채널 up"
-        android:id="@+id/tvChUp"
+        android:id="@+id/tvChUpButton"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TV 채널 down"
-        android:id="@+id/tvChDown"
+        android:id="@+id/tvChDownButton"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TV 음량 up"
-        android:id="@+id/tvVolUp"
+        android:id="@+id/tvVolUpButton"
         />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TV 음량 down"
-        android:id="@+id/tvVolDown"
+        android:id="@+id/tvVolDownButton"
         />
 
 </LinearLayout>
