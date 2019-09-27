@@ -6,7 +6,11 @@ from django.db import models
 class HomeInfo(models.Model):
     temperature = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='온도')
     humidity = models.DecimalField(max_digits=5, decimal_places=2,verbose_name='습도')
+    light = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='조도')
     registered_dttm = models.DateTimeField(auto_now_add=True, verbose_name='측정시간')
+
+    airconTem = models.IntegerField(verbose_name='현재 에어컨 설정 온도')
+
 
     class Meta:
         db_table = 'Uleung_HomeInfo' # 테이블명 지정
@@ -16,8 +20,9 @@ class HomeInfo(models.Model):
 class AndroidRequested(models.Model):
     tvOnOff = models.IntegerField(verbose_name='TV on off')
     airconOnOff = models.IntegerField(verbose_name='AirConditioner on off')
-    airconTempUp = models.IntegerField(verbose_name='AirConditioner Temperature Up')
-    airconTempDown = models.IntegerField(verbose_name='AirConditioner Temperature Down')
+    airconTempUpDown = models.IntegerField(verbose_name='AirConditioner Temperature Up Down')
+    tvChUpDown = models.IntegerField(verbose_name='TV Channel Up Down')
+    tvVolUpDown = models.IntegerField(verbose_name='TV Volume Up Down')
 
     class Meta:
         db_table = 'Uleung_androidRequested' # 테이블명 지정
