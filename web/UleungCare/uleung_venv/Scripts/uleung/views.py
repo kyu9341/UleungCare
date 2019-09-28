@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from .models import HomeInfo, AndroidRequested
 from django.http import JsonResponse
+from datetime import datetime
 import json
 from django.core.serializers.json import DjangoJSONEncoder
 from django.forms.models import model_to_dict
@@ -102,10 +103,10 @@ def getHomeInfo(request):
     elif request.method == 'POST':
         pass
 
-
+@csrf_exempt
 def raspberry(request):
     if request.method == 'GET':
-        pass
+        return HttpResponse("raspberry")
 
     elif request.method == 'POST':
         temperature = request.POST.get('temperature', None)
@@ -116,6 +117,7 @@ def raspberry(request):
         homeinfo.temperature = float(temperature)
         homeinfo.humidity = float(humidity)
         homeinfo.light = float(light)
+        homeinfo.registered_dttm = datetime.now()
         homeinfo.save()
 
         res_data = {}
