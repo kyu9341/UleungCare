@@ -103,4 +103,32 @@ def getHomeInfo(request):
         pass
 
 
+def raspberry(request):
+    if request.method == 'GET':
+        pass
 
+    elif request.method == 'POST':
+        temperature = request.POST.get('temperature', None)
+        humidity = request.POST.get('humidity', None)
+        light = request.POST.get('light', None)
+
+        homeinfo = HomeInfo.objects.order_by('id').last()
+        homeinfo.temperature = float(temperature)
+        homeinfo.humidity = float(humidity)
+        homeinfo.light = float(light)
+        homeinfo.save()
+
+        res_data = {}
+        ar = AndroidRequested.objects.order_by('id').last()
+        res_data['tvOnOff'] = ar.tvOnOff # 기본값 : 0 (꺼짐상태), 1이면 TV on
+        res_data['airconOnOff'] = ar.airconOnOff # 기본값 : 0 (꺼짐상태), 1이면 에어컨 on
+        res_data['tvChUpDown'] = ar.tvChUpDown # 기본값 : 0, 정수형, + or - 만큼 up or down
+        res_data['tvVolUpDown'] = ar.tvVolUpDown # 기본값 : 0, 정수형, + or - 만큼 up or down
+        res_data['airconTempUpDown'] = ar.airconTempUpDown # 기본값 : 0, 정수형, + or - 만큼 up or down
+
+        ar.tvChUpDown = 0 # 전송 후 UpDown데이터는 초기화, OnOff데이터는 유지
+        ar.tvVolUpDown = 0
+        ar.airconTempUpDown = 0
+        ar.save()
+
+        return JsonResponse(res_data)
