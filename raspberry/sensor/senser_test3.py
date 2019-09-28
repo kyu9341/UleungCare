@@ -1,9 +1,9 @@
 import serial
 import os
-from find_device import find_dev
+#from find_device import find_dev
 
-dev = '/dev/' + find_dev() 
-ser = serial.Serial (dev,9600)
+#dev = '/dev/' + find_dev() 
+ser = serial.Serial ("/dev/ttyACM0",9600)
 # arduino serial port name
 #ls /sys/bus/usb-serial/devices/ | sed "s/^/\/dev\//g"
 value = ['','','','','','']
