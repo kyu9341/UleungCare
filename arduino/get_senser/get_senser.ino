@@ -13,7 +13,7 @@ void loop() {
 
   int tmp = analogRead(tmp_sensor);
   int light = analogRead(light_sensor);
-
+  char pi_say;
   float voltage = tmp * 5000.0/1024.0; // 온도센서 값을 전압으로 변환
   float celsius = (voltage - 500) / 10.0; // 전압을 온도로 변환
 
@@ -27,15 +27,21 @@ void loop() {
   Serial.print(",");
   Serial.print(light);
   Serial.print(",");
+  pi_say = Serial.read();
   Serial.print("pi say : ");
-  Serial.print(Serial.read());
-  Serial.print("\n");
-  if (Serial.read() == 'a'){
+  Serial.print(pi_say);
+  
+  if (pi_say == 'a'){
     digitalWrite(ledPin, HIGH);
+     Serial.print(",");
+  Serial.print("LED ON");
   }
   else{
     digitalWrite(ledPin, LOW);
+     Serial.print(",");
+      Serial.print("LED OFF ");
   }
+  Serial.print("\n");
   delay(1000);
 
 }
