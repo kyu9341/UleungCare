@@ -8,10 +8,11 @@ void setup()
 }
 
 void loop() {
-    for (int i = 0; i < 3; i++) {
-      irsend.sendSony(0xa90, 12); // Sony TV power code
+    //for (int i = 0; i < 3; i++) {
+      irsend.sendNEC(0x20DF10EF, 32); // Sony TV power code
+
       Serial.print("send\n");
       delay(40);
-    }
+    //}
   
 }
