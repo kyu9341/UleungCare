@@ -92,7 +92,6 @@ def getHomeInfo(request):
 
         home_data = {}
         home_data['temperature'] = homeinfo.temperature
-        home_data['humidity'] = homeinfo.humidity
         home_data['registered_dttm'] = homeinfo.registered_dttm
         home_data['airconTem'] = homeinfo.airconTem
 
@@ -110,12 +109,10 @@ def raspberry(request):
 
     elif request.method == 'POST':
         temperature = request.POST.get('temperature', None)
-        humidity = request.POST.get('humidity', None)
         light = request.POST.get('light', None)
 
         homeinfo = HomeInfo.objects.order_by('id').last()
         homeinfo.temperature = float(temperature)
-        homeinfo.humidity = float(humidity)
         homeinfo.light = float(light)
         homeinfo.registered_dttm = datetime.now()
         homeinfo.save()
