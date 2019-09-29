@@ -69,4 +69,49 @@ $ alsamixer
 ----------------
 
 ## 3.파이썬 환경설정
-### 3-1 파이썬 설치
+### 3-1 파이썬 및 패키지 설치
+
+$ sudo apt-get update
+
+$ sudo apt-get install python3-dev python3-venv # Use python3.4-venv if the package cannot be found.
+
+$ python3 -m venv env
+
+$ env/bin/python -m pip install --upgrade pip setuptools wheel
+
+> 위의 명령어를 차례대로 실행하여 설치를 진행한다.
+
+$ source env/bin/activate
+
+> 위의 명령어를 사용하면 파이썬 가상환경이 생성된다.
+
+(env) $ python -m pip install --upgrade google-assistant-sdk[samples]
+(env) $ python -m pip install --upgrade google-auth-oauthlib[tool]
+
+> 위의 명령어를 사용해 구글 어시스턴트 패키지를 설치한다.
+
+### 3-2 구글 API 환경구축
+
+> 위의 과정에서 다운받은 .json 파일을 라즈베리파이 디렉토리 안에 넣고 진행합니다.
+
+(env) $ google-oauthlib-tool --scope https://www.googleapis.com/auth/assistant-sdk-prototype --save --headless --client-secrets /경로/---/&&&&.com.json 
+
+> 명령을 실행시키면 주소가 나오는데 주소로 들어가서 계정에 엑세스를 허용한다.
+
+> 허용을 하면 나오는 코드를 복사하여 Enter the authorization code: 에 붙여넣어주면 된다.
+
+## 4 구글 API 실행해보기
+
+(env) $ googlesamples-assistant-pushtotalk --project-id 프로젝트ID --device-model-id 모델ID
+> enter를 누르며 대화하는 방식
+(env) $ googlesamples-assistant-hotword --device_model_id 모델ID
+> hotword로 대화하는 방식
+
+
+
+
+
+
+
+
+
