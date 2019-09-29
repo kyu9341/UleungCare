@@ -97,17 +97,21 @@ $ source env/bin/activate
 (env) $ google-oauthlib-tool --scope https://www.googleapis.com/auth/assistant-sdk-prototype --save --headless --client-secrets /경로/---/&&&&.com.json 
 
 > 명령을 실행시키면 주소가 나오는데 주소로 들어가서 계정에 엑세스를 허용한다.
-
 > 허용을 하면 나오는 코드를 복사하여 Enter the authorization code: 에 붙여넣어주면 된다.
+
+============================
 
 ## 4 구글 API 실행해보기
 
 (env) $ googlesamples-assistant-pushtotalk --project-id 프로젝트ID --device-model-id 모델ID
+
 > enter를 누르며 대화하는 방식
+
 (env) $ googlesamples-assistant-hotword --device_model_id 모델ID
+
 > hotword로 대화하는 방식
 
-
+*단,위의 방법은 한글은 지원하지 않습니다.
 
 
 
