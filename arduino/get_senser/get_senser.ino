@@ -1,11 +1,18 @@
 int tmp_sensor = A0;
 int light_sensor = A1;
-const int ledPin = 8;
-
+const int ledPingreen = 8;
+const int ledPinyellow = 9;
+const int RED_PIN =12, GREEN_PIN= 11, BLUE_PIN = 10;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  pinMode(ledPin, OUTPUT);
+  pinMode(ledPingreen, OUTPUT);
+
+  pinMode(ledPinyellow, OUTPUT);
+
+  pinMode(RED_PIN,OUTPUT);
+  pinMode(BLUE_PIN,OUTPUT);
+  pinMode(GREEN_PIN,OUTPUT);
 }
 
 void loop() {
@@ -13,46 +20,42 @@ void loop() {
 
   int tmp = analogRead(tmp_sensor);
   int light = analogRead(light_sensor);
-  char pi_say;
+  char pi_say = Serial.read();
   float voltage = tmp * 5000.0/1024.0; // 온도센서 값을 전압으로 변환
   float celsius = (voltage - 500) / 10.0; // 전압을 온도로 변환
-
-  //Serial.print(celsius);
-  //Serial.print(" C\n");
-
-  //Serial.print(light);
-  //Serial.print(" b\n");
-
+  
+   
   Serial.print(celsius);
   Serial.print(",");
   Serial.print(light);
   Serial.print(",");
-  pi_say = Serial.read();
-  Serial.print("pi say : ");
   Serial.print(pi_say);
-  
-  if (pi_say == 'a'){
-    digitalWrite(ledPin, HIGH);
-     Serial.print(",");
-  Serial.print("LED ON");
+  Serial.print("\n");
+
+  if(pi_say == 'a'){
+    digitalWrite(ledPingreen,HIGH);
+    digitalWrite(ledPinyellow,LOW);
+    RGB(0,0,0);
+  }
+  else if(pi_say == 'b'){
+    digitalWrite(ledPinyellow,HIGH);
+    digitalWrite(ledPingreen,LOW);
+    RGB(0,0,0);
   }
   else{
-    digitalWrite(ledPin, LOW);
-     Serial.print(",");
-      Serial.print("LED OFF ");
+    digitalWrite(ledPingreen,LOW);
+    digitalWrite(ledPinyellow,LOW);
+    RGB(255,0,0);
   }
-  Serial.print("\n");
   delay(1000);
 
 }
 
-void flash(int n)
-{
-  for (int i = 0; i < n; i++)
-  {
-    digitalWrite(ledPin, HIGH);
-    delay(100);
-    digitalWrite(ledPin, LOW);
-    delay(100);
-  }
+void RGB(int r, int g, int b){
+
+  analogWrite(RED_PIN, r);
+  analogWrite(BLUE_PIN, g);
+  analogWrite(GREEN_PIN, b);
+  
+  
 }
