@@ -5,5 +5,6 @@ urlpatterns = [
     path('AndroidControl/', views.AndroidControl),
     path('getHomeInfo/', views.getHomeInfo),
     path('raspberry/', views.raspberry),
+    path('settings/', views.settings),
 
 ]

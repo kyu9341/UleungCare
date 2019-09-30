@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from .models import HomeInfo, AndroidRequested
+from .models import HomeInfo, AndroidRequested, Settings
 from django.http import JsonResponse
 from datetime import datetime
 import json
@@ -130,4 +130,22 @@ def raspberry(request):
         ar.airconTempUpDown = 0
         ar.save()
 
+        return JsonResponse(res_data)
+
+def settings(request):
+    if request.method == 'GET':
+        pass
+    elif request.method == 'POST':
+        andset = Settings.objects.order_by('id').last()
+
+
+        andset.ledRed = request.POST.get('ledRed', None)
+        andset.ledGreen = request.POST.get('ledGreen', None)
+        andset.ledBlue = request.POST.get('ledBlue', None)
+        andset.ledThreshold = request.POST.get('ledThreshold', None)
+        andset.airconThreshold = request.POST.get('airconThreshold', None)
+
+        andset.save()
+        res_data = {}
+        res_data['success'] = True
         return JsonResponse(res_data)

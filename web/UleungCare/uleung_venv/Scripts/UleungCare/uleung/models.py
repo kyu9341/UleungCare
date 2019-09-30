@@ -27,3 +27,15 @@ class AndroidRequested(models.Model):
         db_table = 'Uleung_androidRequested' # 테이블명 지정
         verbose_name = '안드로이드 요청 데이터'
         verbose_name_plural = '안드로이드 요청 데이터' # 복수형 표현도 설정
+
+class Settings(models.Model):
+    ledRed = models.IntegerField(verbose_name='led Red value') # LED RGB값
+    ledGreen = models.IntegerField(verbose_name='led green value')
+    ledBlue = models.IntegerField(verbose_name='led blue value')
+    airconThreshold = models.IntegerField(verbose_name='AirConditioner Temperature setting') # 에어컨 자동 온도 설정값
+    ledThreshold = models.IntegerField(verbose_name='LED light setting') # LED 자동 켜짐 조도 설정값
+
+    class Meta:
+        db_table = 'Uleung_settings' # 테이블명 지정
+        verbose_name = '안드로이드 setting 데이터'
+        verbose_name_plural = '안드로이드 setting 데이터' # 복수형 표현도 설정

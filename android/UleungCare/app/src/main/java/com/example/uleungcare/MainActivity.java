@@ -25,12 +25,13 @@ public class MainActivity extends AppCompatActivity {
     Button cctvButton;
     Button controllerButton;
     TextView temhumText;
+    Button newButton;
+    Button settingButton;
     float temperature; // 온도
-    float humidity; // 습도
     int airconTem; // 현재 에어컨 설정 온도
     String registered_dttm; // 측정시간
 
-    Button testButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,15 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
         cctvButton = (Button)findViewById(R.id.cctvButton);
         controllerButton = (Button)findViewById(R.id.controllerButton);
-        temhumText = (TextView)findViewById(R.id.temhumText);
-        testButton = (Button)findViewById(R.id.testButton);
+        newButton = (Button)findViewById(R.id.newButton);
+        settingButton = (Button)findViewById(R.id.settingButton);
 
-        new MainActivity.BackgroundTask().execute(); // 데이터베이스 연동
+        new MainActivity.BackgroundTask().execute(); // 데이터베이스 값 읽어오기
 
-        testButton.setOnClickListener(new View.OnClickListener() {
+        newButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new MainActivity.BackgroundTask().execute(); // 데이터베이스 값 읽어오기
             }
         });
 
@@ -71,7 +72,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        settingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
+
+
 
     class BackgroundTask extends AsyncTask<Void, Void, String>
     {
@@ -79,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute(){
-            target = "http://10.0.2.2:8000/uleung/getHomeInfo/";
+            target = "http://kyu9341.pythonanywhere.com/uleung/getHomeInfo/";
         }
 
         @Override
@@ -117,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonResponse = new JSONObject(result);
 
                 temperature = jsonResponse.getInt("temperature");
-                humidity = jsonResponse.getInt("humidity");
                 airconTem = jsonResponse.getInt("airconTem");
 
                 registered_dttm = jsonResponse.getString("registered_dttm");
@@ -136,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("airconTem = "+airconTem, "airconTem");
 
 
-                temhumText.setText("온도 : "+ temperature+", 습도 : "+humidity+"%");
+                temhumText.setText("온도 : "+ temperature);
 
 
             }catch (Exception e){
