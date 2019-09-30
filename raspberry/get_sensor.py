@@ -11,6 +11,3 @@ def get_data(ser):
         data = line.split(',')
         print(data)
 	return data
-	
-
-
