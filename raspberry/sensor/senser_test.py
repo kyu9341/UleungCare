@@ -7,15 +7,9 @@ ser.flushInput()
 
 while True:
 	line = ser.readline()
-	line = line.replace('\n','')
-	data =line.split(',')
-	print(data)
-	order = 'a'
+	line = line.replace('\r\n','')
+	line = line.split(',')
+	print(line)
 
-	if int(data[1])>600:
-		ser.write(order)
-	else:
-		ser.write(0)
-	#data = (0,0)
 
 
