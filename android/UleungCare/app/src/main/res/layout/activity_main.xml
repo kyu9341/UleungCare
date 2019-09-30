@@ -7,8 +7,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="온습도"
-        android:id="@+id/temhumText"
+        android:text="온도"
+        android:id="@+id/temText"
         android:textSize="30dp"
         android:gravity="center"
         />

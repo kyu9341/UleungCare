@@ -24,12 +24,12 @@ public class MainActivity extends AppCompatActivity {
 
     Button cctvButton;
     Button controllerButton;
-    TextView temhumText;
     Button newButton;
     Button settingButton;
     float temperature; // 온도
     int airconTem; // 현재 에어컨 설정 온도
     String registered_dttm; // 측정시간
+    TextView temText;
 
 
 
@@ -42,10 +42,11 @@ public class MainActivity extends AppCompatActivity {
         controllerButton = (Button)findViewById(R.id.controllerButton);
         newButton = (Button)findViewById(R.id.newButton);
         settingButton = (Button)findViewById(R.id.settingButton);
+        temText = (TextView)findViewById(R.id.temText);
 
         new MainActivity.BackgroundTask().execute(); // 데이터베이스 값 읽어오기
 
-        newButton.setOnClickListener(new View.OnClickListener() {
+        newButton.setOnClickListener(new View.OnClickListener() { // 새로고침
             @Override
             public void onClick(View v) {
                 new MainActivity.BackgroundTask().execute(); // 데이터베이스 값 읽어오기
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("airconTem = "+airconTem, "airconTem");
 
 
-                temhumText.setText("온도 : "+ temperature);
+                temText.setText("온도 : "+ temperature);
 
 
             }catch (Exception e){

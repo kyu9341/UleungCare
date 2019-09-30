@@ -64,9 +64,17 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        Log.e("ledRed => "+ led.Red, "ledRed => ");
-        Log.e("ledGreen => "+ led.Green, "ledGreen => ");
-        Log.e("ledBlue => "+ led.Blue, "ledBlue => ");
+        streamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new Led(300, 300, 300);
+            }
+        });
+
+
+//        Log.e("ledRed => "+ led.Red, "ledRed => ");
+//        Log.e("ledGreen => "+ led.Green, "ledGreen => ");
+//        Log.e("ledBlue => "+ led.Blue, "ledBlue => ");
 
 
     }
@@ -99,8 +107,6 @@ public class SettingActivity extends AppCompatActivity {
                                 .create();
                         dialog.show();
                     }
-                    String kind = jsonResponse.getString("kind");
-                    Log.e("kind => "+ kind, "kind => ");
 
 
                 } catch (Exception e) {
