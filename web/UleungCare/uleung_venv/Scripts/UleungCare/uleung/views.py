@@ -130,14 +130,27 @@ def raspberry(request):
         ar.airconTempUpDown = 0
         ar.save()
 
+        sett = Settings.objects.order_by('id').last() # 가장 최근의 튜플을 가져옴
+        res_data['ledRed'] = sett.ledRed
+        res_data['ledGreen'] = sett.ledGreen
+        res_data['ledBlue'] = sett.ledBlue
+        res_data['ledThreshold'] = sett.ledThreshold
+        res_data['airconThreshold'] = sett.airconThreshold
+
+
         return JsonResponse(res_data)
 
+@csrf_exempt
 def settings(request):
     if request.method == 'GET':
-        pass
+        settings_data = {}
+        sett = Settings.objects.order_by('id').last() # 가장 최근의 튜플을 가져옴
+        settings_data['ledRed'] = sett.ledRed
+
+        return JsonResponse(settings_data)
+
     elif request.method == 'POST':
         andset = Settings.objects.order_by('id').last()
-
 
         andset.ledRed = request.POST.get('ledRed', None)
         andset.ledGreen = request.POST.get('ledGreen', None)
