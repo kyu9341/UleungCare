@@ -41,7 +41,177 @@
         android:id="@+id/streamButton"
         android:background="#A45D5D"
         />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="사용자 설정 RGB : "
+
+            />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Red"
+            android:id="@+id/redValue"
+            android:layout_weight="1"
+            />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Green"
+            android:id="@+id/greenValue"
+            android:layout_weight="1"
+
+            />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Blue"
+            android:id="@+id/blueValue"
+            android:layout_weight="1"
+
+            />
+
+        <Button
+            android:id="@+id/colorInsert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="입력"
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="   "
+            android:id="@+id/colorView"
+            android:layout_weight="1"
+
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="에어컨 온도 설정"
+            android:layout_gravity="center"
+            android:textSize="15dp"
+            />
+        <RadioGroup
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/useGroup"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:layout_margin="10dp"
+            >
+            <RadioButton
+                android:id="@+id/useRadio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="사용"
+                android:layout_weight="1"
+                android:textSize="20dp"/>
+
+            <RadioButton
+                android:textSize="20dp"
+                android:id="@+id/useNotRadio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="사용 안함"
+                android:checked="true"
+                android:layout_weight="1" />
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="희망 온도 : "
+
+                />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/hopeTempText"
+                android:layout_weight="1"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="설정"
+                android:id="@+id/airTempButton"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="조도 단계"
+            android:layout_gravity="center"
+            android:gravity="center"
+            />
+
+        <RadioGroup
+            android:id="@+id/lightGroup"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1단계"
+                android:layout_weight="1"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2단계"
+                android:layout_weight="1"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3단계"
+                android:layout_weight="1"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4단계"
+                android:layout_weight="1"
+                />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5단계"
+                android:layout_weight="1"
+                />
+
+        </RadioGroup>
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="저장"
+        android:id="@+id/saveButton"
+
+        />
 
 
 </LinearLayout>

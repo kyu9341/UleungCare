@@ -1,12 +1,17 @@
 package com.example.uleungcare;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -22,14 +27,24 @@ import java.util.Map;
 
 public class SettingActivity extends AppCompatActivity {
 
-    Button redButton;
+    Button redButton; // LED조명 색 지정
     Button greenButton;
     Button blueButton;
     Button streamButton;
     private int ledThreshold = 0; // led가 켜지는 기준 조도
     private int airconThreshold = 0; // 에어컨이 켜지는 기준 온도
     private AlertDialog dialog; // 알림창
-    Led led;
+
+    EditText redValue; // 사용자 설정 rgb 값을 받을 text
+    EditText greenValue;
+    EditText blueValue;
+    Button colorInsert; // 사용자 설정 color 입력
+    TextView colorView; // color 확인
+    private int r = 255, g = 255, b = 255; // rgb
+    RadioGroup useGroup; // 에어컨 온도 설정 사용 or 사용x
+    RadioGroup lightGroup; // 현재 조도 상태에 따른 led사용 여부, 조도 단계설정
+   EditText hopeTempText; // 에어컨 희망 온도 설정
+    Button airTempButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,33 +56,105 @@ public class SettingActivity extends AppCompatActivity {
         blueButton = (Button)findViewById(R.id.blueButton);
         streamButton = (Button)findViewById(R.id.streamButton);
 
+        redValue = (EditText)findViewById(R.id.redValue);
+        greenValue = (EditText)findViewById(R.id.greenValue);
+        blueValue = (EditText)findViewById(R.id.blueValue);
+
+        colorInsert = (Button)findViewById(R.id.colorInsert);
+        colorView = (TextView)findViewById(R.id.colorView);
+
+        useGroup = (RadioGroup)findViewById(R.id.useGroup);
+        lightGroup = (RadioGroup)findViewById(R.id.lightGroup);
+
+        hopeTempText = (EditText)findViewById(R.id.hopeTempText);
+        airTempButton = (Button)findViewById(R.id.airTempButton);
+
+
+        hopeTempText.setEnabled(false);
+        airTempButton.setEnabled(false);
+        hopeTempText.setBackgroundColor(getResources().getColor(R.color.colorGray));
+        airTempButton.setBackgroundColor(getResources().getColor(R.color.colorGray));
 
 
         redButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Led(255, 0, 0);
-            }
+                r = 255;
+                g = 0;
+                b = 0;            }
         });
 
         greenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Led(0, 255, 0);
+                r = 0;
+                g = 255;
+                b = 0;
+
             }
         });
 
         blueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Led(0, 0, 255);
+                r = 0;
+                g = 0;
+                b = 255;
             }
         });
 
         streamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new Led(300, 300, 300);
+                r = 300;
+                g = 300;
+                b = 300;
+            }
+        });
+
+        colorInsert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                r = Integer.parseInt(redValue.getText().toString());
+                g = Integer.parseInt(greenValue.getText().toString());
+                b = Integer.parseInt(blueValue.getText().toString());
+
+                Log.e("r => "+ r, "r => ");
+                Log.e("g => "+ g, "g => ");
+                Log.e("b => "+ b, "b => ");
+                colorView.setBackgroundColor(Color.rgb(r, g, b));
+            }
+        });
+
+        useGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() { // 성별 라디오 버튼에 대한 이벤트처리
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton airuseButton = (RadioButton)findViewById(i); // 현재 선택된 라디오버튼 받아옴
+                if(airuseButton.getText().toString().equals("사용"))
+                {
+                    hopeTempText.setEnabled(true);
+                    airTempButton.setEnabled(true);
+                    hopeTempText.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+                    airTempButton.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+                }else{
+                    hopeTempText.setEnabled(false);
+                    airTempButton.setEnabled(false);
+                    hopeTempText.setBackgroundColor(getResources().getColor(R.color.colorGray));
+                    airTempButton.setBackgroundColor(getResources().getColor(R.color.colorGray));
+                    airconThreshold = 0;
+                }
+
+                Log.e("airconThreshold => "+ airconThreshold, "airconThreshold => ");
+
+            }
+        });
+
+        airTempButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                airconThreshold = Integer.parseInt(hopeTempText.getText().toString());
+                Log.e("airconThreshold => "+ airconThreshold, "airconThreshold => ");
+
             }
         });
 
@@ -130,9 +217,9 @@ public class SettingActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("ledRed", led.Red +"");
-                params.put("ledGreen", led.Green+"");
-                params.put("ledBlue", led.Blue+"");
+                params.put("ledRed", r +"");
+                params.put("ledGreen", g+"");
+                params.put("ledBlue", b+"");
                 params.put("ledThreshold", ledThreshold+"");
                 params.put("airconThreshold", airconThreshold+"");
 
