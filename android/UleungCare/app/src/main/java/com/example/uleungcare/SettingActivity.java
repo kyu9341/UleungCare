@@ -1,6 +1,7 @@
 package com.example.uleungcare;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
@@ -31,7 +33,7 @@ public class SettingActivity extends AppCompatActivity {
     Button greenButton;
     Button blueButton;
     Button streamButton;
-    private int ledThreshold = 0; // led가 켜지는 기준 조도
+    private int ledThreshold = 3; // led가 켜지는 기준 조도
     private int airconThreshold = 0; // 에어컨이 켜지는 기준 온도
     private AlertDialog dialog; // 알림창
 
@@ -43,14 +45,17 @@ public class SettingActivity extends AppCompatActivity {
     private int r = 255, g = 255, b = 255; // rgb
     RadioGroup useGroup; // 에어컨 온도 설정 사용 or 사용x
     RadioGroup lightGroup; // 현재 조도 상태에 따른 led사용 여부, 조도 단계설정
+    RadioButton step3Button;
    EditText hopeTempText; // 에어컨 희망 온도 설정
     Button airTempButton;
+    Button saveButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
+        saveButton = (Button)findViewById(R.id.saveButton);
         redButton = (Button)findViewById(R.id.redButton);
         greenButton = (Button)findViewById(R.id.greenButton);
         blueButton = (Button)findViewById(R.id.blueButton);
@@ -65,11 +70,12 @@ public class SettingActivity extends AppCompatActivity {
 
         useGroup = (RadioGroup)findViewById(R.id.useGroup);
         lightGroup = (RadioGroup)findViewById(R.id.lightGroup);
+        step3Button = (RadioButton)findViewById(R.id.step3Button);
 
         hopeTempText = (EditText)findViewById(R.id.hopeTempText);
         airTempButton = (Button)findViewById(R.id.airTempButton);
 
-
+        step3Button.setChecked(true);
         hopeTempText.setEnabled(false);
         airTempButton.setEnabled(false);
         hopeTempText.setBackgroundColor(getResources().getColor(R.color.colorGray));
@@ -81,7 +87,12 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 r = 255;
                 g = 0;
-                b = 0;            }
+                b = 0;
+                redValue.setText(r+"");
+                greenValue.setText(g+"");
+                blueValue.setText(b+"");
+                colorView.setBackgroundColor(Color.rgb(r, g, b));
+            }
         });
 
         greenButton.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +101,10 @@ public class SettingActivity extends AppCompatActivity {
                 r = 0;
                 g = 255;
                 b = 0;
-
+                redValue.setText(r+"");
+                greenValue.setText(g+"");
+                blueValue.setText(b+"");
+                colorView.setBackgroundColor(Color.rgb(r, g, b));
             }
         });
 
@@ -100,6 +114,10 @@ public class SettingActivity extends AppCompatActivity {
                 r = 0;
                 g = 0;
                 b = 255;
+                redValue.setText(r+"");
+                greenValue.setText(g+"");
+                blueValue.setText(b+"");
+                colorView.setBackgroundColor(Color.rgb(r, g, b));
             }
         });
 
@@ -109,6 +127,13 @@ public class SettingActivity extends AppCompatActivity {
                 r = 300;
                 g = 300;
                 b = 300;
+
+                redValue.setText(r+"");
+                greenValue.setText(g+"");
+                blueValue.setText(b+"");
+
+                colorView.setBackgroundColor(Color.rgb(r, g, b));
+
             }
         });
 
@@ -126,7 +151,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        useGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() { // 성별 라디오 버튼에 대한 이벤트처리
+        useGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 RadioButton airuseButton = (RadioButton)findViewById(i); // 현재 선택된 라디오버튼 받아옴
@@ -158,16 +183,43 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        lightGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() { // 조도 라디오 버튼에 대한 이벤트처리
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
 
-//        Log.e("ledRed => "+ led.Red, "ledRed => ");
-//        Log.e("ledGreen => "+ led.Green, "ledGreen => ");
-//        Log.e("ledBlue => "+ led.Blue, "ledBlue => ");
+                RadioButton lightButton = (RadioButton)findViewById(i); // 현재 선택된 라디오버튼 받아옴
+                String light = lightButton.getText().toString();
+
+                ledThreshold = Integer.parseInt(light.substring(0, 1));
+                Log.e("light => "+ light, "light => ");
+                Log.e("ledThreshold => "+ ledThreshold, "ledThreshold => ");
+
+            }
+        });
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendRequest();
+                finish();
+
+
+            }
+        });
+
+
+
+        if(AppHelper.requestQueue == null){
+            //리퀘스트큐 생성 (MainActivit가 메모리에서 만들어질 때 같이 생성이 될것이다.
+            AppHelper.requestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
 
 
     }
 
     public void sendRequest(){
-        String url = "http://kyu9341.pythonanywhere.com/uleung/settings/";
+   //     String url = "http://kyu9341.pythonanywhere.com/uleung/settings/";
+        String url = "http://10.0.2.2:8000/uleung/settings/";
 
         //StringRequest를 만듬 (파라미터구분을 쉽게하기위해 엔터를 쳐서 구분하면 좋다)
         //StringRequest는 요청객체중 하나이며 가장 많이 쓰인다고한다.
@@ -187,6 +239,11 @@ public class SettingActivity extends AppCompatActivity {
                                 .setPositiveButton("확인", null)
                                 .create();
                         dialog.show();
+                        Log.e("airconThreshold => "+ airconThreshold, "airconThreshold => ");
+                        Log.e("ledRed => "+ r, "ledRed => ");
+                        Log.e("ledGreen => "+ g, "ledGreen => ");
+                        Log.e("ledBlue => "+ b, "ledBlue => ");
+                        Log.e("ledThreshold => "+ ledThreshold, "ledThreshold => ");
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
                         dialog = builder.setMessage("전송 실패.")
@@ -197,6 +254,7 @@ public class SettingActivity extends AppCompatActivity {
 
 
                 } catch (Exception e) {
+
                     e.printStackTrace();
                 }
 
@@ -205,7 +263,11 @@ public class SettingActivity extends AppCompatActivity {
                 new Response.ErrorListener(){ //에러발생시 호출될 리스너 객체
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        Log.e("airconThreshold => "+ airconThreshold, "airconThreshold => ");
+                        Log.e("ledRed => "+ r, "ledRed => ");
+                        Log.e("ledGreen => "+ g, "ledGreen => ");
+                        Log.e("ledBlue => "+ b, "ledBlue => ");
+                        Log.e("ledThreshold => "+ ledThreshold, "ledThreshold => ");
                         Log.e("에러 => "+ error.getMessage(), "에러 => ");
                     }
                 }
@@ -246,6 +308,16 @@ public class SettingActivity extends AppCompatActivity {
         request.setShouldCache(false);
         AppHelper.requestQueue.add(request);
 
+
+    }
+    @Override
+    protected void onStop(){ //
+        super.onStop();
+        if(dialog != null)
+        {
+            dialog.dismiss();
+            dialog = null;
+        }
 
     }
 

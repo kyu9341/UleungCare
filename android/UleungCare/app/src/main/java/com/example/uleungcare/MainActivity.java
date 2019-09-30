@@ -92,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPreExecute(){
             target = "http://kyu9341.pythonanywhere.com/uleung/getHomeInfo/";
+
+
         }
 
         @Override
