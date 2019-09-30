@@ -41,7 +41,7 @@ SECRET_KEY = get_secret("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.0.2.2', 'localhost', '127.0.0.1','ec2-3-19-32-29.us-east-2.compute.amazonaws.com', ' kyu9341.pythonanywhere.com']
+ALLOWED_HOSTS = ['10.0.2.2', 'localhost', '127.0.0.1', 'kyu9341.pythonanywhere.com']
 
 # Application definition
 
