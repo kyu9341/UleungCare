@@ -13,7 +13,7 @@ class AndroidRequestedAdmin(admin.ModelAdmin):
     list_display = ('id', 'tvOnOff', 'airconOnOff', 'airconTempUpDown', 'tvChUpDown', 'tvVolUpDown') # user list 사용자명과 비밀번호를 확인할 수 있도록 구성
 
 class SettingsAdmin(admin.ModelAdmin):
-    list_display = ('ledRed', 'ledGreen', 'ledBlue', 'ledThreshold', 'airconThreshold')
+    list_display = ('id', 'ledRed', 'ledGreen', 'ledBlue', 'ledThreshold', 'airconThreshold')
 #
 admin.site.register(Settings, SettingsAdmin)
 admin.site.register(HomeInfo, HomeInfoAdmin) # 등록
