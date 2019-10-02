@@ -112,7 +112,8 @@ def main():
 			ser.write('1\n')
 			for i in range(0,3):
 				ser.write(str(rgb_led[i]))
-				time.sleep(0.3)
+				ser.write('\n')
+				##time.sleep(0.3)
 
 
 
