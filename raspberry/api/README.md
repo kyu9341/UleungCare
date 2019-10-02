@@ -113,6 +113,10 @@ $ source env/bin/activate
 
 *단,위의 방법은 한글은 지원하지 않습니다.
 
+(env) $ googlesamples-assistant-pushtotalk  --lang ko-KR
+
+> 위의 명령어를 사용하여 한글로 pushtotalk를 실행할수있습니다.
+
 
 
 
