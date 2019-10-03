@@ -7,6 +7,7 @@ class HomeInfo(models.Model):
     temperature = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='온도')
     light = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='조도')
     registered_dttm = models.DateTimeField(auto_now_add=True, verbose_name='측정시간')
+    cctvURL = models.TextField(verbose_name="CCTV URL")
 
     airconTem = models.IntegerField(verbose_name='현재 에어컨 설정 온도')
 
