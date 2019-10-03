@@ -184,11 +184,7 @@ public class ControllerActivity extends AppCompatActivity {
 
                                 Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
                             } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(ControllerActivity.this);
-                                dialog = builder.setMessage("전송 실패.")
-                                        .setNegativeButton("확인", null)
-                                        .create();
-                                dialog.show();
+                                Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_SHORT).show();
                             }
                             String kind = jsonResponse.getString("kind");
                             Log.e("kind => "+ kind, "kind => ");
