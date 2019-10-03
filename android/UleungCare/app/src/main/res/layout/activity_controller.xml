@@ -3,62 +3,96 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
->
+    android:background="@drawable/blue"
+    >
 
     <Button
+        android:elevation="2dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TV 전원"
         android:id="@+id/tvonButton"
+        android:background="@drawable/button"
         />
 
     <Button
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="에어컨 전원"
         android:id="@+id/airconOnButton"
+        android:background="@drawable/button"
         />
 
     <Button
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="에어컨 온도 up"
         android:id="@+id/airUpButton"
+        android:background="@drawable/button"
         />
 
     <Button
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="에어컨 온도 down"
         android:id="@+id/airDownButton"
+        android:background="@drawable/button"
         />
 
     <Button
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TV 채널 up"
         android:id="@+id/tvChUpButton"
+        android:background="@drawable/button"
         />
 
     <Button
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TV 채널 down"
         android:id="@+id/tvChDownButton"
+        android:background="@drawable/button"
         />
 
     <Button
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TV 음량 up"
         android:id="@+id/tvVolUpButton"
+        android:background="@drawable/button"
         />
 
     <Button
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="TV 음량 down"
         android:id="@+id/tvVolDownButton"
+        android:background="@drawable/button"
         />
 
 </LinearLayout>

@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     int airconTem; // 현재 에어컨 설정 온도
     String registered_dttm; // 측정시간
     TextView temText;
+    String cctvURL;
 
 
 
@@ -59,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
 //                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.naver.com/"));
-
-                Intent intent = new Intent(getApplicationContext(), CCTVActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CCTVActivity.class);  // 메인 액티비티로 넘어감
+                intent.putExtra("cctvURL", cctvURL);
                 startActivity(intent);
             }
         });
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
 
                 temperature = jsonResponse.getInt("temperature");
                 airconTem = jsonResponse.getInt("airconTem");
-
+                cctvURL = jsonResponse.getString("cctvURL");
                 registered_dttm = jsonResponse.getString("registered_dttm");
 /*
                 JSONObject jsonObject = new JSONObject(result); // 응답 부분 처리
@@ -147,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.e("temperature = "+temperature, "temperature");
                 Log.e("airconTem = "+airconTem, "airconTem");
+                Log.e("cctvURL = "+cctvURL, "cctvURL");
 
 
                 temText.setText("온도 : "+ temperature);

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -47,7 +48,7 @@ public class ControllerActivity extends AppCompatActivity {
     Button tvVolDownButton;
     Button tvChUpButton;
     Button tvChDownButton;
-
+    String toastMessage; // 서버에 전송 후 출력할 toast메시지
 
     private AlertDialog dialog; // 알림창
 
@@ -74,8 +75,10 @@ public class ControllerActivity extends AppCompatActivity {
 
                 if(tvOnOff == 0){ // 꺼짐 상태인 0 인경우
                     tvOnOff = 1;
+                    toastMessage = "TV ON";
                 }else{ // tv가 켜진경우
                     tvOnOff = 0;
+                    toastMessage = "TV OFF";
                 }
                 sendRequest();
             }
@@ -86,8 +89,10 @@ public class ControllerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(airconOnOff == 0){ // 꺼짐 상태인 0 인경우
                     airconOnOff = 1;
+                    toastMessage = "에어컨 ON";
                 }else{ // 에어컨이 켜진경우
                     airconOnOff = 0;
+                    toastMessage = "에어컨 OFF";
                 }
                 sendRequest();
             }
@@ -99,6 +104,8 @@ public class ControllerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 airconTempUpDown++; // 에어컨 온도 1 up
                 sendRequest();
+                toastMessage = "에어컨 온도 UP";
+
             }
         });
 
@@ -107,6 +114,7 @@ public class ControllerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 airconTempUpDown--; // 에어컨 온도 1 down
                 sendRequest();
+                toastMessage = "에어컨 온도 DOWN";
             }
         });
 
@@ -114,7 +122,9 @@ public class ControllerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tvChUpDown ++; // TV 채널 1 up
+                toastMessage = "TV 채널 UP";
                 sendRequest();
+
             }
         });
 
@@ -122,6 +132,7 @@ public class ControllerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tvChUpDown --; // TV 채널 1 down
+                toastMessage = "TV 채널 DOWN";
                 sendRequest();
             }
         });
@@ -130,6 +141,7 @@ public class ControllerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tvVolUpDown++; // TV 음량 1 up
+                toastMessage = "TV 음량 UP";
                 sendRequest();
             }
         });
@@ -138,6 +150,7 @@ public class ControllerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 tvVolUpDown = -1; // TV 음량 1 down
+                toastMessage = "TV 음량 DOWN";
                 sendRequest();
             }
         });
@@ -168,11 +181,8 @@ public class ControllerActivity extends AppCompatActivity {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
                             if (success) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(ControllerActivity.this);
-                                dialog = builder.setMessage("전송 성공.")
-                                        .setPositiveButton("확인", null)
-                                        .create();
-                                dialog.show();
+
+                                Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(ControllerActivity.this);
                                 dialog = builder.setMessage("전송 실패.")

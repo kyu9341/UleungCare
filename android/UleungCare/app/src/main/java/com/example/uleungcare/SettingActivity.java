@@ -1,6 +1,7 @@
 package com.example.uleungcare;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
@@ -32,7 +33,6 @@ public class SettingActivity extends AppCompatActivity {
     Button redButton; // LED조명 색 지정
     Button greenButton;
     Button blueButton;
-    Button streamButton;
     private int ledThreshold = 3; // led가 켜지는 기준 조도
     private int airconThreshold = 0; // 에어컨이 켜지는 기준 온도
     private AlertDialog dialog; // 알림창
@@ -47,8 +47,10 @@ public class SettingActivity extends AppCompatActivity {
     RadioGroup lightGroup; // 현재 조도 상태에 따른 led사용 여부, 조도 단계설정
     RadioButton step3Button;
    EditText hopeTempText; // 에어컨 희망 온도 설정
-    Button airTempButton;
     Button saveButton;
+    RadioButton useRadio;
+    RadioButton useNotRadio;
+    boolean colorCheck = false; // led 색깔 입력 확인
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +61,6 @@ public class SettingActivity extends AppCompatActivity {
         redButton = (Button)findViewById(R.id.redButton);
         greenButton = (Button)findViewById(R.id.greenButton);
         blueButton = (Button)findViewById(R.id.blueButton);
-        streamButton = (Button)findViewById(R.id.streamButton);
 
         redValue = (EditText)findViewById(R.id.redValue);
         greenValue = (EditText)findViewById(R.id.greenValue);
@@ -71,15 +72,14 @@ public class SettingActivity extends AppCompatActivity {
         useGroup = (RadioGroup)findViewById(R.id.useGroup);
         lightGroup = (RadioGroup)findViewById(R.id.lightGroup);
         step3Button = (RadioButton)findViewById(R.id.step3Button);
+        useRadio = (RadioButton)findViewById(R.id.useRadio);
+        useNotRadio = (RadioButton)findViewById(R.id.useNotRadio);
 
         hopeTempText = (EditText)findViewById(R.id.hopeTempText);
-        airTempButton = (Button)findViewById(R.id.airTempButton);
 
         step3Button.setChecked(true);
         hopeTempText.setEnabled(false);
-        airTempButton.setEnabled(false);
         hopeTempText.setBackgroundColor(getResources().getColor(R.color.colorGray));
-        airTempButton.setBackgroundColor(getResources().getColor(R.color.colorGray));
 
 
         redButton.setOnClickListener(new View.OnClickListener() {
@@ -121,33 +121,39 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        streamButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                r = 300;
-                g = 300;
-                b = 300;
-
-                redValue.setText(r+"");
-                greenValue.setText(g+"");
-                blueValue.setText(b+"");
-
-                colorView.setBackgroundColor(Color.rgb(r, g, b));
-
-            }
-        });
 
         colorInsert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                r = Integer.parseInt(redValue.getText().toString());
-                g = Integer.parseInt(greenValue.getText().toString());
-                b = Integer.parseInt(blueValue.getText().toString());
 
-                Log.e("r => "+ r, "r => ");
-                Log.e("g => "+ g, "g => ");
-                Log.e("b => "+ b, "b => ");
-                colorView.setBackgroundColor(Color.rgb(r, g, b));
+                if(redValue.getText().toString().equals("") || greenValue.getText().toString().equals("") || blueValue.getText().toString().equals(""))
+                {
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
+                    dialog = builder.setMessage("모든 값을 입력해주세요.")
+                            .setNegativeButton("확인", null)
+                            .create();
+                    dialog.show();
+                 }else if(Integer.parseInt(redValue.getText().toString()) > 255 || Integer.parseInt(greenValue.getText().toString()) > 255 || Integer.parseInt(blueValue.getText().toString()) >255)
+                 {
+                     AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
+                     dialog = builder.setMessage("255이하의 정수만 입력해주세요.")
+                             .setNegativeButton("확인", null)
+                             .create();
+                     dialog.show();
+                }else
+                {
+                    r = Integer.parseInt(redValue.getText().toString());
+                    g = Integer.parseInt(greenValue.getText().toString());
+                    b = Integer.parseInt(blueValue.getText().toString());
+
+                    Log.e("r => "+ r, "r => ");
+                    Log.e("g => "+ g, "g => ");
+                    Log.e("b => "+ b, "b => ");
+                    colorView.setBackgroundColor(Color.rgb(r, g, b));
+
+
+                }
             }
         });
 
@@ -158,14 +164,11 @@ public class SettingActivity extends AppCompatActivity {
                 if(airuseButton.getText().toString().equals("사용"))
                 {
                     hopeTempText.setEnabled(true);
-                    airTempButton.setEnabled(true);
                     hopeTempText.setBackgroundColor(getResources().getColor(R.color.colorWhite));
-                    airTempButton.setBackgroundColor(getResources().getColor(R.color.colorWhite));
+
                 }else{
                     hopeTempText.setEnabled(false);
-                    airTempButton.setEnabled(false);
                     hopeTempText.setBackgroundColor(getResources().getColor(R.color.colorGray));
-                    airTempButton.setBackgroundColor(getResources().getColor(R.color.colorGray));
                     airconThreshold = 0;
                 }
 
@@ -174,14 +177,7 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
-        airTempButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                airconThreshold = Integer.parseInt(hopeTempText.getText().toString());
-                Log.e("airconThreshold => "+ airconThreshold, "airconThreshold => ");
 
-            }
-        });
 
         lightGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() { // 조도 라디오 버튼에 대한 이벤트처리
             @Override
@@ -200,8 +196,43 @@ public class SettingActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendRequest();
-                finish();
+                if(redValue.getText().toString().equals("") || greenValue.getText().toString().equals("") || blueValue.getText().toString().equals("")){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
+                    dialog = builder.setMessage("LED 색을 지정해주세요.")
+                            .setNegativeButton("확인", null)
+                            .create();
+                    dialog.show();
+                }else {
+
+
+                    if (hopeTempText.getText().toString().equals("") && useRadio.isChecked()) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
+                        dialog = builder.setMessage("에어컨 설정값을 입력해주세요.")
+                                .setNegativeButton("확인", null)
+                                .create();
+                        dialog.show();
+                    } else {
+                        if (useNotRadio.isChecked()) {
+                            airconThreshold = 0;
+                            sendRequest();
+                        } else {
+                            if (Integer.parseInt(hopeTempText.getText().toString()) < 16 || Integer.parseInt(hopeTempText.getText().toString()) > 27) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
+                                dialog = builder.setMessage("16~27의 온도를 입력해주세요.")
+                                        .setNegativeButton("확인", null)
+                                        .create();
+                                dialog.show();
+                            } else {
+                                airconThreshold = Integer.parseInt(hopeTempText.getText().toString());
+                                Log.e("airconThreshold => " + airconThreshold, "airconThreshold => ");
+                                sendRequest();
+                            }
+
+                        }
+
+
+                    }
+                }
 
 
             }
@@ -236,9 +267,16 @@ public class SettingActivity extends AppCompatActivity {
                     if (success) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
                         dialog = builder.setMessage("전송 성공.")
-                                .setPositiveButton("확인", null)
+                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        finish();
+                                    }
+                                })
                                 .create();
                         dialog.show();
+
+
                         Log.e("airconThreshold => "+ airconThreshold, "airconThreshold => ");
                         Log.e("ledRed => "+ r, "ledRed => ");
                         Log.e("ledGreen => "+ g, "ledGreen => ");
