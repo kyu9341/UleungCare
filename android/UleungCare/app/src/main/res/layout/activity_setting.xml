@@ -107,7 +107,7 @@
 
     <LinearLayout
         android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -118,7 +118,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="에어컨 온도 설정"
-            android:textSize="15dp" />
+            android:textSize="20dp"
+            android:layout_margin="5dp"/>
 
         <RadioGroup
             android:id="@+id/useGroup"
@@ -154,14 +155,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="희망 온도 : "
-
+                android:textSize="20dp"
+                android:layout_weight="0.1"
                 />
 
             <EditText
                 android:id="@+id/hopeTempText"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_weight="5" />
 
 
         </LinearLayout>
@@ -171,7 +173,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="조도 단계" />
+            android:text="조도 단계"
+            android:textSize="20dp"
+            android:layout_margin="10dp"/>
 
         <RadioGroup
             android:id="@+id/lightGroup"
@@ -216,11 +220,14 @@
     </LinearLayout>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:text="저장"
+        android:textSize="20dp"
         android:id="@+id/saveButton"
-
+        android:background="@drawable/button"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
         />
 
 

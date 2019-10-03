@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("cctvURL = "+cctvURL, "cctvURL");
 
 
-                temText.setText("온도 : "+ temperature);
+                temText.setText("실내 온도 : "+ temperature);
 
 
             }catch (Exception e){
