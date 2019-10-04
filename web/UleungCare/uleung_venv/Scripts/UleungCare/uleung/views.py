@@ -94,7 +94,7 @@ def getHomeInfo(request):
         home_data['temperature'] = homeinfo.temperature
         home_data['registered_dttm'] = homeinfo.registered_dttm
         home_data['airconTem'] = homeinfo.airconTem
-
+        home_data['cctvURL'] = homeinfo.cctvURL
 
         return JsonResponse(home_data)
         #return HttpResponse(json.dumps(home_data), content_type="application/json")
@@ -110,11 +110,13 @@ def raspberry(request):
     elif request.method == 'POST':
         temperature = request.POST.get('temperature', None)
         light = request.POST.get('light', None)
+        cctvURL = request.POST.get('cctvURL', None)
 
         homeinfo = HomeInfo.objects.order_by('id').last()
         homeinfo.temperature = float(temperature)
         homeinfo.light = float(light)
         homeinfo.registered_dttm = datetime.now()
+        homeinfo.cctvURL = cctvURL
         homeinfo.save()
 
         res_data = {}

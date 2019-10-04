@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@drawable/blue"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,6 +12,8 @@
         android:id="@+id/temText"
         android:textSize="30dp"
         android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:layout_margin="20dp"
         />
 
     <Button
@@ -18,7 +21,10 @@
         android:layout_height="wrap_content"
         android:text="새로고침"
         android:id="@+id/newButton"
-
+        android:background="@drawable/button"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
         />
 
     <Button
@@ -26,7 +32,10 @@
         android:layout_height="wrap_content"
         android:text="CCTV"
         android:id="@+id/cctvButton"
-
+        android:background="@drawable/button"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
         />
 
     <Button
@@ -34,7 +43,10 @@
         android:layout_height="wrap_content"
         android:text="Controller"
         android:id="@+id/controllerButton"
-
+        android:background="@drawable/button"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
         />
 
     <Button
@@ -42,7 +54,10 @@
         android:layout_height="wrap_content"
         android:text="setting"
         android:id="@+id/settingButton"
-
+        android:background="@drawable/button"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="30dp"
         />
 
 
