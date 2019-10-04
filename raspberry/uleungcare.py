@@ -78,6 +78,12 @@ class Led():
 
 #remote_data = {'tvOnOff':0,'airconOnOff':0,'tvChUpDown':0,'tvVolUpDown':0,'airconTempUpDown':0,'airconThleshold':0,'ledRed':0,'ledGreen':0,'ledBlue':0,'ledThleshold':0}
 
+def rgb_control(ser,rgb_led):
+	for i in range(0,3):
+		ser.write(str(rgb_led[i]))
+		ser.write('\n')
+
+
 def main():
 	while True:
 		try:
@@ -104,16 +110,32 @@ def main():
 
 		rgb_led = [new_remote_data["ledRed"],new_remote_data["ledGreen"],new_remote_data["ledBlue"]]
 
+		try:
 
-		if new_remote_data == past_remote_data:
-                        print("same")
-                else:
-                        print('no')
-			ser.write('1\n')
-			for i in range(0,3):
-				ser.write(str(rgb_led[i]))
-				ser.write('\n')
-				##time.sleep(0.3)
+			if new_remote_data == past_remote_data:
+	                        print("same")
+	                else:
+				print('data change')
+				ser.write('1\n')
+				rgb_control(ser,rgb_led)
+
+				if(new_remote_data["tvOnOff"] != past_remote_data["tvOnOff"]):
+					print("tv on off")
+
+				if(new_remote_data["airconOnOff"] != past_remote_data["airconOnOff"]):
+					print("air on off")
+
+				if(new_remote_data["tvChUpDown"] != past_remote_data["tvChUpDown"]):
+					print("tv ch up down")
+
+				if(new_remote_data["tvVolUpDown"] != past_remote_data["tvVolUpDown"]):
+					print("tv vol up down")
+
+				if(new_remote_data["airconTempUpDown"] != past_remote_data["airconTempUpDown"]):
+					print("aircon temp up down")
+		except:
+			print("no data")
+
 
 
 
@@ -123,21 +145,13 @@ def main():
 		#'ledGreen' 'ledBlue' 'ledThreshold'
 		#'airconThreshold'
 
-		rgb_led = [new_remote_data["ledRed"],new_remote_data["ledGreen"],new_remote_data["ledBlue"]]
 
 		for data in new_remote_data.items():
 			print(data)
 
 
-
-		#ser.write('1\n')
-		#for i in range(0,3):
-		#	ser.write(str(rgb_led[i]))
-			#time.sleep(1)
-		# print(remote_data) # ["tvOnOff"])
-
 		past_remote_data = new_remote_data
-	
+
 
 
 main()
