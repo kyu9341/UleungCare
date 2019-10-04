@@ -37,7 +37,7 @@ void setup() {
 }
 
 void loop() {
-  int i;
+  int i,r,g,b;
   decode_results  results;        // Somewhere to store the results
  
   int tmp = analogRead(tmp_sensor);
@@ -51,40 +51,42 @@ void loop() {
   Serial.print(celsius);
   Serial.print(",");
   Serial.print(light);
-  Serial.print(",");
-  Serial.print(Serial.available());
-  Serial.print(",");
-  if(Serial.available() == 0)
-    pi_say = 0;
-  else
-    pi_say = Serial.parseInt();
-  Serial.print(pi_say);
-  Serial.print("\n");
+  Serial.print("\n");//send data
 
-  if(pi_say == 10){
-    digitalWrite(ledPingreen,HIGH);
-    digitalWrite(ledPinyellow,LOW);
-    RGB(0,0,0);
+  
+  if(Serial.available()){
+    pi_say = Serial.parseInt();
+    if(pi_say <0 || pi_say>20)
+      digitalWrite(ledPingreen, HIGH);
+      
+    /*
+    if(pi_say == 1)
+      RGB(255,0,255);
+     else if(pi_say == 2)
+      RGB(0,255,255);
+     else if(pi_say == 3)
+      RGB(255,255,0);
+     */
+
+    if(pi_say == 1){
+       //delay(100);
+      r = Serial.parseInt();
+      g = Serial.parseInt();
+      b = Serial.parseInt();
+
+      RGB(r,g,b);
+    }
+    
   }
-  else if(pi_say == 1){
-    digitalWrite(ledPinyellow,HIGH);
-    digitalWrite(ledPingreen,LOW);
-    RGB(0,0,0);
-  }
-  else{
-    digitalWrite(ledPingreen,LOW);
-    digitalWrite(ledPinyellow,LOW);
-    RGB(255,0,0);
-  }
-  delay(1000);
+  delay(3000);
 
 }
 
 void RGB(int r, int g, int b){
 
   analogWrite(RED_PIN, r);
-  analogWrite(BLUE_PIN, g);
-  analogWrite(GREEN_PIN, b);
+  analogWrite(GREEN_PIN, g);
+  analogWrite(BLUE_PIN, b);
   
   
 }
