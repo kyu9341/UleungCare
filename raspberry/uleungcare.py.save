@@ -87,7 +87,7 @@ def main():
 			print('no device')
 			time.sleep(1)
 	home_obj = Home_info(0,0) ## home data obj 
-	past_remote_data = {}
+
 
 	while True:
 		data = sensor.get_data(ser) ## temperature, light
@@ -97,47 +97,26 @@ def main():
 			print('wait arduino')
 			continue
 
-		home_data = {'temperature':home_obj.get_temperature(),'light':home_obj.get_light(),'cctvURL':'http://192.168.0.1'}
+		home_data = {'temperature':home_obj.get_temperature(),'light':home_obj.get_light()}
 
 		rs = requests.post('http://kyu9341.pythonanywhere.com/uleung/raspberry/',data=home_data)
-		new_remote_data  = rs.json()
-
-		rgb_led = [new_remote_data["ledRed"],new_remote_data["ledGreen"],new_remote_data["ledBlue"]]
-
-
-		if new_remote_data == past_remote_data:
-                        print("same")
-                else:
-                        print('no')
-			ser.write('1\n')
-			for i in range(0,3):
-				ser.write(str(rgb_led[i]))
-				ser.write('\n')
-				##time.sleep(0.3)
-
-
-
+		remote_data  = rs.json()
 		# remote_data format 
 		#'tvOnOff' 'airconOnOff' 'tvChUpDown'
 		#'tvVolUpDown' 'airconTempUpDown' 'ledRed'
 		#'ledGreen' 'ledBlue' 'ledThreshold'
 		#'airconThreshold'
 
-		rgb_led = [new_remote_data["ledRed"],new_remote_data["ledGreen"],new_remote_data["ledBlue"]]
+		rgb_led = [remote_data["ledRed"],remote_data["ledGreen"],remote_data["ledBlue"]]
 
-		for data in new_remote_data.items():
-			print(data)
+		printremote_data:
 
+		ser.write('1\n')
 
-
-		#ser.write('1\n')
-		#for i in range(0,3):
-		#	ser.write(str(rgb_led[i]))
-			#time.sleep(1)
 		# print(remote_data) # ["tvOnOff"])
 
-		past_remote_data = new_remote_data
-	
+
+
 
 
 main()
