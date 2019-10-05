@@ -3,6 +3,7 @@ import control_device as condev
 import requests
 import json
 import time
+from datetime import datetime
 
 class Home_info():
     def __init__(self,temperature,light):
@@ -101,6 +102,7 @@ def main():
 	past_remote_data = {}
 
 	while True:
+		now = datetime.now()
 		data = sensor.get_data(ser) ## temperature, light
 		try:
 			home_obj.set_data(data[0],data[1])
@@ -113,7 +115,9 @@ def main():
 		rs = requests.post('http://kyu9341.pythonanywhere.com/uleung/raspberry/',data=home_data)
 		new_remote_data  = rs.json()
 
-		rgb_led = [new_remote_data["ledRed"],new_remote_data["ledGreen"],new_remote_data["ledBlue"]]
+		new_rgb_led = [new_remote_data["ledRed"],new_remote_data["ledGreen"],new_remote_data["ledBlue"]]
+
+		print(now)
 
 		try:
 
@@ -121,8 +125,10 @@ def main():
 	                        print("same")
 	                else:
 				print('data change')
-				ser.write('1\n')
-				rgb_control(ser,rgb_led)
+				if(new_rgb_led != past_rgb_led):
+					print("led change")
+					ser.write('1\n')
+					rgb_control(ser,new_rgb_led)
 
 				if(new_remote_data["tvOnOff"] != past_remote_data["tvOnOff"]):
 					print("tv on off")
@@ -138,24 +144,30 @@ def main():
 					print("tv ch up down")
 					ser.write('2\n')
 					if new_remote_data["tvChUpDown"] > 0:
+						print("up")
 						remote_control(ser,4)
 					elif new_remote_data["tvChUpDown"] <0:
+						print("down")
 						remote_control(ser,5)
 
 				if(new_remote_data["tvVolUpDown"] != past_remote_data["tvVolUpDown"]):
-					print("tv vol up down")
+					print("tv vol")
 					ser.write('2\n')
 					if new_remote_data["tvVolUpDown"] > 0:
+						print("up")
                                                 remote_control(ser,2)
                                         elif new_remote_data["tvVolUpDown"] <0:
+						print("down")
                                                 remote_control(ser,3)
 
 				if(new_remote_data["airconTempUpDown"] != past_remote_data["airconTempUpDown"]):
 					print("aircon temp up down")
 					ser.write('2\n')
 					if new_remote_data["airconTempUpDown"] > 0:
+						print("up")
                                                 remote_control(ser,7)
                                         elif new_remote_data["airconTempUpDown"] <0:
+						print("down")
                                                 remote_control(ser,8)
 
 		except:
@@ -176,7 +188,7 @@ def main():
 
 
 		past_remote_data = new_remote_data
-
+		past_rgb_led = new_rgb_led
 
 
 main()
