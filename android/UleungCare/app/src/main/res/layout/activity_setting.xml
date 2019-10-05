@@ -3,10 +3,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
  >
 
 
     <Button
+        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="red"
@@ -16,63 +18,72 @@
 
 
     <Button
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="green"
         android:id="@+id/greenButton"
-        android:background="#00FF00"
+        android:background="#1EF71E"
 
         />
 
 
     <Button
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="blue"
         android:id="@+id/blueButton"
-        android:background="#0000FF"
+        android:background="#3636FF"
         />
 
 
     <Button
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="stream"
         android:id="@+id/streamButton"
-        android:background="#A45D5D"
+        android:background="#BE21D3"
         />
+
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="사용자 설정 RGB : "
+            android:textColor="#000000"
 
             />
+
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Red"
             android:id="@+id/redValue"
-            android:layout_weight="1"
-            />
-        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Green"
-            android:id="@+id/greenValue"
             android:layout_weight="1"
+            android:hint="Red" />
+
+        <EditText
+            android:id="@+id/greenValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Green"
 
             />
+
         <EditText
+            android:id="@+id/blueValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Blue"
-            android:id="@+id/blueValue"
             android:layout_weight="1"
+            android:hint="Blue"
 
             />
 
@@ -80,127 +91,127 @@
             android:id="@+id/colorInsert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:background="@drawable/button"
             android:text="입력"
+            android:textSize="20dp"/>
 
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="   "
-            android:id="@+id/colorView"
-            android:layout_weight="1"
-
-            />
 
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="vertical"
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="에어컨 온도 설정"
             android:layout_gravity="center"
-            android:textSize="15dp"
-            />
+            android:text="에어컨 온도 설정"
+            android:textSize="20dp"
+            android:textColor="#000000"/>
+
         <RadioGroup
+            android:id="@+id/useGroup"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
-            android:id="@+id/useGroup"
             android:layout_gravity="center_horizontal"
-            android:orientation="horizontal"
             android:layout_margin="10dp"
-            >
+            android:orientation="horizontal">
+
             <RadioButton
                 android:id="@+id/useRadio"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="사용"
                 android:layout_weight="1"
-                android:textSize="20dp"/>
+                android:text="사용"
+                android:textSize="20dp" />
 
             <RadioButton
-                android:textSize="20dp"
                 android:id="@+id/useNotRadio"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="사용 안함"
+                android:layout_weight="1"
                 android:checked="true"
-                android:layout_weight="1" />
+                android:text="사용 안함"
+                android:textSize="20dp" />
         </RadioGroup>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="희망 온도 : "
-
+                android:textColor="#000000"
                 />
+
             <EditText
+                android:id="@+id/hopeTempText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/hopeTempText"
                 android:layout_weight="1"
-                />
+                android:textColor="#000000"/>
+
             <Button
+                android:id="@+id/airTempButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="설정"
-                android:id="@+id/airTempButton"
-                />
+                android:textColor="#000000"/>
 
         </LinearLayout>
 
         <TextView
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="조도 단계"
             android:layout_gravity="center"
             android:gravity="center"
-            />
+            android:text="조도 단계"
+            android:textColor="#000000"/>
 
         <RadioGroup
             android:id="@+id/lightGroup"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1단계"
                 android:layout_weight="1"
-                />
+                android:text="1단계" />
+
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2단계"
                 android:layout_weight="1"
-                />
+                android:text="2단계" />
+
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3단계"
                 android:layout_weight="1"
-                />
+                android:text="3단계" />
+
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4단계"
                 android:layout_weight="1"
-                />
+                android:text="4단계" />
+
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5단계"
                 android:layout_weight="1"
-                />
+                android:text="5단계" />
 
         </RadioGroup>
-
 
 
     </LinearLayout>
@@ -213,5 +224,11 @@
 
         />
 
+<ImageView
+    android:layout_marginTop="20dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/set_back"
+    android:layout_gravity="right"
 
 </LinearLayout>

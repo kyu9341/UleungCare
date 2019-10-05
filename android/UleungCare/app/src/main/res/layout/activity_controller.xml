@@ -1,64 +1,193 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
->
+    android:background="@drawable/blue2">
 
-    <Button
-        android:layout_width="match_parent"
+
+
+        <ImageButton
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/power"
+            android:id="@+id/tvonButton"
+            android:layout_alignParentLeft="true"
+            android:background="#00FFFFFF"
+            />
+
+<RelativeLayout
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="25dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TV 전원"
-        android:id="@+id/tvonButton"
-        />
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/remote_sanil" />
 
-    <Button
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:background="@drawable/button2"
+        android:layout_alignParentLeft="true"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="에어컨 전원"
-        android:id="@+id/airconOnButton"
-        />
+        >
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="에어컨 온도 up"
-        android:id="@+id/airUpButton"
-        />
+        <ImageButton
+            android:id="@+id/tvChUpButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:src="@drawable/arrow_up"
+            android:text="TV 채널 up"
+            android:layout_marginBottom="3dp"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2.5dp"
+            android:background="#81FFFFFF" />
+        <ImageButton
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TV 채널 down"
+            android:id="@+id/tvChDownButton"
+            android:src="@drawable/arrow_down"
+            android:background="#00FFFFFF"
+            />
+    </LinearLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="에어컨 온도 down"
-        android:id="@+id/airDownButton"
-        />
+<LinearLayout
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TV 채널 up"
-        android:id="@+id/tvChUpButton"
-        />
+    android:background="@drawable/button2"
+    android:layout_marginRight="20dp"
+    android:layout_alignParentRight="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="3dp">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TV 채널 down"
-        android:id="@+id/tvChDownButton"
-        />
-
-    <Button
-        android:layout_width="match_parent"
+    <ImageButton
+        android:src="@drawable/plus"
+        android:background="#00FFFFFF"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TV 음량 up"
         android:id="@+id/tvVolUpButton"
+        android:layout_marginBottom="3dp"
         />
-
-    <Button
+    <View
         android:layout_width="match_parent"
+        android:layout_height="2.5dp"
+        android:background="#81FFFFFF" />
+    <ImageButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TV 음량 down"
         android:id="@+id/tvVolDownButton"
+        android:src="@drawable/minus"
+        android:background="#00FFFFFF"
         />
+
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="2.5dp"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginRight="5dp"
+        android:background="#81FFFFFF" />
+
+<RelativeLayout
+    android:layout_marginTop="30dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/aircon"
+        />
+
+    <ImageButton
+        android:id="@+id/airconOnButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="#00FFFFFF"
+        android:src="@drawable/power" />
+
+
+</RelativeLayout>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    >
+
+    <LinearLayout
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button2"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/airUpButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="3dp"
+            android:background="#00ffffff"
+            android:src="@drawable/plus"
+            android:text="에어컨 온도 up" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2.5dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="3dp"
+            android:background="#81FFFFFF" />
+
+        <ImageButton
+            android:id="@+id/airDownButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#00ffffff"
+            android:src="@drawable/minus"
+            android:text="에어컨 온도 down" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+
 
 </LinearLayout>
