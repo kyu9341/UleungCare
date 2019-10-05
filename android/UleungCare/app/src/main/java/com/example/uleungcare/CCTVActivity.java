@@ -24,7 +24,7 @@ public class CCTVActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         cctvURL = intent.getStringExtra("cctvURL"); // 로그인한 사용자의 닉네임을 받아옴
-
+        cctvURL += "/stream_simple.html";
         // 웹뷰 셋팅
         mWebView = (WebView) findViewById(R.id.webView);//xml 자바코드 연결
         mWebView.getSettings().setJavaScriptEnabled(true);//자바스크립트 허용
