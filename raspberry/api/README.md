@@ -103,6 +103,8 @@ $ source env/bin/activate
 
 ## 4 구글 API 실행해보기
 
+$ source env/bin/activate
+
 (env) $ googlesamples-assistant-pushtotalk --project-id 프로젝트ID --device-model-id 모델ID
 
 > enter를 누르며 대화하는 방식
