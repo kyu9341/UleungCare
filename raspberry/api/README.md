@@ -103,6 +103,8 @@ $ source env/bin/activate
 
 ## 4 구글 API 실행해보기
 
+$ source env/bin/activate
+
 (env) $ googlesamples-assistant-pushtotalk --project-id 프로젝트ID --device-model-id 모델ID
 
 > enter를 누르며 대화하는 방식
@@ -113,13 +115,21 @@ $ source env/bin/activate
 
 *단,위의 방법은 한글은 지원하지 않습니다.
 
+<<<<<<< HEAD
 (env) $ googlesamples-assistant-pushtotalk  --lang ko-KR
 
 > 위의 명령어를 사용하여 한글로 pushtotalk를 실행할수있습니다.
 
+=======
+(env) $ cd assistant-sdk-python/google-assistant-sdk/googlesamples/assistant/grpc
+(env) $ nano pushtotalk.py
+>>>>>>> e96729e6a93a8900ed3a5652e5bcf83608d0c60d
 
+> 위의 명령어를 사용하면 pushtotalk의 설정을 수정하는것이 가능하다
 
+(env) $ googlesamples-assistant-pushtotalk  --lang ko-KR
 
+> 위의 명령어를 사용하면 한글로 pushtotalk를 사용할수있다.
 
 
 
