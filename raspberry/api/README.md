@@ -113,9 +113,14 @@ $ source env/bin/activate
 
 *단,위의 방법은 한글은 지원하지 않습니다.
 
+(env) $ cd assistant-sdk-python/google-assistant-sdk/googlesamples/assistant/grpc
+(env) $ nano pushtotalk.py
 
+> 위의 명령어를 사용하면 pushtotalk의 설정을 수정하는것이 가능하다
 
+(env) $ googlesamples-assistant-pushtotalk  --lang ko-KR
 
+> 위의 명령어를 사용하면 한글로 pushtotalk를 사용할수있다.
 
 
 
