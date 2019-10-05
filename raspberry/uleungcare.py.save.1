@@ -82,7 +82,6 @@ def rgb_control(ser,rgb_led):
 	for i in range(0,3):
 		ser.write(str(rgb_led[i]))
 		ser.write('\n')
-
 def remote_control(ser,order):
 	ser.write(str(order))
 	ser.write('\n')
@@ -126,38 +125,18 @@ def main():
 
 				if(new_remote_data["tvOnOff"] != past_remote_data["tvOnOff"]):
 					print("tv on off")
-					ser.write('2\n')
-					remote_control(ser,1)
 
 				if(new_remote_data["airconOnOff"] != past_remote_data["airconOnOff"]):
 					print("air on off")
-					ser.write('2\n')
-                                        remote_control(ser,6)
 
 				if(new_remote_data["tvChUpDown"] != past_remote_data["tvChUpDown"]):
 					print("tv ch up down")
-					ser.write('2\n')
-					if new_remote_data["tvChUpDown"] > 0:
-						remote_control(ser,4)
-					elif new_remote_data["tvChUpDown"] <0:
-						remote_control(ser,5)
 
 				if(new_remote_data["tvVolUpDown"] != past_remote_data["tvVolUpDown"]):
 					print("tv vol up down")
-					ser.write('2\n')
-					if new_remote_data["tvVolUpDown"] > 0:
-                                                remote_control(ser,2)
-                                        elif new_remote_data["tvVolUpDown"] <0:
-                                                remote_control(ser,3)
 
 				if(new_remote_data["airconTempUpDown"] != past_remote_data["airconTempUpDown"]):
 					print("aircon temp up down")
-					ser.write('2\n')
-					if new_remote_data["airconTempUpDown"] > 0:
-                                                remote_control(ser,7)
-                                        elif new_remote_data["airconTempUpDown"] <0:
-                                                remote_control(ser,8)
-
 		except:
 			print("no data")
 
