@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text="온도"
         android:id="@+id/temText"
-        android:textSize="50dp"
+        android:textSize="40dp"
         android:gravity="center"
         android:textColor="#FFFFFF"
         android:layout_margin="20dp"
@@ -31,9 +31,7 @@
         android:layout_alignParentRight="true"
         android:background="#00FFFFFF"
         android:id="@+id/newButton"
-        android:layout_marginRight="30dp"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="30dp"
         />
 </RelativeLayout>
 
