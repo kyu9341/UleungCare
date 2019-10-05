@@ -1,64 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="@drawable/blue"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/blue2">
 
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginTop="20dp"
+    >
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="온도"
         android:id="@+id/temText"
-        android:textSize="30dp"
+        android:textSize="40dp"
         android:gravity="center"
         android:textColor="#FFFFFF"
         android:layout_margin="20dp"
+        android:layout_centerHorizontal="true"
         />
 
-    <Button
-        android:layout_width="match_parent"
+    <ImageButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="새로고침"
+        android:src="@drawable/reset"
+        android:layout_alignParentRight="true"
+        android:background="#00FFFFFF"
         android:id="@+id/newButton"
-        android:background="@drawable/button"
-        android:layout_marginRight="30dp"
         android:layout_marginTop="15dp"
-        android:layout_marginLeft="30dp"
         />
+</RelativeLayout>
 
-    <Button
+<LinearLayout
+    android:layout_gravity="center"
+    android:layout_marginTop="30dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="CCTV"
+        android:src="@drawable/cctv"
+        android:background="#00ffffff"
         android:id="@+id/cctvButton"
-        android:background="@drawable/button"
         android:layout_marginRight="30dp"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="30dp"
+
         />
 
-    <Button
+    <ImageButton
+        android:layout_marginTop="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:src="@drawable/remote"
+        android:background="#00ffffff"
         android:text="Controller"
         android:id="@+id/controllerButton"
-        android:background="@drawable/button"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="30dp"
         />
 
-    <Button
+    <ImageButton
+        android:layout_marginTop="40dp"
+        android:background="#00ffffff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="setting"
+        android:src="@drawable/setting"
         android:id="@+id/settingButton"
-        android:background="@drawable/button"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="30dp"
         />
+
+</LinearLayout>
+
 
 
 </LinearLayout>

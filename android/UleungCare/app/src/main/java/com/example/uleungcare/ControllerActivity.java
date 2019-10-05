@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -40,14 +41,14 @@ public class ControllerActivity extends AppCompatActivity {
     private int tvVolUpDown = 0; //TV 볼륨 up down
 
 
-    Button tvonButton;
-    Button airconOnButton;
-    Button airUpButton;
-    Button airDownButton;
-    Button tvVolUpButton;
-    Button tvVolDownButton;
-    Button tvChUpButton;
-    Button tvChDownButton;
+    ImageButton tvonButton;
+    ImageButton airconOnButton;
+    ImageButton airUpButton;
+    ImageButton airDownButton;
+    ImageButton tvVolUpButton;
+    ImageButton tvVolDownButton;
+    ImageButton tvChUpButton;
+    ImageButton tvChDownButton;
     String toastMessage; // 서버에 전송 후 출력할 toast메시지
 
     private AlertDialog dialog; // 알림창
@@ -58,14 +59,14 @@ public class ControllerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_controller);
 
-        tvonButton = (Button)findViewById(R.id.tvonButton);
-        airconOnButton = (Button)findViewById(R.id.airconOnButton);
-        airUpButton = (Button)findViewById(R.id.airUpButton);
-        airDownButton = (Button)findViewById(R.id.airDownButton);
-        tvChUpButton = (Button)findViewById(R.id.tvChUpButton);
-        tvChDownButton = (Button)findViewById(R.id.tvChDownButton);
-        tvVolUpButton = (Button)findViewById(R.id.tvVolUpButton);
-        tvVolDownButton = (Button)findViewById(R.id.tvVolDownButton);
+        tvonButton = (ImageButton)findViewById(R.id.tvonButton);
+        airconOnButton = (ImageButton)findViewById(R.id.airconOnButton);
+        airUpButton = (ImageButton)findViewById(R.id.airUpButton);
+        airDownButton = (ImageButton)findViewById(R.id.airDownButton);
+        tvChUpButton = (ImageButton)findViewById(R.id.tvChUpButton);
+        tvChDownButton = (ImageButton)findViewById(R.id.tvChDownButton);
+        tvVolUpButton = (ImageButton)findViewById(R.id.tvVolUpButton);
+        tvVolDownButton = (ImageButton)findViewById(R.id.tvVolDownButton);
 
 
 
