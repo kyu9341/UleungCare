@@ -16,8 +16,8 @@ int light_sensor = A1;
 
 const int ledPingreen = 8;
 const int ledPinyellow = 9;
-//const int RED_PIN =7, GREEN_PIN= 6, BLUE_PIN = 5;
-const int RED_PIN =12, GREEN_PIN= 11, BLUE_PIN = 10;
+const int RED_PIN =7, GREEN_PIN= 6, BLUE_PIN = 5;
+//const int RED_PIN =12, GREEN_PIN= 11, BLUE_PIN = 10;
 void setup() {
   Serial.begin(9600);
 
@@ -151,7 +151,7 @@ void loop() {
     pi_say = Serial.parseInt();
 
     if(pi_say == 1){
-       //delay(100);
+       delay(100);
       r = Serial.parseInt();
       g = Serial.parseInt();
       b = Serial.parseInt();

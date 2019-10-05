@@ -15,7 +15,7 @@ int light_sensor = A1;
 
 const int ledPingreen = 8;
 const int ledPinyellow = 9;
-const int RED_PIN =4, GREEN_PIN= 3, BLUE_PIN = 2;
+const int RED_PIN =7, GREEN_PIN= 6, BLUE_PIN = 5;
 
 void setup() {
   Serial.begin(9600);
