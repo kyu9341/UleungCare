@@ -15,7 +15,7 @@ int light_sensor = A1;
 
 const int ledPingreen = 8;
 const int ledPinyellow = 9;
-const int RED_PIN =12, GREEN_PIN= 11, BLUE_PIN = 10;
+const int RED_PIN =4, GREEN_PIN= 3, BLUE_PIN = 2;
 
 void setup() {
   Serial.begin(9600);
@@ -44,9 +44,9 @@ void loop() {
   int light = analogRead(light_sensor);
   int pi_say;
   
-  float voltage = tmp * 5000.0/1024.0; // 온도센서 값을 전압으로 변환
-  float celsius = (voltage - 500) / 10.0; // 전압을 온도로 변환
-
+  //float voltage = tmp * 5000.0/1024.0; // 온도센서 값을 전압으로 변환
+  //float celsius = (voltage - 500) / 10.0; // 전압을 온도로 변환
+  float celsius = (5.0*tmp*100.0)/1024.0;
    
   Serial.print(celsius);
   Serial.print(",");
@@ -78,7 +78,7 @@ void loop() {
     }
     
   }
-  delay(3000);
+  delay(1000);
 
 }
 
