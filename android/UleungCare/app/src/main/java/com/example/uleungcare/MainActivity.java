@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -22,10 +23,10 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button cctvButton;
-    Button controllerButton;
-    Button newButton;
-    Button settingButton;
+    ImageButton cctvButton;
+    ImageButton controllerButton;
+    ImageButton newButton;
+    ImageButton settingButton;
     float temperature; // 온도
     int airconTem; // 현재 에어컨 설정 온도
     String registered_dttm; // 측정시간
@@ -39,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cctvButton = (Button)findViewById(R.id.cctvButton);
-        controllerButton = (Button)findViewById(R.id.controllerButton);
-        newButton = (Button)findViewById(R.id.newButton);
-        settingButton = (Button)findViewById(R.id.settingButton);
+        cctvButton = (ImageButton)findViewById(R.id.cctvButton);
+        controllerButton = (ImageButton)findViewById(R.id.controllerButton);
+        newButton = (ImageButton)findViewById(R.id.newButton);
+        settingButton = (ImageButton)findViewById(R.id.settingButton);
         temText = (TextView)findViewById(R.id.temText);
 
         new MainActivity.BackgroundTask().execute(); // 데이터베이스 값 읽어오기
