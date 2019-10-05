@@ -104,13 +104,14 @@ def main():
 	while True:
 		now = datetime.now()
 		data = sensor.get_data(ser) ## temperature, light
+		#data[1] /=10
 		try:
 			home_obj.set_data(data[0],data[1])
 		except:
 			print('wait arduino')
 			continue
 
-		home_data = {'temperature':home_obj.get_temperature(),'light':home_obj.get_light(),'cctvURL':'http://192.168.0.1'}
+		home_data = {'temperature':home_obj.get_temperature(),'light':home_obj.get_light(),'cctvURL':'http://192.168.0.146:8091'}
 
 		rs = requests.post('http://kyu9341.pythonanywhere.com/uleung/raspberry/',data=home_data)
 		new_remote_data  = rs.json()
@@ -170,13 +171,46 @@ def main():
 						print("down")
                                                 remote_control(ser,8)
 
+
+			#'temperature':home_obj.get_temperature(),'light':home_obj.get_light()
+
+			if(new_remote_data["ledThreshold"] != 0 ):
+				if((new_remote_data["ledThreshold"] == 1) and (home_obj.get_light()<800)):
+					ser.write('1\n')
+                                        rgb_control(ser,[0,0,0])
+
+				elif((new_remote_data["ledThreshold"] == 2) and (home_obj.get_light()<650)):
+					ser.write('1\n')
+                                        rgb_control(ser,[0,0,0])
+
+				elif((new_remote_data["ledThreshold"] == 3) and (home_obj.get_light()<500)):
+					ser.write('1\n')
+                                        rgb_control(ser,[0,0,0])
+
+				elif((new_remote_data["ledThreshold"] == 4) and (home_obj.get_light()<350)):
+					ser.write('1\n')
+                                        rgb_control(ser,[0,0,0])
+
+				elif((new_remote_data["ledThreshold"] == 5) and (home_obj.get_light()<200)):
+					ser.write('1\n')
+                                        rgb_control(ser,[0,0,0])
+
+
+
+
+			if(new_remote_data["airconThreshold"] != 0 ):
+				if(home_obj.get_temperature()>new_remote_data["airconThreshold"]):
+					remote_control(ser,7)
+				elif(home_obj.get_temperature()<new_remote_data["airconThreshold"]):
+					remote_control(ser,8)
+
 		except:
 			print("no data")
 
 
 
 
-		# remote_data format 
+		# remote_data format
 		#'tvOnOff' 'airconOnOff' 'tvChUpDown'
 		#'tvVolUpDown' 'airconTempUpDown' 'ledRed'
 		#'ledGreen' 'ledBlue' 'ledThreshold'
