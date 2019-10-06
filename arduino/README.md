@@ -10,5 +10,21 @@
 
 ### IR receiver  
 
-![IRrecv](https://github.com/wjrmffldrhrl/UleungCare/blob/master/arduino/IRrecever.JPG)
+![IRrecv](/images/IRrecv.jpg)
+
+### IR transmitter  
+
+![IRtrans](/images/IRtrans.jpg)  
+
+### 조도센서  
+
+![light](/images/light.jpg)  
+
+### 온도센서  
+
+![temp](/images/temp.jpg)  
+
+### RGB LED  
+
+![rgb](/images/rgb.png)  
 
