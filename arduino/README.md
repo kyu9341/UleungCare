@@ -1,6 +1,6 @@
 # 아두이노  
 
-![RedBoard](https://github.com/wjrmffldrhrl/UleungCare/blob/master/arduino/RedBoard.jpg)
+![RedBoard](https://github.com/wjrmffldrhrl/UleungCare/blob/master/arduino/arduino.jpg)
 
 ## 목적  
 
