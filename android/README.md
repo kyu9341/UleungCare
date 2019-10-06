@@ -11,5 +11,5 @@ Uleung_care
 
 ------------------------
 
-![Alt text](UleungCare/images/main.jpg "main")
+![main](./images/main.jpg)
 
