@@ -73,30 +73,17 @@ def AndroidControl(request):
  #       return HttpResponse(json.dumps(res_data), content_type="application/json")
    #     return JsonResponse({"success" : True}) #
 
-'''
-
-        androidrequested = AndroidRequested( # 모델에서 생성한 클래스를 가져와 객체를 생성
-            tvOnOff=int(tvOnOff),
-            airconOnOff=int(airconOnOff),
-            airconTempUpDown=int(airconTempUpDown),
-            tvVolUpDown=int(tvVolUpDown),
-            tvChUpDown=int(tvChUpDown),
-
-        )
-
-        androidrequested.save() # 데이터베이스에 저장'''
 
 def getHomeInfo(request):
     if request.method == 'GET':
         homeinfo = HomeInfo.objects.order_by('id').last()
 
-        home_data = {}
+        home_data = {} # HomeInfo 테이블의 데이터를 응답하기 위한 딕셔너리
         home_data['temperature'] = homeinfo.temperature
         home_data['registered_dttm'] = homeinfo.registered_dttm
-        home_data['airconTem'] = homeinfo.airconTem
         home_data['cctvURL'] = homeinfo.cctvURL
 
-        return JsonResponse(home_data)
+        return JsonResponse(home_data) # json으로 응답
         #return HttpResponse(json.dumps(home_data), content_type="application/json")
         #return render(request, 'uleung/getHomeInfo.html', json.dumps(home_data))
     elif request.method == 'POST':
@@ -108,16 +95,16 @@ def raspberry(request):
         return HttpResponse("raspberry")
 
     elif request.method == 'POST':
-        temperature = request.POST.get('temperature', None)
+        temperature = request.POST.get('temperature', None) # 라즈베리파이로부터 수신받은 데이터
         light = request.POST.get('light', None)
         cctvURL = request.POST.get('cctvURL', None)
 
-        homeinfo = HomeInfo.objects.order_by('id').last()
+        homeinfo = HomeInfo.objects.order_by('id').last() # 마지막 튜플을 가져와 업데이트
         homeinfo.temperature = float(temperature)
         homeinfo.light = float(light)
         homeinfo.registered_dttm = datetime.now()
         homeinfo.cctvURL = cctvURL
-        homeinfo.save()
+        homeinfo.save() # 데이터베이스에 저장
 
         res_data = {}
         ar = AndroidRequested.objects.order_by('id').last()
@@ -140,7 +127,7 @@ def raspberry(request):
         res_data['airconThreshold'] = sett.airconThreshold
 
 
-        return JsonResponse(res_data)
+        return JsonResponse(res_data) # 안드로이드에 응답
 
 @csrf_exempt
 def settings(request):
@@ -152,15 +139,15 @@ def settings(request):
         return JsonResponse(settings_data)
 
     elif request.method == 'POST':
-        andset = Settings.objects.order_by('id').last()
+        andset = Settings.objects.order_by('id').last() # 가장 최근의 튜플을 가져옴
 
-        andset.ledRed = request.POST.get('ledRed', None)
+        andset.ledRed = request.POST.get('ledRed', None) # 각 데이터 업데이트
         andset.ledGreen = request.POST.get('ledGreen', None)
         andset.ledBlue = request.POST.get('ledBlue', None)
         andset.ledThreshold = request.POST.get('ledThreshold', None)
         andset.airconThreshold = request.POST.get('airconThreshold', None)
 
-        andset.save()
+        andset.save() # 데이터베이스에 저장
         res_data = {}
         res_data['success'] = True
-        return JsonResponse(res_data)
+        return JsonResponse(res_data) # 안드로이드에 정상적으로 처리되었음을 응답
