@@ -1,4 +1,4 @@
-# 우렁케어(UleungCare) 웹 서버
+# 우렁케어(UleungCare) Web Server
 
 ## 개요
 파이썬 웹 프레임 워크인 Django를 사용하여 구동되며 안드로이드와 라즈베리파이를 연결해주는 역할을 수행.
