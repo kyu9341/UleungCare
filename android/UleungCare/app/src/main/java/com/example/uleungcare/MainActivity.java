@@ -23,15 +23,15 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton cctvButton;
-    ImageButton controllerButton;
-    ImageButton newButton;
-    ImageButton settingButton;
+    ImageButton cctvButton; // cctv화면으로 이동
+    ImageButton controllerButton; // 리모컨 화면으로 이동
+    ImageButton newButton; // 새로고침
+    ImageButton settingButton; // 세팅화면으로 이동
     float temperature; // 온도
     int airconTem; // 현재 에어컨 설정 온도
     String registered_dttm; // 측정시간
-    TextView temText;
-    String cctvURL;
+    TextView temText; // 현재 집 내부온도 출력
+    String cctvURL; // 서버로부터 cctv를 확인할 수 있는 url을 응답받아 저장할 변수
 
 
 
@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        cctvButton = (ImageButton)findViewById(R.id.cctvButton);
+        cctvButton = (ImageButton)findViewById(R.id.cctvButton); // 각 버튼 및 텍스트뷰 가져옴
         controllerButton = (ImageButton)findViewById(R.id.controllerButton);
         newButton = (ImageButton)findViewById(R.id.newButton);
         settingButton = (ImageButton)findViewById(R.id.settingButton);
@@ -62,9 +62,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.naver.com/"));
-                Intent intent = new Intent(getApplicationContext(), CCTVActivity.class);  // 메인 액티비티로 넘어감
-                intent.putExtra("cctvURL", cctvURL);
+                Intent intent = new Intent(getApplicationContext(), CCTVActivity.class);  // CCTV 액티비티로 넘어감
+                intent.putExtra("cctvURL", cctvURL); // cctvURL 같이 넘겨줌
                 startActivity(intent);
             }
         });
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         controllerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ControllerActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ControllerActivity.class); // 리모컨 액티비티로 이동
                 startActivity(intent);
             }
         });
@@ -80,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SettingActivity.class); // 세팅화면으로 이동
                 startActivity(intent);
             }
         });
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute(){
-            target = "http://kyu9341.pythonanywhere.com/uleung/getHomeInfo/";
+            target = "http://kyu9341.pythonanywhere.com/uleung/getHomeInfo/"; // 라즈베리파이에서 측정한 HomeData를 받아올 url
 
 
         }
@@ -134,28 +133,12 @@ public class MainActivity extends AppCompatActivity {
             try{
                 JSONObject jsonResponse = new JSONObject(result);
 
-                temperature = jsonResponse.getInt("temperature");
-                airconTem = jsonResponse.getInt("airconTem");
-                cctvURL = jsonResponse.getString("cctvURL");
-                registered_dttm = jsonResponse.getString("registered_dttm");
-/*
-                JSONObject jsonObject = new JSONObject(result); // 응답 부분 처리
-                JSONArray jsonArray = jsonObject.getJSONArray("home_data");
-
-                JSONObject object = jsonArray.getJSONObject(0); // 현재 배열의 원소값
-
-                temperature = object.getInt("temperature");
-                humidity = object.getInt("humidity");
-                registered_dttm = object.getString("registered_dttm");
-*/
-
-                Log.e("temperature = "+temperature, "temperature");
-                Log.e("airconTem = "+airconTem, "airconTem");
-                Log.e("cctvURL = "+cctvURL, "cctvURL");
+                temperature = jsonResponse.getInt("temperature"); // 서버로부터 집 내부온도 받아와 저장
+                cctvURL = jsonResponse.getString("cctvURL"); // 서버로부터 cctvURL을 받아옴
+                registered_dttm = jsonResponse.getString("registered_dttm"); // 데이터 저장 시간
 
 
-                temText.setText("실내 온도 : "+ temperature);
-
+                temText.setText("실내 온도 : "+ temperature); // 받아온 내부온도 출력
 
             }catch (Exception e){
                 e.printStackTrace();

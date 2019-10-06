@@ -47,9 +47,9 @@ public class SettingActivity extends AppCompatActivity {
     RadioGroup lightGroup; // 현재 조도 상태에 따른 led사용 여부, 조도 단계설정
     RadioButton step3Button;
    EditText hopeTempText; // 에어컨 희망 온도 설정
-    Button saveButton;
-    RadioButton useRadio;
-    RadioButton useNotRadio;
+    Button saveButton; // 저장 버튼
+    RadioButton useRadio; // 사용 라디오 버튼
+    RadioButton useNotRadio; // 사용 안함 라디오 버튼
     boolean colorCheck = false; // led 색깔 입력 확인
 
     @Override
@@ -57,7 +57,7 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        saveButton = (Button)findViewById(R.id.saveButton);
+        saveButton = (Button)findViewById(R.id.saveButton); // 각 버튼을 가져옴
         redButton = (Button)findViewById(R.id.redButton);
         greenButton = (Button)findViewById(R.id.greenButton);
         blueButton = (Button)findViewById(R.id.blueButton);
@@ -78,13 +78,13 @@ public class SettingActivity extends AppCompatActivity {
         hopeTempText = (EditText)findViewById(R.id.hopeTempText);
 
         step3Button.setChecked(true);
-        hopeTempText.setEnabled(false);
+        hopeTempText.setEnabled(false); // 초기 입력불가능하도록 설정
         hopeTempText.setBackgroundColor(getResources().getColor(R.color.colorGray));
 
 
         redButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { // LED 색깔 설정
                 r = 255;
                 g = 0;
                 b = 0;
@@ -124,9 +124,9 @@ public class SettingActivity extends AppCompatActivity {
 
         colorInsert.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { // 사용자 지정 색깔 입력 버튼
 
-                if(redValue.getText().toString().equals("") || greenValue.getText().toString().equals("") || blueValue.getText().toString().equals(""))
+                if(redValue.getText().toString().equals("") || greenValue.getText().toString().equals("") || blueValue.getText().toString().equals("")) // 값이 하나라도 없는 경우 예외처리
                 {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
@@ -134,7 +134,7 @@ public class SettingActivity extends AppCompatActivity {
                             .setNegativeButton("확인", null)
                             .create();
                     dialog.show();
-                 }else if(Integer.parseInt(redValue.getText().toString()) > 255 || Integer.parseInt(greenValue.getText().toString()) > 255 || Integer.parseInt(blueValue.getText().toString()) >255)
+                 }else if(Integer.parseInt(redValue.getText().toString()) > 255 || Integer.parseInt(greenValue.getText().toString()) > 255 || Integer.parseInt(blueValue.getText().toString()) >255) // 255를 넘는경우 예외처리
                  {
                      AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
                      dialog = builder.setMessage("255이하의 정수만 입력해주세요.")
@@ -150,7 +150,7 @@ public class SettingActivity extends AppCompatActivity {
                     Log.e("r => "+ r, "r => ");
                     Log.e("g => "+ g, "g => ");
                     Log.e("b => "+ b, "b => ");
-                    colorView.setBackgroundColor(Color.rgb(r, g, b));
+                    colorView.setBackgroundColor(Color.rgb(r, g, b)); // 선택한 색깔 출력
 
 
                 }
@@ -161,18 +161,16 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 RadioButton airuseButton = (RadioButton)findViewById(i); // 현재 선택된 라디오버튼 받아옴
-                if(airuseButton.getText().toString().equals("사용"))
+                if(airuseButton.getText().toString().equals("사용")) // 사용버튼에 선택된 경우 입력가능하도록 변경
                 {
                     hopeTempText.setEnabled(true);
                     hopeTempText.setBackgroundColor(getResources().getColor(R.color.colorWhite));
 
-                }else{
+                }else{ // 사용 안함 버튼에 선택된 경우 입력 불가능하도록 설정
                     hopeTempText.setEnabled(false);
                     hopeTempText.setBackgroundColor(getResources().getColor(R.color.colorGray));
                     airconThreshold = 0;
                 }
-
-                Log.e("airconThreshold => "+ airconThreshold, "airconThreshold => ");
 
             }
         });
@@ -186,7 +184,7 @@ public class SettingActivity extends AppCompatActivity {
                 RadioButton lightButton = (RadioButton)findViewById(i); // 현재 선택된 라디오버튼 받아옴
                 String light = lightButton.getText().toString();
 
-                ledThreshold = Integer.parseInt(light.substring(0, 1));
+                ledThreshold = Integer.parseInt(light.substring(0, 1)); // 선택된 단계의 숫자만 정수형으로 변환하여 저장
                 Log.e("light => "+ light, "light => ");
                 Log.e("ledThreshold => "+ ledThreshold, "ledThreshold => ");
 
@@ -195,17 +193,15 @@ public class SettingActivity extends AppCompatActivity {
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if(redValue.getText().toString().equals("") || greenValue.getText().toString().equals("") || blueValue.getText().toString().equals("")){
+            public void onClick(View v) { // 저장 버튼 리스너
+                if(redValue.getText().toString().equals("") || greenValue.getText().toString().equals("") || blueValue.getText().toString().equals("")){ // 색깔이 입력안된경우 예외처리
                     AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
                     dialog = builder.setMessage("LED 색을 지정해주세요.")
                             .setNegativeButton("확인", null)
                             .create();
                     dialog.show();
                 }else {
-
-
-                    if (hopeTempText.getText().toString().equals("") && useRadio.isChecked()) {
+                    if (hopeTempText.getText().toString().equals("") && useRadio.isChecked()) { // 에어컨 온도 자동조절을 사용한다고 하였으나 값을 입력하지 않은경우 예외처리
                         AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
                         dialog = builder.setMessage("에어컨 설정값을 입력해주세요.")
                                 .setNegativeButton("확인", null)
@@ -216,7 +212,7 @@ public class SettingActivity extends AppCompatActivity {
                             airconThreshold = 0;
                             sendRequest();
                         } else {
-                            if (Integer.parseInt(hopeTempText.getText().toString()) < 16 || Integer.parseInt(hopeTempText.getText().toString()) > 27) {
+                            if (Integer.parseInt(hopeTempText.getText().toString()) < 16 || Integer.parseInt(hopeTempText.getText().toString()) > 27) { // 에어컨 가용온도 초과시 예외처리
                                 AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
                                 dialog = builder.setMessage("16~27의 온도를 입력해주세요.")
                                         .setNegativeButton("확인", null)
@@ -249,8 +245,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     public void sendRequest(){
-        String url = "http://kyu9341.pythonanywhere.com/uleung/settings/";
- //       String url = "http://10.0.2.2:8000/uleung/settings/";
+        String url = "http://kyu9341.pythonanywhere.com/uleung/settings/"; // 세팅 테이블이 있는 url
 
         //StringRequest를 만듬 (파라미터구분을 쉽게하기위해 엔터를 쳐서 구분하면 좋다)
         //StringRequest는 요청객체중 하나이며 가장 많이 쓰인다고한다.
@@ -267,7 +262,7 @@ public class SettingActivity extends AppCompatActivity {
                     if (success) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
                         dialog = builder.setMessage("전송 성공.")
-                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                .setPositiveButton("확인", new DialogInterface.OnClickListener() { // 확인버튼을 누른경우 finish
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         finish();
@@ -276,12 +271,6 @@ public class SettingActivity extends AppCompatActivity {
                                 .create();
                         dialog.show();
 
-
-                        Log.e("airconThreshold => "+ airconThreshold, "airconThreshold => ");
-                        Log.e("ledRed => "+ r, "ledRed => ");
-                        Log.e("ledGreen => "+ g, "ledGreen => ");
-                        Log.e("ledBlue => "+ b, "ledBlue => ");
-                        Log.e("ledThreshold => "+ ledThreshold, "ledThreshold => ");
                     } else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(SettingActivity.this);
                         dialog = builder.setMessage("전송 실패.")
@@ -301,11 +290,7 @@ public class SettingActivity extends AppCompatActivity {
                 new Response.ErrorListener(){ //에러발생시 호출될 리스너 객체
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.e("airconThreshold => "+ airconThreshold, "airconThreshold => ");
-                        Log.e("ledRed => "+ r, "ledRed => ");
-                        Log.e("ledGreen => "+ g, "ledGreen => ");
-                        Log.e("ledBlue => "+ b, "ledBlue => ");
-                        Log.e("ledThreshold => "+ ledThreshold, "ledThreshold => ");
+
                         Log.e("에러 => "+ error.getMessage(), "에러 => ");
                     }
                 }
@@ -317,7 +302,7 @@ public class SettingActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("ledRed", r +"");
+                params.put("ledRed", r +""); // 각 값들을 키값에 담아 서버에 전송
                 params.put("ledGreen", g+"");
                 params.put("ledBlue", b+"");
                 params.put("ledThreshold", ledThreshold+"");

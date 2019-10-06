@@ -41,25 +41,24 @@ public class ControllerActivity extends AppCompatActivity {
     private int tvVolUpDown = 0; //TV 볼륨 up down
 
 
-    ImageButton tvonButton;
-    ImageButton airconOnButton;
-    ImageButton airUpButton;
-    ImageButton airDownButton;
-    ImageButton tvVolUpButton;
-    ImageButton tvVolDownButton;
-    ImageButton tvChUpButton;
-    ImageButton tvChDownButton;
-    String toastMessage; // 서버에 전송 후 출력할 toast메시지
+    ImageButton tvonButton; // tvOnOff 버튼
+    ImageButton airconOnButton; // 에어컨 OnOff 버튼
+    ImageButton airUpButton; // 에어컨 온도 up 버튼
+    ImageButton airDownButton; // 에어컨 온도 down 버튼
+    ImageButton tvVolUpButton; // tv 음량 up 버튼
+    ImageButton tvVolDownButton; // tv 음량 down 버튼
+    ImageButton tvChUpButton;  // tv 채널 up 버튼
+    ImageButton tvChDownButton;  // tv 채널 down 버튼튼    String toastMessage; // 서버에 전송 후 출력할 toast메시지
 
     private AlertDialog dialog; // 알림창
-
+    String toastMessage; // 눌린 버튼에 따른 toast 메세지 출력
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_controller);
 
-        tvonButton = (ImageButton)findViewById(R.id.tvonButton);
+        tvonButton = (ImageButton)findViewById(R.id.tvonButton); // 각 버튼을 읽어옴
         airconOnButton = (ImageButton)findViewById(R.id.airconOnButton);
         airUpButton = (ImageButton)findViewById(R.id.airUpButton);
         airDownButton = (ImageButton)findViewById(R.id.airDownButton);
@@ -81,7 +80,7 @@ public class ControllerActivity extends AppCompatActivity {
                     tvOnOff = 0;
                     toastMessage = "TV OFF";
                 }
-                sendRequest();
+                sendRequest(); // 서버에 전송
             }
         });
 
@@ -166,7 +165,7 @@ public class ControllerActivity extends AppCompatActivity {
 
     }
 
-    public void sendRequest(){
+    public void sendRequest(){ // 데이터를 서버에 전송하는 함수 - 각 버튼에 대한 정보를 한 번에 전송
         String url = "http://kyu9341.pythonanywhere.com/uleung/AndroidControl/";
 
         //StringRequest를 만듬 (파라미터구분을 쉽게하기위해 엔터를 쳐서 구분하면 좋다)
@@ -181,21 +180,15 @@ public class ControllerActivity extends AppCompatActivity {
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
-                            if (success) {
+                            if (success) {// 서버로부터의 json응답이 success인 경우(전송이 정상적으로 이루어진 경우)
 
-                                Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), toastMessage, Toast.LENGTH_SHORT).show(); // 서버에 전송이 성공한 경우 해당 토스트메시지 출력
                             } else {
                                 Toast.makeText(getApplicationContext(), "전송 실패", Toast.LENGTH_SHORT).show();
                             }
                             String kind = jsonResponse.getString("kind");
-                            Log.e("kind => "+ kind, "kind => ");
 
-                            Log.e("tvVolUpDown => "+ tvVolUpDown, "tvVolUpDown ");
-                            Log.e("tvChUpDown => "+ tvChUpDown, "tvChUpDown ");
-                            Log.e("airconTempUpDown => "+ airconTempUpDown, "airconTempUpDown ");
-                            Log.e("tvOnOff => "+ tvOnOff, "tvOnOff ");
-                            Log.e("airconOnOff => "+ airconOnOff, "airconOnOff ");
-                            if(kind != ""){
+                            if(kind != ""){ // 서버의 응답에 따른 각 변수 초기화
                                 if(kind.equals("temperature-")){
                                     airconTempUpDown--; // 서버에 전송 후 초기화
                                 }else if(kind.equals("temperature+")){
@@ -214,13 +207,6 @@ public class ControllerActivity extends AppCompatActivity {
                                     tvVolUpDown++;
                                 }
                             }
-
-                            Log.e("tvVolUpDown => "+ tvVolUpDown, "tvVolUpDown ");
-                            Log.e("tvChUpDown => "+ tvChUpDown, "tvChUpDown ");
-                            Log.e("airconTempUpDown => "+ airconTempUpDown, "airconTempUpDown ");
-                            Log.e("tvOnOff => "+ tvOnOff, "tvOnOff ");
-                            Log.e("airconOnOff => "+ airconOnOff, "airconOnOff ");
-
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -243,7 +229,7 @@ public class ControllerActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("tvOnOff", tvOnOff+"");
+                params.put("tvOnOff", tvOnOff+""); // tvOnOff 정보를 "tvOnOff"라는 키 값에 담아 서버로 전송
                 params.put("airconOnOff", airconOnOff+"");
                 params.put("airconTempUpDown", airconTempUpDown+"");
                 params.put("tvChUpDown", tvChUpDown+"");
@@ -255,14 +241,6 @@ public class ControllerActivity extends AppCompatActivity {
 
             }
 
-/*
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                return headers;
-            }
-            */
         };
 
         //아래 add코드처럼 넣어줄때 Volley라고하는게 내부에서 캐싱을 해준다, 즉, 한번 보내고 받은 응답결과가 있으면

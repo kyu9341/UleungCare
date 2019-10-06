@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text="온도"
         android:id="@+id/temText"
-        android:textSize="40dp"
+        android:textSize="30dp"
         android:gravity="center"
         android:textColor="#FFFFFF"
         android:layout_margin="20dp"
@@ -25,14 +25,16 @@
         />
 
     <ImageButton
+        android:id="@+id/newButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/reset"
-        android:layout_alignParentRight="true"
-        android:background="#00FFFFFF"
-        android:id="@+id/newButton"
+        android:layout_alignEnd="@+id/temText"
+        android:layout_alignRight="@+id/temText"
         android:layout_marginTop="15dp"
-        />
+        android:layout_marginEnd="-21dp"
+        android:layout_marginRight="-21dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/reset" />
 </RelativeLayout>
 
 <LinearLayout
