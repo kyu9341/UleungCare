@@ -13,7 +13,7 @@ pythonanywhere서버를 호스팅 받아 우분투 리눅스환경에서 동작�
 
 ### MySQL
 
-### 데이터베이스에 저장될 데이터
+### 데이터베이스에 저장되는 데이터
 
 **AndroidRequested**
 - integer(TV on off 설정) 꺼짐 : 0, 켜짐 : 1, 기본값 : 2
