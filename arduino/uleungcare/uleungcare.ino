@@ -2,9 +2,9 @@
  
 ////IR recve////////////////////////
 
-int IRrecvPin = 2;
+int IRrecvPin = 2; // IR 수신 센서 포트
 IRrecv irrecv(IRrecvPin);
-IRsend irsend;
+IRsend irsend; 
 
 ////////////////////////////////////////////////
 
@@ -24,9 +24,12 @@ void setup() {
   
   pinMode(ledPingreen, OUTPUT);
   pinMode(ledPinyellow, OUTPUT);
+  
 ////IR recve////////////////////////
   irrecv.enableIRIn();  // Start the receiver
-////////////////////////////////////////////////
+
+  
+////////////  LED 출력 포트  //////////////////////
 
 
   pinMode(RED_PIN,OUTPUT);
@@ -34,11 +37,12 @@ void setup() {
   pinMode(GREEN_PIN,OUTPUT);
 
 
+
   
 }
 
 
-void RGB(int r, int g, int b){
+void RGB(int r, int g, int b){ //RGB 제어 함수
 
   analogWrite(RED_PIN, r);
   analogWrite(GREEN_PIN, g);
@@ -147,10 +151,10 @@ void loop() {
   Serial.print("\n");//send data
 
   
-  if(Serial.available()){
+  if(Serial.available()){ // 라즈베리파이 시리얼 값 수신
     pi_say = Serial.parseInt();
 
-    if(pi_say == 1){
+    if(pi_say == 1){ // 라즈베리파이 시리얼 통신 값에 따른 아두이노 제어 
        delay(100);
       r = Serial.parseInt();
       g = Serial.parseInt();
@@ -161,9 +165,7 @@ void loop() {
     if(pi_say == 2){
       order = Serial.parseInt();
       IR_send(order);
-      //RGB(0,255,0);
-      //delay(500);
-      //RGB(r,g,b);
+
     }
     
   }
