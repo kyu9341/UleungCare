@@ -13,3 +13,4 @@ Uleung_care
 
 ![main](./images/main.jpg)
 
+위의 화면은 메인화면이다.
