@@ -1,9 +1,9 @@
-# Django
+# Django 프레임 워크를 이용한 서버 구축
 
 
 
 
-# aws
+# Pythonanywhere 호스팅 서버 사용
 
 
 
@@ -18,15 +18,16 @@
 - integer(TV 음량 up down)
 - integer(TV 채널 up down)
 
-
 **HomeInfo**
 
 - float(조도 센서 값)
 - float(온도 센서 값)
-- float(습도 센서 값)
-- integer(현재 에어컨 설정 온도 값) 
+- text(cctvURL 주소) : cctvURL
+- 측정시간
 
 **Setting**
 
-- integer(set color 조명 색깔 세팅) stream : 0, R : 1, ..and so on
+- integer(LED rgb 값) : ledRed, ledGreen, ledBlue
+- integer(에어컨 설정온도) : airconThreshold
+- integer(LED 조도 기준 설정) : ledThreshold
 
