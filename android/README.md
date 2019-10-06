@@ -9,3 +9,7 @@ Uleung_care
 
 3. 설정화면
 
+------------------------
+
+![Alt text](UleungCare/images/main.jpg "main")
+
