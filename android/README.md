@@ -10,7 +10,7 @@ Uleung_care
 3. 설정화면
 
 ------------------------
-
-![main](./images/main.jpg)
+  
+![main](./images/main.jpg)  
 
 위의 화면은 메인화면이다.
