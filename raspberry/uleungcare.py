@@ -216,7 +216,7 @@ def main():
 					remote_control(ser,8)
 
         except:
-			print("no data")
+		print("no data")
 
 
 
@@ -229,7 +229,7 @@ def main():
 
 
         for data in new_remote_data.items():
-			print(data)
+		print(data)
 
 
         past_remote_data = new_remote_data ## 데이터 동기화
