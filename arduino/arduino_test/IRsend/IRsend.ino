@@ -38,11 +38,21 @@ void loop() {
   
  
   for(i=0;i<3;i++){
-    irsend.sendRaw(tvon, sizeof(tvon) / sizeof(tvon[0]), khz); //Note the approach used to automatically calculate the size of the array.
-    Serial.print("send on\n");
+    irsend.sendSony(0xFFA25D,32); //Note the approach used to automatically calculate the size of the array.
+    Serial.println("send on");
   }
   delay(1000); //In this example, the signal will be repeated every 5 seconds, approximately.
-
+  for(i=0;i<3;i++){
+    irsend.sendNEC(0xFFA25D,32); //Note the approach used to automatically calculate the size of the array.
+    Serial.println("send on");
+  }
+  delay(1000); //In this example, the signal will be repeated every 5 seconds, approximately.
+  for(i=0;i<3;i++){
+    irsend.sendLG(0xFFA25D,32); //Note the approach used to automatically calculate the size of the array.
+    Serial.println("send on");
+  }
+  delay(1000); //In this example, the signal will be repeated every 5 seconds, approximately.
+/*
   for(i=0;i<3;i++){
     irsend.sendRaw(volup, sizeof(volup) / sizeof(volup[0]), khz); //Note the approach used to automatically calculate the size of the array.
     Serial.print("send vol up\n");
@@ -64,4 +74,5 @@ void loop() {
    }
   
   delay(1000); //In this example, the signal will be repeated every 5 seconds, approximately.
+*/
 }
