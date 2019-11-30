@@ -25,54 +25,40 @@ IRsend irsend;
 void setup()
 {
 
+  Serial.begin(9600);
+
 }
 
 void loop() {
   int i;
   int khz = 38; // 38kHz carrier frequency for the NEC protocol
-  unsigned int tvon[] ={4550,4500,550,1700,550,1650,550,1700,550,600,550,600,500,600,500,650,500,600,500,1750,500,1750,500,1700,550,600,500,600,550,600,500,600,500,650,500,600,500,1750,500,600,550,600,500,600,500,650,500,600,500,600,550,1700,550,600,500,1750,500,1700,550,1700,500,1750,500,1750,500,1750,500};
-  unsigned int volup[] ={4500,4500,550,1700,550,1700,550,1700,550,550,550,600,500,600,550,600,500,600,550,1700,500,1750,500,1750,500,600,500,650,500,600,500,600,550,600,500,1750,500,1750,500,1700,550,600,500,600,550,600,500,600,500,650,500,600,500,600,550,600,500,1750,500,1750,500,1700,550,1700,500,1750,500};
-  unsigned int voldown[] ={4500,4550,550,1650,550,1700,550,1700,550,600,500,600,550,600,500,600,550,600,500,1750,500,1700,550,1700,550,600,500,600,500,650,500,600,500,600,550,1700,500,1750,500,600,550,1700,550,600,500,600,500,650,500,600,500,600,550,600,500,1750,500,600,500,1750,500,1750,500,1750,500,1700,550};
-  unsigned int chup[] ={4500,4500,550,1700,550,1700,550,1700,550,550,550,600,500,600,550,600,500,600,550,1700,500,1750,500,1750,500,600,500,650,500,600,500,600,550,600,500,600,550,1700,500,650,500,600,500,1750,500,600,550,600,500,600,500,1750,500,600,550,1700,500,1750,500,600,550,1700,550,1700,500,1750,500};
-  unsigned int chdown[] ={4500,4500,550,1700,550,1700,550,1700,550,550,550,600,550,600,500,600,500,600,550,1700,550,1700,500,1750,500,600,550,600,500,600,550,600,500,600,500,650,500,600,500,600,550,600,500,1750,500,600,500,600,550,600,500,1750,500,1750,500,1700,550,1700,500,650,500,1750,500,1700,550,1700,500};
-  
- 
-  for(i=0;i<3;i++){
-    irsend.sendSony(0xFFA25D,32); //Note the approach used to automatically calculate the size of the array.
-    Serial.println("send on");
+  int pi_say,order;
+
+    if(Serial.available()){ // 라즈베리파이 시리얼 값 수신
+    pi_say = Serial.parseInt();
+
+    if(pi_say == 1){ // 라즈베리파이 시리얼 통신 값에 따른 아두이노 제어 
+       for(i=0;i<3;i++){
+        irsend.sendNEC(0xFFA55D,32); //Note the approach used to automatically calculate the size of the array.
+        Serial.println("send one");
+        }
+       delay(100);
+     }
+    if(pi_say == 2){ // 라즈베리파이 시리얼 통신 값에 따른 아두이노 제어 
+      for(i=0;i<3;i++){
+        irsend.sendNEC(0xFFA66D,32); //Note the approach used to automatically calculate the size of the array.
+        Serial.println("send two");
+      }
+       delay(100);
+     }
+    if(pi_say == 3){ // 라즈베리파이 시리얼 통신 값에 따른 아두이노 제어 
+      for(i=0;i<3;i++){
+        irsend.sendNEC(0xFFA22D,32); //Note the approach used to automatically calculate the size of the array.
+        Serial.println("send three");
+      }
+       delay(100);
+     }
+    
   }
-  delay(1000); //In this example, the signal will be repeated every 5 seconds, approximately.
-  for(i=0;i<3;i++){
-    irsend.sendNEC(0xFFA25D,32); //Note the approach used to automatically calculate the size of the array.
-    Serial.println("send on");
-  }
-  delay(1000); //In this example, the signal will be repeated every 5 seconds, approximately.
-  for(i=0;i<3;i++){
-    irsend.sendLG(0xFFA25D,32); //Note the approach used to automatically calculate the size of the array.
-    Serial.println("send on");
-  }
-  delay(1000); //In this example, the signal will be repeated every 5 seconds, approximately.
-/*
-  for(i=0;i<3;i++){
-    irsend.sendRaw(volup, sizeof(volup) / sizeof(volup[0]), khz); //Note the approach used to automatically calculate the size of the array.
-    Serial.print("send vol up\n");
-  }
-  delay(1000); //In this example, the signal will be repeated every 5 seconds, approximately.
-  for(i=0;i<3;i++) {
-    irsend.sendRaw(voldown, sizeof(voldown) / sizeof(voldown[0]),khz ); //Note the approach used to automatically calculate the size of the array.
-    Serial.print("send vol down\n");
-   }
-   delay(1000); //In this example, the signal will be repeated every 5 seconds, approximately.
-  for(i=0;i<3;i++) {
-    irsend.sendRaw(chup, sizeof(chup) / sizeof(chup[0]),khz ); //Note the approach used to automatically calculate the size of the array.
-    Serial.print("send chdup\n");
-  }
-  delay(1000); //In this example, the signal will be repeated every 5 seconds, approximately.
-  for(i=0;i<3;i++) {
-    irsend.sendRaw(chdown, sizeof(chdown) / sizeof(chdown[0]),khz ); //Note the approach used to automatically calculate the size of the array.
-    Serial.print("send ch down\n");
-   }
-  
-  delay(1000); //In this example, the signal will be repeated every 5 seconds, approximately.
-*/
+
 }
