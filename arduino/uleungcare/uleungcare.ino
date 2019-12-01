@@ -83,52 +83,28 @@ void  dumpCode (decode_results *results)
 
 void IR_send(int order) {
   int i;
-  int khz = 38; // 38kHz carrier frequency for the NEC protocol
-  unsigned int tvon[] ={4550,4500,550,1700,550,1650,550,1700,550,600,550,600,500,600,500,650,500,600,500,1750,500,1750,500,1700,550,600,500,600,550,600,500,600,500,650,500,600,500,1750,500,600,550,600,500,600,500,650,500,600,500,600,550,1700,550,600,500,1750,500,1700,550,1700,500,1750,500,1750,500,1750,500};
-  unsigned int volup[] ={4500,4500,550,1700,550,1700,550,1700,550,550,550,600,500,600,550,600,500,600,550,1700,500,1750,500,1750,500,600,500,650,500,600,500,600,550,600,500,1750,500,1750,500,1700,550,600,500,600,550,600,500,600,500,650,500,600,500,600,550,600,500,1750,500,1750,500,1700,550,1700,500,1750,500};
-  unsigned int voldown[] ={4500,4550,550,1650,550,1700,550,1700,550,600,500,600,550,600,500,600,550,600,500,1750,500,1700,550,1700,550,600,500,600,500,650,500,600,500,600,550,1700,500,1750,500,600,550,1700,550,600,500,600,500,650,500,600,500,600,550,600,500,1750,500,600,500,1750,500,1750,500,1750,500,1700,550};
-  unsigned int chup[] ={4500,4500,550,1700,550,1700,550,1700,550,550,550,600,500,600,550,600,500,600,550,1700,500,1750,500,1750,500,600,500,650,500,600,500,600,550,600,500,600,550,1700,500,650,500,600,500,1750,500,600,550,600,500,600,500,1750,500,600,550,1700,500,1750,500,600,550,1700,550,1700,500,1750,500};
-  unsigned int chdown[] ={4500,4500,550,1700,550,1700,550,1700,550,550,550,600,550,600,500,600,500,600,550,1700,550,1700,500,1750,500,600,550,600,500,600,550,600,500,600,500,650,500,600,500,600,550,600,500,1750,500,600,500,600,550,600,500,1750,500,1750,500,1700,550,1700,500,650,500,1750,500,1700,550,1700,500};
-  unsigned int airon[] = {4550,4450,550,1700,600,1650,550,1700,550,550,550,600,550,550,550,550,550,600,550,1700,550,1650,550,1700,550,600,550,600,500,600,500,600,550,600,500,600,550,600,500,1750,500,600,500,600,550,600,500,600,500,650,500,1700,550,1700,550,600,500,1750,500,1700,550,1700,500,1750,500,1750,500};
-  unsigned int airup[] = {4550,4500,550,1650,600,1650,550,1700,550,600,550,550,550,550,550,600,550,550,550,1700,550,1700,550,1700,550,550,550,600,500,600,550,600,500,600,550,1700,500,650,500,1700,550,600,500,600,550,600,500,600,500,650,500,600,500,1750,500,600,500,1750,500,1750,500,1750,500,1700,550,1700,550};
-  unsigned int airdown[] = {4550,4500,550,1700,550,1650,550,1700,550,600,550,550,550,600,550,550,550,550,550,1700,550,1700,550,1700,550,600,500,600,550,600,500,600,500,600,550,600,500,1750,500,1750,500,600,500,600,550,600,500,600,500,650,500,1700,550,600,500,600,550,1700,500,1750,500,1750,500,1750,500,1700,550};
-  
- if(order == 1)
-  for(i=0;i<3;i++){
-    irsend.sendRaw(tvon, sizeof(tvon) / sizeof(tvon[0]), khz); //Note the approach used to automatically calculate the size of the array.
-  }
- else if(order == 2)
-  for(i=0;i<3;i++){
-    irsend.sendRaw(volup, sizeof(volup) / sizeof(volup[0]), khz); //Note the approach used to automatically calculate the size of the array.
-  }
- else if(order == 3)
-  for(i=0;i<3;i++) {
-    irsend.sendRaw(voldown, sizeof(voldown) / sizeof(voldown[0]),khz ); //Note the approach used to automatically calculate the size of the array.
-   }
-  else if(order == 4)
-  for(i=0;i<3;i++) {
-    irsend.sendRaw(chup, sizeof(chup) / sizeof(chup[0]),khz ); //Note the approach used to automatically calculate the size of the array.
-  }
-  else if(order == 5)
-  for(i=0;i<3;i++) {
-    irsend.sendRaw(chdown, sizeof(chdown) / sizeof(chdown[0]),khz ); //Note the approach used to automatically calculate the size of the array.
-   }
 
-   else if(order == 6)
-   for(i=0;i<3;i++){
-     irsend.sendRaw(airon, sizeof(airon) / sizeof(airon[0]),khz ); //Note the approach used to automatically calculate the size of the array.
-   }
-
-   else if(order == 7)
-   for(i=0;i<3;i++){
-     irsend.sendRaw(airup, sizeof(airup) / sizeof(airup[0]),khz ); //Note the approach used to automatically calculate the size of the array.
-   }
-
-   else if(order == 8)
-   for(i=0;i<3;i++){
-     irsend.sendRaw(airdown, sizeof(airdown) / sizeof(airdown[0]),khz ); //Note the approach used to automatically calculate the size of the array.
-   }
-  //delay(1000); //In this example, the signal will be repeated every 5 seconds, approximately.
+  if(order == 1){ // 라즈베리파이 시리얼 통신 값에 따른 아두이노 제어 
+       for(i=0;i<3;i++){
+        irsend.sendNEC(0xFFA55D,32); //Note the approach used to automatically calculate the size of the array.
+        Serial.println("send one");
+        }
+       delay(100);
+     }
+    if(order == 2){ // 라즈베리파이 시리얼 통신 값에 따른 아두이노 제어 
+      for(i=0;i<3;i++){
+        irsend.sendNEC(0xFFA66D,32); //Note the approach used to automatically calculate the size of the array.
+        Serial.println("send two");
+      }
+       delay(100);
+     }
+    if(order == 3){ // 라즈베리파이 시리얼 통신 값에 따른 아두이노 제어 
+      for(i=0;i<3;i++){
+        irsend.sendNEC(0xFFA22D,32); //Note the approach used to automatically calculate the size of the array.
+        Serial.println("send three");
+      }
+       delay(100);
+     }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
