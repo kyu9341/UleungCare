@@ -20,10 +20,8 @@ while True:
 
 	pi_say = input('input data : ')
 	pi_say = str(pi_say)
+	print(pi_say.encode())
 	ser.write(pi_say.encode())
-	print(ser.readline().decode())
-	print(ser.readline().decode())
-	print(ser.readline().decode())
 	print(ser.readline().decode())
 
 	#print(ser.readline())

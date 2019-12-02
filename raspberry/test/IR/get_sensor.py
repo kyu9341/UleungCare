@@ -1,3 +1,4 @@
+import serial
 def set_dev(): # return serial data what raspberry connect with arduino
 	try:
 		ser = serial.Serial('/dev/ttyACM0',9600)

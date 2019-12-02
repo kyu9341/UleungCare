@@ -20,16 +20,14 @@ def set_dev():
 
 
 
-ser = set_dev()
-time.sleep(2)
-flag = int(input("flag : "))
-if flag == 1:
-	pi_say = input('input data : ')
 
-else:
-	pi_say = '1'
-	pi_say = str(pi_say)
-	pi_say += '\n'
+ser = set_dev()
+
+pi_say = input('input data : ')
+#pi_say = str(pi_say)
+
+#pi_say = 1
+pi_say = str(pi_say)
 
 ser.write(pi_say.encode())
 #print(str(1).encode())
