@@ -48,7 +48,7 @@ public class ControllerActivity extends AppCompatActivity {
     ImageButton tvVolUpButton; // tv 음량 up 버튼
     ImageButton tvVolDownButton; // tv 음량 down 버튼
     ImageButton tvChUpButton;  // tv 채널 up 버튼
-    ImageButton tvChDownButton;  // tv 채널 down 버튼튼    String toastMessage; // 서버에 전송 후 출력할 toast메시지
+    ImageButton tvChDownButton;  // tv 채널 down 버튼튼
 
     private AlertDialog dialog; // 알림창
     String toastMessage; // 눌린 버튼에 따른 toast 메세지 출력
@@ -162,7 +162,6 @@ public class ControllerActivity extends AppCompatActivity {
             AppHelper.requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
 
-
     }
 
     public void sendRequest(){ // 데이터를 서버에 전송하는 함수 - 각 버튼에 대한 정보를 한 번에 전송
@@ -235,10 +234,7 @@ public class ControllerActivity extends AppCompatActivity {
                 params.put("tvChUpDown", tvChUpDown+"");
                 params.put("tvVolUpDown", tvVolUpDown+"");
 
-
                 return params;
-
-
             }
 
         };
