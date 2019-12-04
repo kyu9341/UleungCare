@@ -46,13 +46,13 @@
 
 
     <LinearLayout
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_weight="0.1"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
@@ -61,27 +61,29 @@
             android:textColor="#000000"
 
             />
+
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Red"
             android:id="@+id/redValue"
-            android:layout_weight="1"
-            />
-        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Green"
-            android:id="@+id/greenValue"
             android:layout_weight="1"
+            android:hint="Red" />
+
+        <EditText
+            android:id="@+id/greenValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Green"
 
             />
+
         <EditText
+            android:id="@+id/blueValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Blue"
-            android:id="@+id/blueValue"
             android:layout_weight="1"
+            android:hint="Blue"
 
             />
 
@@ -89,20 +91,29 @@
             android:id="@+id/colorInsert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="입력"
             android:background="@drawable/button"
+            android:text="입력"
 
             />
+
         <TextView
+            android:id="@+id/colorView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="      "
-            android:id="@+id/colorView"
             android:layout_weight="1"
+            android:text="      "
 
             />
 
+
     </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="리모컨 값 등록"
+        android:id="@+id/IRregisterButton"
+        />
 
     <LinearLayout
         android:layout_weight="1"

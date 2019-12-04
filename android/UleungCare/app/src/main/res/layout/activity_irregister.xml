@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="리모컨 값 등록"
+        android:layout_margin="20dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="30dp"
+        />
+
+    <Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="TV ON OFF 버튼 등록"
+    android:textSize="15dp"
+    android:layout_margin="10dp"
+    android:id="@+id/tvonButton"
+    />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TV 채널 UP 버튼 등록"
+        android:textSize="15dp"
+        android:layout_margin="10dp"
+        android:id="@+id/tvChUpButton"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TV 채널 DOWN 버튼 등록"
+        android:textSize="15dp"
+        android:layout_margin="10dp"
+        android:id="@+id/tvChDownButton"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TV 음량 UP 버튼 등록"
+        android:textSize="15dp"
+        android:layout_margin="10dp"
+        android:id="@+id/tvVolUpButton"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TV 음량 DOWN 버튼 등록"
+        android:textSize="15dp"
+        android:layout_margin="10dp"
+        android:id="@+id/tvVolDownButton"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="에어컨 ON OFF 버튼 등록"
+        android:textSize="15dp"
+        android:layout_margin="10dp"
+        android:id="@+id/airconOnButton"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="에어컨 온도 UP 버튼 등록"
+        android:textSize="15dp"
+        android:layout_margin="10dp"
+        android:id="@+id/airUpButton"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="에어컨 온도 DOWN 버튼 등록"
+        android:textSize="15dp"
+        android:layout_margin="10dp"
+        android:id="@+id/airDownButton"
+        />
+
+
+</LinearLayout>

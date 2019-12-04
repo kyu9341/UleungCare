@@ -36,6 +36,7 @@ public class SettingActivity extends AppCompatActivity {
     private int ledThreshold = 3; // led가 켜지는 기준 조도
     private int airconThreshold = 0; // 에어컨이 켜지는 기준 온도
     private AlertDialog dialog; // 알림창
+    Button IRregisterButton;
 
     EditText redValue; // 사용자 설정 rgb 값을 받을 text
     EditText greenValue;
@@ -56,6 +57,7 @@ public class SettingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+        IRregisterButton = (Button)findViewById(R.id.IRregisterButton);
 
         saveButton = (Button)findViewById(R.id.saveButton); // 각 버튼을 가져옴
         redButton = (Button)findViewById(R.id.redButton);
@@ -81,6 +83,13 @@ public class SettingActivity extends AppCompatActivity {
         hopeTempText.setEnabled(false); // 초기 입력불가능하도록 설정
         hopeTempText.setBackgroundColor(getResources().getColor(R.color.colorGray));
 
+        IRregisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), IRregisterActivity.class);
+                startActivity(intent);
+            }
+        });
 
         redButton.setOnClickListener(new View.OnClickListener() {
             @Override

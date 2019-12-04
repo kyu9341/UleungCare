@@ -151,3 +151,43 @@ def settings(request):
         res_data = {}
         res_data['success'] = True
         return JsonResponse(res_data) # 안드로이드에 정상적으로 처리되었음을 응답
+
+
+@csrf_exempt
+def IRregister(request):
+    if request.method == 'GET':
+        pass
+    elif request.method == 'POST':
+        tvOnOff = request.POST.get('tvOnOff', None) # 템플릿에서 입력한 name필드에 있는 값을 키값으로 받아옴
+        airconOnOff = request.POST.get('airconOnOff', None) # 받아온 키값에 값이 없는경우 None값으로 기본값으로 지정
+        airconTempUpDown = request.POST.get('airconTempUpDown', None)
+        tvVolUpDown = request.POST.get('tvVolUpDown', None)
+        tvChUpDown = request.POST.get('tvChUpDown', None)
+
+        #androidrequesteds = AndroidRequested.objects.all() #AndroidRequested에 있는 모든 객체를 불러와 androidrequesteds에 저장
+        res_data = {} # 응답 메세지를 담을 변수(딕셔너리)
+
+        ar = AndroidRequested.objects.order_by('id').last() # 가장 최근의 튜플을 가져옴
+
+        ar.tvVolUpDown = int(tvVolUpDown)
+        ar.tvChUpDown = int(tvChUpDown)
+        ar.airconTempUpDown = int(airconTempUpDown)
+        ar.tvOnOff = int(tvOnOff)
+        ar.airconOnOff = int(airconOnOff)
+        ar.save()
+
+        res_data['success'] = True
+
+        return JsonResponse(res_data)
+
+
+
+
+
+
+
+
+
+
+
+
