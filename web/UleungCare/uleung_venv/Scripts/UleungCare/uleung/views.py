@@ -117,6 +117,10 @@ def raspberry(request):
         ar.tvChUpDown = 0 # 전송 후 UpDown데이터는 초기화, OnOff데이터는 유지
         ar.tvVolUpDown = 0
         ar.airconTempUpDown = 0
+        if ar.tvOnOff == 999:
+            ar.tvOnOff = 0
+        if ar.airconOnOff == 999:
+            ar.airconOnOff = 0
         ar.save()
 
         sett = Settings.objects.order_by('id').last() # 가장 최근의 튜플을 가져옴
