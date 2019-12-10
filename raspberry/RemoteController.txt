@@ -1,0 +1,7 @@
+	
+tvOnOff	7	E0E040BF
+	
+tvChDown	7	E0E040BF
+	
+tvVolUp	7	E0E0E01F
+	

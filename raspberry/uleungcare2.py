@@ -59,6 +59,35 @@ def regist_IR(ser):
 	#ser.write('2'.encode()) # end regist
 	#control termination in arduino
 
+def IR_fileOpen(data):
+	f = open('RemoteController.txt', 'a', encoding="utf8")
+
+	for i in data:
+		f.write(i+'\t')
+	f.write('\n')
+	f.close()
+
+def IR_fileRead(command):
+	f = open('RemoteController.txt', 'r', encoding="utf8")
+	IRlist = list()
+	while True:
+		line = f.readline()
+		if not line:
+			break
+		if command in line:
+			line = line.replace('\n', '')
+			#print(line)
+			#print('This Line!!')
+			IRlist = list(line.split('\t'))
+		#print(line)
+
+	#print(IRlist)
+	f.close()
+
+	return IRlist[2]
+
+
+
 def main():
 	print('connect arduino')
 	while True: # wait arduino when didn't connected
@@ -123,7 +152,8 @@ def main():
 				value_list = list(new_remote_data.values())
 				print(key_list)
 				print(value_list)
-				if 999 in value_list:
+
+				if 999 in value_list: # if user want regist remote data
 					print('find 999')
 					value = 999
 					regist_flag = 1
@@ -131,13 +161,36 @@ def main():
 					print('find -999')
 					value = -999
 					regist_flag = 1
+				else:
+					regist_flag = 0
 
-				if regist_flag == 1:
+				if regist_flag == 1: # regist start
 					print('start regist')
-					regist_key = key_list[value_list.index(value)]
+					regist_key = key_list[value_list.index(value)] # check remote button name
+
+					if regist_key == 'tvChUpDown': # change regist_key name
+						if value == 999:
+							regist_key = 'tvChUp'
+						elif value == -999:
+							regist_key = 'tvChDown'
+					elif regist_key == 'tvVolUpDown':
+						if value == 999:
+							regist_key = 'tvVolUp'
+						elif value == -999:
+							regist_key = 'tvVolDown'
+					elif regist_key == 'airconTempUpDown':
+						if value == 999:
+							regist_key = 'airconTempUp'
+						elif value == -999:
+							regist_key = 'airconTempDown'
+
 					ser.write('2'.encode()) # call regist_IR() in arduino
 					IR_data = regist_IR(ser)
-					print('remote data : ',IR_data[0],IR_data[1])
+					IR_data.insert(0,regist_key)
+					print('remote data : ',IR_data[0],IR_data[1],IR_data[2])
+
+					IR_fileOpen(IR_data) # write data txt
+
 					#ser.write('2'.encode()) # end regist_IR
 					#time.sleep(2)
 				#if(new_remote_data['tvOnOff'] != past_remote_data['tvOnOff']$
@@ -145,6 +198,12 @@ def main():
 
 
 				regist_flag = 0
+
+				# regist end
+
+
+				if(new_remote_data['tvOnOff'] != past_remote_data['tvOnOff']):
+					print('send IR data :',IR_fileRead('tvOnOff'))
 
 		except Exception as t:
 			e =  sys.exc_info()[0]
