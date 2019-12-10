@@ -13,6 +13,47 @@ def rgb_control(ser,rgb_led):
 def remote_control(ser,order):
 	ser.write(str(order)+'\n')
 
+def regist_IR():
+	decode_type_list = list() # input decode type
+	IR_data_list = list() # input IR data
+	count = 0
+
+	while True:
+		print('wait data')
+
+		data = ser.readline().decode()
+
+		data = data.split(',')
+
+		decode_type_list.append(data[0])
+		IR_data_list.append(data[1])
+
+		print(data[0])
+		print(data[1])
+
+		count=count+1
+
+		if(count > 20):
+			break
+
+	hoew_many = 0 # find max data
+
+	for i in decode_type_list: # find max decode type
+		if(how_many < decode_type_list.count(i)):
+			how_many = decode_type_list.count(i)
+			decode_type = i
+
+	how_many = 0
+
+	for i in IR_data_list: # find max IR Data
+		if(how_many < IR_data_list.count(i)):
+		how_many = IR_data_list.count(i)
+		IR_data = i
+
+	print("decode type : ",decode_type,'IR data : ',IR_data)
+
+	ser.write('2'.encode()) # end regist 
+
 
 def main():
 	print('connect arduino')
@@ -27,6 +68,10 @@ def main():
 	home_data = [0,0] # home data [temperature,light]
 	past_remote_data = {} # check data chage
 	past_rgb_led ={'ledThreshold':0,'red':0,'green':0,'blue':0}
+
+	ledThreshold = 0
+	ledonoff = True # led control with ledThreshold
+
 	while True: # start main code
 
 		print('get home data')
@@ -56,13 +101,13 @@ def main():
 		#('ledThreshold', 1)
 		#('airconThreshold', 0)
 
-		new_rgb_led = {'ledThreshold':new_remote_data['ledThreshold'],'red':new_remote_data['ledRed'],'green':new_remote_data['ledGreen'],'blue':new_remote_data['ledBlue']}
-
+		new_rgb_led = {'red':new_remote_data['ledRed'],'green':new_remote_data['ledGreen'],'blue':new_remote_data['ledBlue']}
+		ledThreshold = new_remote_data['ledThreshold']
 		print('time :',now)
 
 		try:
 
-		# if data didn't change pass this part
+			# if data didn't change pass this part
 			if new_remote_data == past_remote_data:
 				print('same data')
 
@@ -70,17 +115,88 @@ def main():
 				print('data change')
 				print('control...') # control code is here
 
-				if new_rgb_led != past_rgb_led:
-					print("led data change")
-					order = '1 '+str(new_rgb_led['red'])+' '+str(new_rgb_led['green'])+' '+str(new_rgb_led['blue'])
-					ser.write(order.encode())
-				if(new_remote_data['tvOnOff'] != past_remote_data['tvOnOff']): 
-					print('tv on off')
+				key_list = list(new_remote_data.keys()) # find 999 or -999
+				value_list = list(new_remote_data.values())
+
+				if 999 in value_list:
+					value = 999
+					regist_flag = 1
+				elif -999 in value_list:
+					value = -999
+					regist_flag = 1
+
+				if regist_flag == 1:
+					regist_key = key_list[value_list.index(value)]
+					ser.write('2'.encode()) # call regist_IR() in arduino
+					regist_IR()
+				#if(new_remote_data['tvOnOff'] != past_remote_data['tvOnOff']$
+				#	print('tv on off')
+
+
+				regist_flag = 0
 
 		except:
 			es = sys.exc_info()[0]
 			print('no data',es)
 
+
+
+
+		try:    #ledThreshold control
+
+			if ledonoff:	# led on
+				print("led data input & turn on led")
+				order = '1 '+str(new_rgb_led['red'])+' '+str(new_rgb_led['green'])+' '+str(new_rgb_led['blue'])
+				ser.write(order.encode())
+			else:		# led off
+				print('led off (did not pass ledThreshold)')
+				order = '1 0 0 0'
+				ser.write(order.encode())
+
+
+
+			if ledThreshold == 1: # led always on
+				ledonoff = True
+
+			elif ledThreshold == 2:
+				if int(home_data['light']) > 100:
+					ledonoff = True
+				else:
+					ledonoff = False
+					#print('led off')
+					#order = '1 0 0 0'
+					#ser.write(order.encode())
+
+			elif ledThreshold == 3:
+				if int(home_data['light']) > 250:
+					ledonoff = True
+				else:
+					ledonoff = False
+					#print('led off')
+					#order = '1 0 0 0'
+					#ser.write(order.encode())
+
+			elif ledThreshold == 4:
+				if int(home_data['light']) > 400:
+					ledonoff = True
+				else:
+					ledonoff = False
+					#print('led off')
+					#order = '1 0 0 0'
+					#ser.write(order.encode())
+
+			elif ledThreshold == 5:
+				if int(home_data['light']) > 600:
+					ledonoff = True
+				else:
+					ledonoff = False
+					#print('led off')
+					#order = '1 0 0 0'
+					#ser.write(order.encode())
+
+		except:
+			es = sys.exc_info()[0]
+			print('ledThreshold error : ',es)
 
 
 		for data in new_remote_data.items(): # print remote data
@@ -89,5 +205,6 @@ def main():
 		past_remote_data = new_remote_data # data sync
 		past_rgb_led = new_rgb_led
 		print('\n')
+		time.sleep(2)
 
 main()

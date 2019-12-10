@@ -20,8 +20,10 @@ def set_dev(): # return serial data what raspberry connect with arduino
 
 
 def get_data(ser): # return sensor data
+	ser.write('3'.encode())
 	line = ser.readline().decode()
 	line = line.replace('\n','')
+	line = line.replace('\r','')
 	data = line.split(',')
 	print(data)
 	return data
