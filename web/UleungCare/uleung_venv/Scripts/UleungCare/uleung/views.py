@@ -113,10 +113,12 @@ def raspberry(request):
         res_data['tvChUpDown'] = ar.tvChUpDown # 기본값 : 0, 정수형, + or - 만큼 up or down
         res_data['tvVolUpDown'] = ar.tvVolUpDown # 기본값 : 0, 정수형, + or - 만큼 up or down
         res_data['airconTempUpDown'] = ar.airconTempUpDown # 기본값 : 0, 정수형, + or - 만큼 up or down
+        res_data['powerOnOff'] = ar.powerOnOff # 기본값 : 0, 우렁케어 종료 : 1
 
         ar.tvChUpDown = 0 # 전송 후 UpDown데이터는 초기화, OnOff데이터는 유지
         ar.tvVolUpDown = 0
         ar.airconTempUpDown = 0
+        ar.powerOnOff = 0
         if ar.tvOnOff == 999:
             ar.tvOnOff = 0
         if ar.airconOnOff == 999:
@@ -184,6 +186,23 @@ def IRregister(request):
 
         return JsonResponse(res_data)
 
+
+@csrf_exempt
+def raspOnOff(request):
+    if request.method == 'GET':
+        pass
+    elif request.method == 'POST':
+        powerOnOff = request.POST.get('powerOnOff', None)
+
+        res_data = {}
+
+        ar = AndroidRequested.objects.order_by('id').last()
+        ar.powerOnOff = int(powerOnOff)
+        ar.save()
+
+        res_data['success'] = True
+
+        return JsonResponse(res_data)
 
 
 

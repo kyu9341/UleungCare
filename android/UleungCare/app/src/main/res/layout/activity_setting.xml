@@ -183,7 +183,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="조도 단계" />
+            android:text="조도 단계(낮을수록 밝은 곳에서도 켜짐)" />
 
         <RadioGroup
             android:id="@+id/lightGroup"

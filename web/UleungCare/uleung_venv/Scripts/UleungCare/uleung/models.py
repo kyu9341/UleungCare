@@ -23,6 +23,7 @@ class AndroidRequested(models.Model):
     airconTempUpDown = models.IntegerField(verbose_name='AirConditioner Temperature Up Down')
     tvChUpDown = models.IntegerField(verbose_name='TV Channel Up Down')
     tvVolUpDown = models.IntegerField(verbose_name='TV Volume Up Down')
+    powerOnOff = models.IntegerField(verbose_name='RaspberryPi Power On Off')
 
     class Meta:
         db_table = 'Uleung_androidRequested' # 테이블명 지정

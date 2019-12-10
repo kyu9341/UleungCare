@@ -10,7 +10,7 @@ class HomeInfoAdmin(admin.ModelAdmin):
     list_display = ('id', 'temperature', 'light', 'registered_dttm', 'cctvURL') # user list 사용자명과 비밀번호를 확인할 수 있도록 구성
 
 class AndroidRequestedAdmin(admin.ModelAdmin):
-    list_display = ('id', 'tvOnOff', 'airconOnOff', 'airconTempUpDown', 'tvChUpDown', 'tvVolUpDown') # user list 사용자명과 비밀번호를 확인할 수 있도록 구성
+    list_display = ('id', 'powerOnOff', 'tvOnOff', 'airconOnOff', 'airconTempUpDown', 'tvChUpDown', 'tvVolUpDown') # user list 사용자명과 비밀번호를 확인할 수 있도록 구성
 
 class SettingsAdmin(admin.ModelAdmin):
     list_display = ('id', 'ledRed', 'ledGreen', 'ledBlue', 'ledThreshold', 'airconThreshold')

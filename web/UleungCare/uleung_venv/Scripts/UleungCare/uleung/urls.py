@@ -7,5 +7,6 @@ urlpatterns = [
     path('raspberry/', views.raspberry),
     path('settings/', views.settings),
     path('IRregister/', views.IRregister),
+    path('raspOnOff/', views.raspOnOff),
 
 ]
