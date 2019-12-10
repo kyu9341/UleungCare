@@ -13,7 +13,7 @@ def rgb_control(ser,rgb_led):
 def remote_control(ser,order):
 	ser.write(str(order)+'\n')
 
-def regist_IR():
+def regist_IR(ser):
 	decode_type_list = list() # input decode type
 	IR_data_list = list() # input IR data
 	count = 0
@@ -36,7 +36,7 @@ def regist_IR():
 		if(count > 20):
 			break
 
-	hoew_many = 0 # find max data
+	how_many = 0 # find max data
 
 	for i in decode_type_list: # find max decode type
 		if(how_many < decode_type_list.count(i)):
@@ -47,13 +47,17 @@ def regist_IR():
 
 	for i in IR_data_list: # find max IR Data
 		if(how_many < IR_data_list.count(i)):
-		how_many = IR_data_list.count(i)
-		IR_data = i
+			how_many = IR_data_list.count(i)
+			IR_data = i
 
 	print("decode type : ",decode_type,'IR data : ',IR_data)
 
-	ser.write('2'.encode()) # end regist 
 
+	return [decode_type,IR_data]
+
+	#time.sleep(2)
+	#ser.write('2'.encode()) # end regist
+	#control termination in arduino
 
 def main():
 	print('connect arduino')
@@ -117,27 +121,36 @@ def main():
 
 				key_list = list(new_remote_data.keys()) # find 999 or -999
 				value_list = list(new_remote_data.values())
-
+				print(key_list)
+				print(value_list)
 				if 999 in value_list:
+					print('find 999')
 					value = 999
 					regist_flag = 1
 				elif -999 in value_list:
+					print('find -999')
 					value = -999
 					regist_flag = 1
 
 				if regist_flag == 1:
+					print('start regist')
 					regist_key = key_list[value_list.index(value)]
 					ser.write('2'.encode()) # call regist_IR() in arduino
-					regist_IR()
+					IR_data = regist_IR(ser)
+					print('remote data : ',IR_data[0],IR_data[1])
+					#ser.write('2'.encode()) # end regist_IR
+					#time.sleep(2)
 				#if(new_remote_data['tvOnOff'] != past_remote_data['tvOnOff']$
 				#	print('tv on off')
 
 
 				regist_flag = 0
 
-		except:
-			es = sys.exc_info()[0]
-			print('no data',es)
+		except Exception as t:
+			e =  sys.exc_info()[0]
+			es = sys.exc_info()[2]
+			print('no data',e,es.tb_lineno)
+			print(t)
 
 
 
