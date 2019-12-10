@@ -53,21 +53,26 @@ void RGB(int r, int g, int b){ //RGB 제어 함수
 
 ////////////////////       IR Senser          /////////////////////////////////
 
-////////////////////       IR recive          /////////////////////////////////
+////////////////////       IR send          /////////////////////////////////
 //void  IR_send(){}
 
 
-////////////////////       IR Send         /////////////////////////////////
+////////////////////       IR recive         /////////////////////////////////
 
 void regist_IR() {
   int pi_say;
+  int count = 0;
   while(true){
     if (irrecv.decode(&results)){
 
       if(results.decode_type > 0 && results.value != 0xFFFFFFFF){
+        RGB(0,0,0);
         Serial.print(results.decode_type);
         Serial.print(',');
         Serial.println(results.value,HEX);
+        count++;
+        delay(100);
+        RGB(255,0,0);
           /*
            Serial.print("decode type : ");
            Serial.println(results.decode_type);
@@ -83,6 +88,7 @@ void regist_IR() {
     }
     
     if(Serial.available()){ // 라즈베리파이 시리얼 값 수신
+                            // 기존에는 라즈베리파이에서 2를 받아서 종료하려고 했으나 받지를 못함
       pi_say = Serial.parseInt();
 
       if(pi_say == 2){ // 리모컨 등록 절차 종료 
@@ -91,6 +97,10 @@ void regist_IR() {
 
       }
     }
+    if(count >20){// 20번 진행시 종료
+      break;
+    }
+    
   }
 }
 
@@ -115,6 +125,7 @@ void loop() {
         Serial.print(celsius);
         Serial.print(",");
         Serial.println(light);
+        
         //Serial.print("\n");//send data
     }
     
@@ -127,7 +138,9 @@ void loop() {
       RGB(r,g,b);
     }
     if(pi_say == 2){  // 리모컨값 등록 절차 시작
+       RGB(255,0,0);
        regist_IR();
+       RGB(0,255,0);
     }
     
   }
