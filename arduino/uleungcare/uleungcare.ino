@@ -54,7 +54,16 @@ void RGB(int r, int g, int b){ //RGB 제어 함수
 ////////////////////       IR Senser          /////////////////////////////////
 
 ////////////////////       IR send          /////////////////////////////////
-//void  IR_send(){}
+void  IR_send(int decode_type,unsigned long IR_data ){
+
+  int i;
+  int khz = 38;
+  RGB(0,255,0);
+  for(i=0;i<3;i++){
+    irsend.sendSAMSUNG(IR_data,32);
+  }
+  
+ }
 
 
 ////////////////////       IR recive         /////////////////////////////////
@@ -108,15 +117,15 @@ void regist_IR() {
  
 void loop() {
   int i,r,g,b;
- 
+  int decode_type;
   int tmp = analogRead(tmp_sensor);
   int light = analogRead(light_sensor);
   int pi_say,order;
-  
-  //float voltage = tmp * 5000.0/1024.0; // 온도센서 값을 전압으로 변환
-  //float celsius = (voltage - 500) / 10.0; // 전압을 온도로 변환
-  float celsius = (5.0*tmp*100.0)/1024.0;
-   
+  char pi_say_arr[100];
+  float voltage = tmp * 5000.0/1024.0; // 온도센서 값을 전압으로 변환
+  float celsius = (voltage - 500) / 10.0; // 전압을 온도로 변환
+  //float celsius = (5.0*tmp*100.0)/1024.0;
+  unsigned long IR_data; 
 
   if(Serial.available()){ // 라즈베리파이 시리얼 값 수신
     pi_say = Serial.parseInt();
@@ -141,6 +150,13 @@ void loop() {
        RGB(255,0,0);
        regist_IR();
        RGB(0,255,0);
+    }
+    if(pi_say == 4){
+      decode_type = Serial.parseInt();
+      byte leng = Serial.readBytesUntil('g', pi_say_arr, 30);
+      IR_data = strtoul(pi_say_arr,NULL,16);
+
+      IR_send(decode_type,IR_data);
     }
     
   }
