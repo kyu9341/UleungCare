@@ -2,7 +2,7 @@ import get_sensor as sensor # communication with arduino
 import sys
 import requests #communication with web server
 import json
-
+import os
 import time #delay
 from datetime import datetime
 
@@ -111,8 +111,12 @@ def main():
 		now = datetime.now()
 		data = sensor.get_data(ser) # get temperature & light
 
+		host = os.popen('hostname -I').read() # get host ip
+		host = host.replace('\n','')
+		host = host.replace(' ','')
+		host = 'http://'+host+':8091'
 		try: # input data for trans to web server
-			home_data = {'temperature':data[0],'light':data[1]}
+			home_data = {'temperature':data[0],'light':data[1],'cctvURL':host}
 
 		except: # wait arduino when home data didn't recive
 			print('wait arduino')
@@ -150,8 +154,8 @@ def main():
 
 				key_list = list(new_remote_data.keys()) # find 999 or -999
 				value_list = list(new_remote_data.values())
-				print(key_list)
-				print(value_list)
+				#print(key_list)
+				#print(value_list)
 
 				if 999 in value_list: # if user want regist remote data
 					print('find 999')
@@ -193,8 +197,6 @@ def main():
 
 					#ser.write('2'.encode()) # end regist_IR
 					#time.sleep(2)
-				#if(new_remote_data['tvOnOff'] != past_remote_data['tvOnOff']$
-				#	print('tv on off')
 
 
 				regist_flag = 0
@@ -204,6 +206,17 @@ def main():
 
 				if(new_remote_data['tvOnOff'] != past_remote_data['tvOnOff']):
 					print('send IR data :',IR_fileRead('tvOnOff'))
+				elif(new_remote_data['airconOnOff'] != past_remote_data['airconOnOff']):
+					print('send IR data :',IR_fileRead('airconOnOff'))
+				elif(new_remote_data['tvChUpDown'] != past_remote_data['tvChUpDown']):
+					print('send IR data :',IR_fileRead('tvChUpDown'))
+				elif(new_remote_data['tvVolUpDown'] != past_remote_data['tvVolUpDown']):
+					print('send IR data :',IR_fileRead('tvVolUpDown'))
+				elif(new_remote_data['airconTempUpDown'] != past_remote_data['airconTempUpDown']):
+					print('send IR data :',IR_fileRead('airconTempUpDown'))
+				elif(new_remote_data['powerOnOff'] != past_remote_data['powerOnOff']):
+					pass
+
 
 		except Exception as t:
 			e =  sys.exc_info()[0]
