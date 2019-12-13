@@ -105,6 +105,7 @@ def main():
 	past_rgb_led ={'ledThreshold':0,'red':0,'green':0,'blue':0}
 
 	ledThreshold = 0
+
 	ledonoff = True # led control with ledThreshold
 
 	while True: # start main code
@@ -142,6 +143,8 @@ def main():
 
 		new_rgb_led = {'red':new_remote_data['ledRed'],'green':new_remote_data['ledGreen'],'blue':new_remote_data['ledBlue']}
 		ledThreshold = new_remote_data['ledThreshold']
+		tempThreshold = new_remote_data['airconThreshold']
+		home_temp = float(data[0])
 		print('time :',now)
 
 		try:
@@ -256,7 +259,7 @@ def main():
 						#IR_send(ser,IR_list[1],IR_list[2])
 					repeat = new_remote_data['airconTempUpDown']
 				elif(new_remote_data['powerOnOff'] != past_remote_data['powerOnOff']):
-					pass
+					os.system('sudo init 0') # raspberry power off
 
 
 				if IR_list == [0,0,0]:
@@ -334,6 +337,44 @@ def main():
 			print('ledThreshold error : ',es)
 
 
+
+#		try: # aircon temp control
+#
+#
+#			if new_remote_data['airconThreshold'] != 0: # when user want control temp
+#
+#				if (home_temp+2) > tempThreshold: # temp over Threshold 
+#					if new_remote_data['airconOnOff'] == 0: # airconditioner off
+#						print('home temp high, turn on airconditioner')
+#						IR_list = IR_fileRead('airconOnOff')
+#						print('send IR data :',IR_list[0])
+#						IR_send(ser,IR_list[1],IR_list[2])
+#					else:					# airconditioner on
+#						print('home temp high, airconditioner aleady')
+#						IR_list = IR_fileRead('airconTempDown')
+#						print('send IR data :',IR_list[0])
+#						IR_send(ser,IR_list[1],IR_list[2])
+#				else:				# temp down
+#					if new_remote_data['airconOnOff'] == 1: # airconditioner on
+#						print('now home temp down, turn off airconditioner')
+#						IR_list = IR_fileRead('airconOnOff')
+#						print('send IR data :',IR_list[0])
+#						IR_send(ser,IR_list[1],IR_list[2])
+#
+#
+#			else:
+#				print('user did not want control temp')
+#
+#
+#
+#		except Exception as t:
+#			e =  sys.exc_info()[0]
+#			es = sys.exc_info()[2]
+#			print('aircon temp threshold error',e,es.tb_lineno)
+#			print(t)
+#
+
+
 		for data in new_remote_data.items(): # print remote data
 			print(data)
 
@@ -342,4 +383,7 @@ def main():
 		print('\n')
 		time.sleep(2)
 
+
+
+#os.system('sh home/pi/mjpg.sh')
 main()
