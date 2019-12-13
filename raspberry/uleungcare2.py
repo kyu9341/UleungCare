@@ -10,9 +10,10 @@ from datetime import datetime
 def IR_send(ser,decode_type,IR_data):
 
 	print('send data ['+str(decode_type)+']'+'['+'0x'+str(IR_data)+']')
-	order = '4 '+str(decode_type)+' '+'0x'+str(IR_data)
+	order = '4 '+str(decode_type)+' '+'0x'+str(IR_data)+' '
 	print(order)
 	ser.write(order.encode())
+	time.sleep(1)
 
 def regist_IR(ser):
 	decode_type_list = list() # input decode type
@@ -85,7 +86,7 @@ def IR_fileRead(command):
 	#print(IRlist)
 	f.close()
 
-	return IRlist[2]
+	return IRlist
 
 
 
@@ -204,20 +205,66 @@ def main():
 
 				# regist end
 
+				# remote control
+
+				IR_list = [0,0,0] 	# input remote data
+							# if did not control remote
+							# pass this function
+
+				repeat = 1		# how many send IR data
 
 				if(new_remote_data['tvOnOff'] != past_remote_data['tvOnOff']):
-					print('send IR data :',IR_fileRead('tvOnOff'))
-					IR_send(ser,7,IR_fileRead('tvOnOff'))
+					IR_list = IR_fileRead('tvOnOff')
+					#print('send IR data :',IR_list[0])
+					#IR_send(ser,IR_list[1],IR_list[2])
 				elif(new_remote_data['airconOnOff'] != past_remote_data['airconOnOff']):
-					print('send IR data :',IR_fileRead('airconOnOff'))
+					IR_list = IR_fileRead('airconOnOff')
+					#print('send IR data :',IR_list[0])
+					#IR_send(ser,IR_list[1],IR_list[2])
+
 				elif(new_remote_data['tvChUpDown'] != past_remote_data['tvChUpDown']):
-					print('send IR data :',IR_fileRead('tvChUpDown'))
+					if(new_remote_data['tvChUpDown']>0):
+						IR_list = IR_fileRead('tvChUp')
+						#print('send IR data :',IR_list[0])
+						#IR_send(ser,IR_list[1],IR_list[2])
+					else:
+						IR_list = IR_fileRead('tvChUp')
+						#print('send IR data :',IR_list[0])
+						#IR_send(ser,IR_list[1],IR_list[2])
+					repeat = new_remote_data['tvChUpDown']
+
 				elif(new_remote_data['tvVolUpDown'] != past_remote_data['tvVolUpDown']):
-					print('send IR data :',IR_fileRead('tvVolUpDown'))
+					if(new_remote_data['tvVolUpDown']>0):
+						IR_list = IR_fileRead('tvVolUp')
+						#print('send IR data :',IR_list[0])
+						#IR_send(ser,IR_list[1],IR_list[2])
+					else:
+						IR_list = IR_fileRead('tvVolDown')
+						#print('send IR data :',IR_list[0])
+						#IR_send(ser,IR_list[1],IR_list[2])
+
+					repeat = new_remote_data['tvVolUpDown']
+
 				elif(new_remote_data['airconTempUpDown'] != past_remote_data['airconTempUpDown']):
-					print('send IR data :',IR_fileRead('airconTempUpDown'))
+					if(new_remote_data['airconTempUpDown']>0):
+						IR_list = IR_fileRead('airconTempUp')
+						#print('send IR data :',IR_list[0])
+						#IR_send(ser,IR_list[1],IR_list[2])
+					else:
+						IR_list = IR_fileRead('airconTempDown')
+						#print('send IR data :',IR_list[0])
+						#IR_send(ser,IR_list[1],IR_list[2])
+					repeat = new_remote_data['airconTempUpDown']
 				elif(new_remote_data['powerOnOff'] != past_remote_data['powerOnOff']):
 					pass
+
+
+				if IR_list == [0,0,0]:
+					print('did not control remote')
+				else:
+					print('send IR data',abs(repeat),'times :',IR_list[0])
+					for i in range(abs(repeat)):
+						IR_send(ser,IR_list[1],IR_list[2])
 
 
 		except Exception as t:
@@ -233,12 +280,12 @@ def main():
 
 			if ledonoff:	# led on
 				print("led data input & turn on led")
-				order = ' 1 '+str(new_rgb_led['red'])+' '+str(new_rgb_led['green'])+' '+str(new_rgb_led['blue'])
+				order = '1 '+str(new_rgb_led['red'])+' '+str(new_rgb_led['green'])+' '+str(new_rgb_led['blue'])+' '
 				# need space '(here)1 ' for remote data send
 				ser.write(order.encode())
 			else:		# led off
 				print('led off (did not pass ledThreshold)')
-				order = ' 1 0 0 0'
+				order = '1 0 0 0 '
 				ser.write(order.encode())
 
 
