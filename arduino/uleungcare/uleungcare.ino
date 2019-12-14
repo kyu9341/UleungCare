@@ -16,7 +16,7 @@ int light_sensor = A1;
 
 const int ledPingreen = 8;
 const int ledPinyellow = 9;
-const int RED_PIN =8, GREEN_PIN= 9, BLUE_PIN = 10;
+const int RED_PIN =6, GREEN_PIN= 9, BLUE_PIN = 10;
 //const int RED_PIN =12, GREEN_PIN= 11, BLUE_PIN = 10;
 void setup() {
   Serial.begin(9600);
@@ -26,7 +26,7 @@ void setup() {
   pinMode(ledPinyellow, OUTPUT);
   
 ////IR recve////////////////////////
-  irrecv.enableIRIn();  // Start the receiver
+  //irrecv.enableIRIn();  // Start the receiver
 
   
 ////////////  LED 출력 포트  //////////////////////
@@ -72,6 +72,7 @@ void regist_IR() {
   int pi_say;
   int count = 0;
   while(true){
+    //Serial.println("wait remote data");
     if (irrecv.decode(&results)){
 
       if(results.decode_type > 0 && results.value != 0xFFFFFFFF){
@@ -102,13 +103,14 @@ void regist_IR() {
 
       if(pi_say == 2){ // 리모컨 등록 절차 종료 
        //delay(100);
+       irrecv.resume();
        break;
 
       }
     }
-    if(count >20){// 20번 진행시 종료
-      break;
-    }
+    //if(count >20){// 20번 진행시 종료
+    //  break;
+    //}
     
   }
 }
@@ -122,9 +124,9 @@ void loop() {
   int light = analogRead(light_sensor);
   int pi_say,order;
   char pi_say_arr[100];
-  //float voltage = tmp * 5000.0/1024.0; // 온도센서 값을 전압으로 변환
-  //float celsius = (voltage - 500) / 10.0; // 전압을 온도로 변환
-  float celsius = (5.0*tmp*100.0)/1024.0;
+  float voltage = tmp * 5000.0/1024.0; // 온도센서 값을 전압으로 변환
+  float celsius = (voltage - 500) / 10.0; // 전압을 온도로 변환
+  //float celsius = (5.0*tmp*100.0)/1024.0;
   unsigned long IR_data; 
 
   if(Serial.available()){ // 라즈베리파이 시리얼 값 수신
@@ -148,6 +150,7 @@ void loop() {
     }
     if(pi_say == 2){  // 리모컨값 등록 절차 시작
        RGB(255,0,0);
+       irrecv.enableIRIn();  // Start the receiver 기존 setup에서 진행 했지만 오류로 인해 다시 해줌
        regist_IR();
        RGB(0,255,0);
     }
@@ -157,6 +160,8 @@ void loop() {
       IR_data = strtoul(pi_say_arr,NULL,16);
 
       IR_send(decode_type,IR_data);
+      
+       irrecv.resume();
     }
     
   }
