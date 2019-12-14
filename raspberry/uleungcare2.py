@@ -53,6 +53,7 @@ def regist_IR(ser):
 			IR_data = i
 
 	print("decode type : ",decode_type,'IR data : ',IR_data)
+	ser.write(' 2 '.encode()) # end regist
 
 
 	return [decode_type,IR_data]
@@ -62,7 +63,7 @@ def regist_IR(ser):
 	#control termination in arduino
 
 def IR_fileOpen(data):
-	f = open('RemoteController.txt', 'a', encoding="utf8")
+	f = open('/home/pi/UleungCare/raspberry/RemoteController.txt', 'a', encoding="utf8")
 
 	for i in data:
 		f.write(i+'\t')
@@ -70,7 +71,7 @@ def IR_fileOpen(data):
 	f.close()
 
 def IR_fileRead(command):
-	f = open('RemoteController.txt', 'r', encoding="utf8")
+	f = open('/home/pi/UleungCare/raspberry/RemoteController.txt', 'r', encoding="utf8")
 	IRlist = list()
 	while True:
 		line = f.readline()
@@ -162,6 +163,9 @@ def main():
 				#print(key_list)
 				#print(value_list)
 
+				regist_flag = 0 # when do remote regist = 1
+
+
 				if 999 in value_list: # if user want regist remote data
 					print('find 999')
 					value = 999
@@ -193,7 +197,7 @@ def main():
 						elif value == -999:
 							regist_key = 'airconTempDown'
 
-					ser.write('2'.encode()) # call regist_IR() in arduino
+					ser.write(' 2 '.encode()) # call regist_IR() in arduino
 					IR_data = regist_IR(ser)
 					IR_data.insert(0,regist_key)
 					print('remote data : ',IR_data[0],IR_data[1],IR_data[2])
@@ -204,9 +208,8 @@ def main():
 					#time.sleep(2)
 
 
-				regist_flag = 0
-
 				# regist end
+
 
 				# remote control
 
@@ -214,18 +217,18 @@ def main():
 							# if did not control remote
 							# pass this function
 
-				repeat = 1		# how many send IR data
 
-				if(new_remote_data['tvOnOff'] != past_remote_data['tvOnOff']):
+
+				if((new_remote_data['tvOnOff'] != past_remote_data['tvOnOff']) and (past_remote_data['tvOnOff'] != 999)):
 					IR_list = IR_fileRead('tvOnOff')
 					#print('send IR data :',IR_list[0])
 					#IR_send(ser,IR_list[1],IR_list[2])
-				elif(new_remote_data['airconOnOff'] != past_remote_data['airconOnOff']):
+				elif((new_remote_data['airconOnOff'] != past_remote_data['airconOnOff']) and ( past_remote_data['airconOnOff'] != 999)):
 					IR_list = IR_fileRead('airconOnOff')
 					#print('send IR data :',IR_list[0])
 					#IR_send(ser,IR_list[1],IR_list[2])
 
-				elif(new_remote_data['tvChUpDown'] != past_remote_data['tvChUpDown']):
+				elif(new_remote_data['tvChUpDown'] != 0):
 					if(new_remote_data['tvChUpDown']>0):
 						IR_list = IR_fileRead('tvChUp')
 						#print('send IR data :',IR_list[0])
@@ -236,7 +239,7 @@ def main():
 						#IR_send(ser,IR_list[1],IR_list[2])
 					repeat = new_remote_data['tvChUpDown']
 
-				elif(new_remote_data['tvVolUpDown'] != past_remote_data['tvVolUpDown']):
+				elif(new_remote_data['tvVolUpDown'] != 0):
 					if(new_remote_data['tvVolUpDown']>0):
 						IR_list = IR_fileRead('tvVolUp')
 						#print('send IR data :',IR_list[0])
@@ -248,7 +251,7 @@ def main():
 
 					repeat = new_remote_data['tvVolUpDown']
 
-				elif(new_remote_data['airconTempUpDown'] != past_remote_data['airconTempUpDown']):
+				elif(new_remote_data['airconTempUpDown'] != 0):
 					if(new_remote_data['airconTempUpDown']>0):
 						IR_list = IR_fileRead('airconTempUp')
 						#print('send IR data :',IR_list[0])
@@ -258,16 +261,20 @@ def main():
 						#print('send IR data :',IR_list[0])
 						#IR_send(ser,IR_list[1],IR_list[2])
 					repeat = new_remote_data['airconTempUpDown']
-				elif(new_remote_data['powerOnOff'] != past_remote_data['powerOnOff']):
+				elif(new_remote_data['powerOnOff'] != 0):
 					os.system('sudo init 0') # raspberry power off
+
+
+
 
 
 				if IR_list == [0,0,0]:
 					print('did not control remote')
-				else:
-					print('send IR data',abs(repeat),'times :',IR_list[0])
-					for i in range(abs(repeat)):
-						IR_send(ser,IR_list[1],IR_list[2])
+				elif regist_flag == 0:
+					print('send IR data :',IR_list[0])
+					IR_send(ser,IR_list[1],IR_list[2])
+
+				regist_flag = 0
 
 
 		except Exception as t:
