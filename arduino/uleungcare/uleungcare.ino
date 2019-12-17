@@ -59,9 +59,46 @@ void  IR_send(int decode_type,unsigned long IR_data ){
   int i;
   int khz = 38;
   RGB(0,255,0);
-  for(i=0;i<3;i++){
-    irsend.sendSAMSUNG(IR_data,32);
+  switch(decode_type){
+    case 1:
+      for(i=0;i<3;i++){
+        irsend.sendRC5(IR_data,32);
+      }
+    break;
+    case 2:
+      for(i=0;i<3;i++){
+        irsend.sendRC6(IR_data,32);
+      }
+    break;
+    case 3:
+      for(i=0;i<3;i++){
+        irsend.sendNEC(IR_data,32);
+      }
+    break;
+    case 4:
+      for(i=0;i<3;i++){
+        irsend.sendSony(IR_data,32);
+      }
+    break;
+    case 5:
+      for(i=0;i<3;i++){
+        irsend.sendPanasonic(IR_data,32);
+      }
+    break;
+    case 7:
+      for(i=0;i<3;i++){
+        irsend.sendSAMSUNG(IR_data,32);
+      }
+      break;
+    case 10:
+      for(i=0;i<3;i++){
+        irsend.sendLG(IR_data,32);
+      }
+      break;
+    default:
+      break;
   }
+
   
  }
 
@@ -124,9 +161,9 @@ void loop() {
   int light = analogRead(light_sensor);
   int pi_say,order;
   char pi_say_arr[100];
-  float voltage = tmp * 5000.0/1024.0; // 온도센서 값을 전압으로 변환
-  float celsius = (voltage - 500) / 10.0; // 전압을 온도로 변환
-  //float celsius = (5.0*tmp*100.0)/1024.0;
+  //float voltage = tmp * 5000.0/1024.0; // 온도센서 값을 전압으로 변환
+  //float celsius = (voltage - 500) / 10.0; // 전압을 온도로 변환
+  float celsius = (5.0*tmp*100.0)/1024.0;
   unsigned long IR_data; 
 
   if(Serial.available()){ // 라즈베리파이 시리얼 값 수신
