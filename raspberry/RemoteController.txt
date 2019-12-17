@@ -1,0 +1,15 @@
+tvOnOff	7	E0E040BF
+	
+tvChUp	7	E0E048B7
+	
+tvChDown	7	E0E008F7
+	
+tvVolUp	7	E0E0E01F
+	
+tvVolDown	7	E0E0D02F
+airconOnOff	7	E0E058A7
+	
+airconTempUp	7	E0E0F00F
+	
+airconTempDown	7	E0E01AE5
+	

@@ -1,0 +1,9 @@
+import os
+
+result = os.popen('ifconfig | grep 192.168').read()
+
+
+
+
+
+print(result)

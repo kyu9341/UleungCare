@@ -19,10 +19,10 @@ while True:
 	#print(line)
 
 	pi_say = input('input data : ')
-	pi_say = str(pi_say)
-	print(pi_say.encode())
+	#pi_say = str(pi_say)
+	print(pi_say)
 	ser.write(pi_say.encode())
-	print(ser.readline().decode())
+	print(ser.readline())
 
 	#print(ser.readline())
 	#print('send{}'.format(b[a]))

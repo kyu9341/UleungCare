@@ -33,7 +33,26 @@ void loop() {
   int i;
   int khz = 38; // 38kHz carrier frequency for the NEC protocol
   int pi_say,order;
+  //unsigned long IR_data = 0xE0E040BF;
+  unsigned long IR_data = 3772793023;
+  for(i=0;i<3;i++){
+        irsend.sendSAMSUNG(IR_data,32); //Note the approach used to automatically calculate the size of the array.
+        //irsend.sendSAMSUNG(0xE0E040BF,34); 
+       
+        Serial.println("send one");
+        }/*
+        delay(200);
+  for(i=0;i<3;i++){
+        irsend.sendNEC(0x20DF10EF,32);
+       
+        Serial.println("send one");
+        }
+        */
+       delay(5000);
+}
 
+  
+  /*
     if(Serial.available()){ // 라즈베리파이 시리얼 값 수신
     pi_say = Serial.parseInt();
 
@@ -60,5 +79,4 @@ void loop() {
      }
     
   }
-
-}
+  */
