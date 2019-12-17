@@ -11,7 +11,7 @@ from django.forms.models import model_to_dict
 # Create your views here.
 
 @csrf_exempt
-def AndroidControl(request):
+def AndroidControl(request): # 안드로이드에서 요청한 데이터를 처리
 
     if request.method == 'GET':
         androidrequested = AndroidRequested.objects.order_by('id').last()
@@ -68,13 +68,13 @@ def AndroidControl(request):
 
         res_data['success'] = True
 
-        return JsonResponse(res_data)
+        return JsonResponse(res_data) # 안드로이드에 Json 형식으로 rse_data를 리턴
 
  #       return HttpResponse(json.dumps(res_data), content_type="application/json")
    #     return JsonResponse({"success" : True}) #
 
 
-def getHomeInfo(request):
+def getHomeInfo(request): # 아두이노에서 측정한 센서 값을 안드로이드에서 요청
     if request.method == 'GET':
         homeinfo = HomeInfo.objects.order_by('id').last()
 
@@ -90,7 +90,7 @@ def getHomeInfo(request):
         pass
 
 @csrf_exempt
-def raspberry(request):
+def raspberry(request): # 3초에 한번씩 폴링하는 라즈베리파이에 대한 처리 각 명령의 변화 값을 응답 후 초기화
     if request.method == 'GET':
         return HttpResponse("raspberry")
 
@@ -119,7 +119,7 @@ def raspberry(request):
         ar.tvVolUpDown = 0
         ar.airconTempUpDown = 0
         ar.powerOnOff = 0
-        if ar.tvOnOff == 999:
+        if ar.tvOnOff == 999: # OnOff기능은 0과 1로 제어되므로 999(리모컨 값등록)일때 다시 초기화
             ar.tvOnOff = 0
         if ar.airconOnOff == 999:
             ar.airconOnOff = 0
@@ -160,7 +160,7 @@ def settings(request):
 
 
 @csrf_exempt
-def IRregister(request):
+def IRregister(request): # 적외선 값 등록을 시작한다고 라즈베리파이에 알려줌
     if request.method == 'GET':
         pass
     elif request.method == 'POST':
@@ -188,7 +188,7 @@ def IRregister(request):
 
 
 @csrf_exempt
-def raspOnOff(request):
+def raspOnOff(request): # 라즈베리파이 종료 처리
     if request.method == 'GET':
         pass
     elif request.method == 'POST':

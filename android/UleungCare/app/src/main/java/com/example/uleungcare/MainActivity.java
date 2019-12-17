@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
         new MainActivity.BackgroundTask().execute(); // 데이터베이스 값 읽어오기
 
+        // 각 버튼 클릭 리스너
         newButton.setOnClickListener(new View.OnClickListener() { // 새로고침
             @Override
             public void onClick(View v) {

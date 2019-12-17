@@ -1,7 +1,4 @@
-
 from django.db import models
-
-# Create your models here.
 
 class HomeInfo(models.Model):
     temperature = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='온도')

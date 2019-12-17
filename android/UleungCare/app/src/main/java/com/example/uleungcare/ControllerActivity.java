@@ -67,7 +67,7 @@ public class ControllerActivity extends AppCompatActivity {
         tvVolUpButton = (ImageButton)findViewById(R.id.tvVolUpButton);
         tvVolDownButton = (ImageButton)findViewById(R.id.tvVolDownButton);
 
-
+    // 각 버튼 클릭 리스너
 
         tvonButton.setOnClickListener(new View.OnClickListener() {
             @Override

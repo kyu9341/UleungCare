@@ -8,5 +8,4 @@ urlpatterns = [
     path('settings/', views.settings),
     path('IRregister/', views.IRregister),
     path('raspOnOff/', views.raspOnOff),
-
 ]
